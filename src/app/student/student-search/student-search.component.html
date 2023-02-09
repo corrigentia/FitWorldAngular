@@ -1,0 +1,27 @@
+<!-- <p>student-search works!</p> -->
+
+<div class="container" id="search-component">
+    <label for="search-box">
+        Student Search
+        <input class="form-control" #searchBox (input)="search(searchBox.value)" id="search-box" />
+    </label>
+
+    <ul class="search-result list-group">
+        <!--
+          20/01/2023
+          TODO: test each case
+        -->
+        <!-- <li class="list-group-item" *ngFor="let student of students$ | async as list"> -->
+        <li class="list-group-item" *ngFor="let student of students$ | async">
+            <!-- <li class="list-group-item" *ngFor="let student of students$"> -->
+            <!--
+            20/01/2023
+            TODO: test both cases
+          -->
+            <!-- <a routerLink="/detail/{{ student.studentId }}"> -->
+            <a routerLink="/students/{{ student.studentId }}">
+                {{ student.email }}
+            </a>
+        </li>
+    </ul>
+</div>

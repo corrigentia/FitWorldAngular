@@ -1,0 +1,16 @@
+<!-- <p>dashboard works!</p> -->
+
+<h2>Top Students</h2>
+
+<div class="students-menu">
+    <!-- <a *ngFor="let student of students" routerLink="/detail/{{student.studentId}}"> -->
+    <a *ngFor="let student of students" routerLink="/students/{{student.studentId}}">
+        {{student.email}}
+    </a>
+</div>
+
+<app-student-search></app-student-search>
+
+<!--
+  24/01/2023
+  TODO: disallow detail display outside of routing to a specific item of a collection -->

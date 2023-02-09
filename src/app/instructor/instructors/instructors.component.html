@@ -1,0 +1,45 @@
+<div class="container">
+    <a routerLink="new" class="btn btn-success"> &plus; Add new Instructor </a>
+    &nbsp;
+    <a routerLink="search" class="btn btn-info"> &#8981; Search Instructors &#x2315; </a>
+</div>
+
+<h1 id="instructors">Instructors</h1>
+<!-- <h2>Instructors</h2> -->
+
+<p *ngIf="!instructors">
+    <em>
+        Loading... Please refresh once the ASP.NET back-end has started!
+    </em>
+</p>
+
+<table *ngIf="instructors" class="instructors table">
+    <thead>
+        <tr>
+            <th> Instructor ID </th>
+            <th> First Name </th>
+            <th> Last Name </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let instructor of instructors" (click)="onSelect(instructor)" [class.selected]="instructor === selectedInstructor">
+            <td class="badge">{{ instructor.instructorId }}</td>
+            <td class="first-name">{{ instructor.firstName }}</td>
+            <td class="last-name">{{ instructor.lastName }}</td>
+
+            <td>
+                <a routerLink="/instructors/{{ instructor.instructorId }}" class="edit btn btn-warning">
+                    Edit &#9999; id=<span class="badge">{{ instructor.instructorId }}</span>
+                </a>
+            </td>
+
+            <td>
+                <button (click)="delete(instructor)" class="delete btn btn-danger" title="delete instructor" type="button">
+                    x Delete id=<span class="badge">{{ instructor.instructorId }}</span>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- <app-instructor-detail *ngIf="selectedInstructor" [instructor]="selectedInstructor"></app-instructor-detail> -->

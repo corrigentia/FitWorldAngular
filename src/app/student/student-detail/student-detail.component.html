@@ -1,0 +1,135 @@
+<div class="container">
+    <button (click)="goBack()" type="button" class="btn btn-default">go back</button>
+</div>
+
+<div class="container" *ngIf="student">
+    <form #studentForm="ngForm" (ngSubmit)="save()">
+        <div [hidden]="studentForm.submitted">
+            <div class="cross-validation" [class.cross-validation-error]="studentForm.errors?.['identityRevealed'] && (studentForm.touched || studentForm.dirty)">
+                <div>
+                    <span>
+                        <span>
+                            id:
+                        </span>{{ student.studentId }}
+                    </span>
+                </div>
+                <h2>
+                    {{ student.email | uppercase }} Details
+                </h2>
+
+                <div class="form-group">
+                    <label for="email">
+                        Email
+                        <input type="email" id="email" class="form-control" required name="email" minlength="5" [(ngModel)]="student.email" #email="ngModel" [ngModelOptions]="{ updateOn: 'blur' }" appUniqueEmail appNoWhiteSpace email appEmailTld>
+                    </label>
+
+                    <div *ngIf="email.pending">Validating...</div>
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger email-errors">
+
+                        <div *ngIf="email.errors?.['required']">
+                            Email is required.
+                        </div>
+                        <div *ngIf="email.errors?.['minlength']">
+                            Email must be at least 5 characters long.
+                        </div>
+                        <div *ngIf="email.errors?.['maxlength']">
+                            Email must be at most 64 characters long.
+                        </div>
+                        <div *ngIf="email.errors?.['email']">
+                            Email must be properly formatted.
+                        </div>
+                        <div *ngIf="email.errors?.['emailTld']">
+                            Email must have a TLD after the last '.' character.
+                        </div>
+                        <div *ngIf="email.errors?.['pattern']">
+                            Email must be properly formatted.
+                        </div>
+                        <div *ngIf="email.errors?.['noWhiteSpace']">
+                            Email must not contain spaces.
+                        </div>
+                        <div *ngIf="email.errors?.['uniqueEmail']">
+                            Email is already registered.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">
+                        Password
+                        <input type="password" id="password" class="form-control" required name="password" minlength="6" maxlength="14" [(ngModel)]="student.password" #password="ngModel" appLowercaseChar appUppercaseChar appDigitChar appSymbolChar>
+                    </label>
+
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+
+                        <div *ngIf="password.errors?.['required']">
+                            Password is required.
+                        </div>
+                        <div *ngIf="password.errors?.['minlength']">
+                            Password must be at least 6 characters long.
+                        </div>
+                        <div *ngIf="password.errors?.['maxlength']">
+                            Password must be at most 14 characters long.
+                        </div>
+
+                        <div *ngIf="password.errors?.['pattern']">
+                            Password must be a valid password, with uppercase and lowercase characters, digits and symbols.
+                        </div>
+
+                        <div *ngIf="password.errors?.['lowercaseChar']">
+                            Password must contain at least one lowercase character.
+                        </div>
+
+                        <div *ngIf="password.errors?.['uppercaseChar']">
+                            Password must contain at least one uppercase character.
+                        </div>
+
+                        <div *ngIf="password.errors?.['digitChar']">
+                            Password must contain at least one digit.
+                        </div>
+
+                        <div *ngIf="password.errors?.['symbolChar']">
+                            Password must contain at least one symbol.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">
+                        Confirm Password
+                        <input type="password" id="confirmPassword" class="form-control" required name="confirmPassword" minlength="6" maxlength="14" [ngModel]="studentConfirmPassword.confirmPassword" (ngModelChange)="studentConfirmPassword.confirmPassword = $event" #confirmPassword="ngModel" [pattern]="password.value">
+                    </label>
+
+                    <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)" class="alert alert-danger">
+
+                        <div *ngIf="confirmPassword.errors?.['required']">
+                            Password Confirmation is required.
+                        </div>
+                        <div *ngIf="confirmPassword.errors?.['minlength']">
+                            Password Confirmation must be at least 6 characters long.
+                        </div>
+                        <div *ngIf="confirmPassword.errors?.['maxlength']">
+                            Password Confirmation must be at most 14 characters long.
+                        </div>
+
+                        <div *ngIf="confirmPassword.errors?.['pattern']">
+                            Password Confirmation must match Password.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p>Make valid changes to enable the Update button.</p>
+            <button type="submit" [disabled]="studentForm.invalid" class="btn btn-success">
+                Update
+            </button>
+        </div>
+
+        <div class="submitted-message" *ngIf="studentForm.submitted">
+            <p>You've submitted your student, {{ studentForm.value.email }}!</p>
+
+            <button type="button" (click)="studentForm.resetForm({})" class="btn btn-success">
+                Add new student
+            </button>
+        </div>
+    </form>
+</div>

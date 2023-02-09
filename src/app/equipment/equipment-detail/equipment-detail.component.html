@@ -1,0 +1,82 @@
+<div class="container">
+    <button (click)="goBack()" type="button" class="btn btn-default">go back</button>
+</div>
+
+<div class="container" *ngIf="equipment">
+    <form #equipmentForm="ngForm" appUniqueEquipment (ngSubmit)="save()">
+        <div [hidden]="equipmentForm.submitted">
+            <div class="cross-validation" [class.cross-validation-error]="equipmentForm.errors?.['uniqueEquipment'] && (equipmentForm.dirty || equipmentForm.touched)">
+                <div>
+                    <span>
+                        id:
+                    </span>{{ equipment.equipmentId }}
+                </div>
+
+                <h2>
+                    {{ equipment.name | uppercase }} Details
+                </h2>
+
+                <div class="form-group">
+                    <label for="name">
+                        Name
+                        <input type="text" id="name" name="name" class="form-control" required minlength="1" maxlength="42" [(ngModel)]="equipment.name" #name="ngModel">
+
+                        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+
+                            <div *ngIf="name.errors?.['required']">
+                                Name is required.
+                            </div>
+                            <div *ngIf="name.errors?.['minlength']">
+                                Name must be at least 1 character long.
+                            </div>
+                            <div *ngIf="name.errors?.['maxlength']">
+                                Name must be at most 42 characters long.
+                            </div>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="price">
+                        Price
+                        <input type="number" id="price" name="price" class="form-control" required="required" min="0.01" max="99999999998.99" [(ngModel)]="equipment.price" #price="ngModel" step="0.01">
+
+                        <div *ngIf="price.invalid && (price.dirty || price.touched)" class="alert alert-danger">
+
+                            <div *ngIf="price.errors?.['required']">
+                                Price is required.
+                            </div>
+                            <div *ngIf="price.errors?.['min']">
+                                Price must be at least 0.01.
+                            </div>
+                            <div *ngIf="price.errors?.['max']">
+                                Price must be at most 99999999998.99.
+                            </div>
+                        </div>
+                    </label>
+                </div>
+
+                <div *ngIf="equipmentForm.pending">
+                    Validating...
+                </div>
+
+                <div *ngIf="equipmentForm.errors?.['uniqueEquipment']" class="cross-validation-error-message alert alert-danger equipment-errors">
+                    Equipment is already registered.
+                </div>
+            </div>
+
+            <p>Make valid changes to enable the Update button.</p>
+            <button type="submit" [disabled]="equipmentForm.invalid" class="btn btn-success">
+                Update
+            </button>
+        </div>
+
+        <div class="submitted-message" *ngIf="equipmentForm.submitted">
+            <p>You've submitted your equipment, {{equipmentForm.value.name}}!</p>
+
+            <button type="button" (click)="equipmentForm.resetForm({name:'', price: 0})" class="btn btn-success">
+                Add new equipment
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,74 @@
+<div class="container" id="search-component">
+
+    <div class="form-group">
+        <label for="name">
+            Equipment Search by <span class="label label-default">name</span>
+
+            <select id="name" name="name" class="form-control" required [(ngModel)]="nameSought" #name="ngModel">
+                <option *ngFor="let uniqueName of uniqueNames" [value]="uniqueName">
+                    {{ uniqueName }}
+                </option>
+            </select>
+
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+
+                <div *ngIf="name.errors?.['required']">
+                    Name is required.
+                </div>
+                <div *ngIf="name.errors?.['minlength']">
+                    Name must be at least 1 character long.
+                </div>
+                <div *ngIf="name.errors?.['maxlength']">
+                    Name must be at most 42 characters long.
+                </div>
+            </div>
+
+            <span *ngIf="name.valid">{{ searchByName(name.value) }}</span>
+        </label>
+    </div>
+
+
+    <ul class="search-result list-group" *ngIf="name.valid">
+        <li class="list-group-item" *ngFor="let equipment of equipmentsByName$ | async">
+            <a routerLink="/instructors/{{equipment.equipmentId}}">
+                {{ equipment.name }} - {{ equipment.price | currency:'EUR' }}
+            </a>
+        </li>
+    </ul>
+
+    <div class="form-group">
+        <label for="price">
+            Equipment Search by <span class="label label-default">price</span>
+
+            <select id="price" name="price" class="form-control" required [(ngModel)]="priceSought" #price="ngModel">
+                <option *ngFor="let uniquePrice of uniquePrices" [ngValue]="uniquePrice">
+                    {{ uniquePrice | currency: 'EUR' }}
+                </option>
+            </select>
+
+            <div *ngIf="price.invalid && (price.dirty || price.touched)" class="alert alert-danger">
+
+                <div *ngIf="price.errors?.['required']">
+                    Price is required.
+                </div>
+                <div *ngIf="price.errors?.['min']">
+                    Price must be at least 0.01.
+                </div>
+                <div *ngIf="price.errors?.['max']">
+                    Price must be at most 99999999998.99.
+                </div>
+            </div>
+
+            <span *ngIf="price.valid">{{ searchByPrice(price.value) }}</span>
+        </label>
+    </div>
+
+
+    <ul class="search-result list-group" *ngIf="price.valid">
+        <li class="list-group-item" *ngFor="let equipment of equipmentsByPrice$ | async">
+            <a routerLink="/instructors/{{equipment.equipmentId}}">
+                {{ equipment.name }} - {{ equipment.price | currency:'EUR' }}
+            </a>
+        </li>
+    </ul>
+</div>

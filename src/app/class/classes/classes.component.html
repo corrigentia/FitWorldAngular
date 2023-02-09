@@ -1,0 +1,48 @@
+<div class="container">
+    <a routerLink="new" class="btn btn-success"> &plus; Add new Class </a>
+    &nbsp;
+    <a routerLink="search" class="btn btn-info"> &#8981; Search Classes &#x2315; </a>
+</div>
+
+<h1 id="classes">Classes</h1>
+
+<p *ngIf="!classes">
+    <em>
+        Loading... Please refresh once the ASP.NET back-end has started!
+    </em>
+</p>
+
+<table *ngIf="classes" class="classes table">
+    <thead>
+        <tr>
+            <th> Class Id </th>
+            <th> Martial Art Id </th>
+            <th> Instructor Id </th>
+            <th> When </th>
+            <th class="price-per-hour"> Price per Hour </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let class of classes" (click)="onSelect(class)" [class.selected]="class === selectedClass">
+            <td class="badge">{{ class.classId }}</td>
+            <td class="martial-art-id">{{ class.martialArtId }}</td>
+            <td class="instructor-id">{{ class.instructorId }}</td>
+            <td class="date-time"> &nbsp; {{ class.dateTime | date }} &nbsp;</td>
+            <td class="price-per-hour"> &nbsp; {{ class.pricePerHour | currency : 'EUR' }} &nbsp;</td>
+
+            <td>
+                <a routerLink="/classes/{{ class.classId }}" class="edit btn btn-warning">
+                    &nbsp; Edit &#9999; id=<span class="badge">{{ class.classId }}</span> &nbsp;
+                </a>
+            </td>
+
+            <td>
+                <button (click)="delete(class)" class="delete btn btn-danger" title="delete class" type="button">
+                    &nbsp; x Delete id=<span class="badge">{{ class.classId }}</span>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- <app-class-detail *ngIf="selectedClass" [class]="selectedClass"></app-class-detail> -->

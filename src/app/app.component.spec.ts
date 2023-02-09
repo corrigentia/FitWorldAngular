@@ -4,9 +4,7 @@ import { AppComponent } from './app.component';
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
+      declarations: [AppComponent],
     }).compileComponents();
   });
 
@@ -16,16 +14,18 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'FitWorldAngular'`, () => {
+  it(`should have as title 'Fit World'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('FitWorldAngular');
+    expect(app.title).toEqual('Fit World');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('FitWorldAngular app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain(
+      'Fit World app is running!'
+    );
   });
 });

@@ -1,0 +1,51 @@
+<div class="container">
+    <a routerLink="new" class="btn btn-success"> &plus; Add new Student </a>
+    &nbsp;
+    <a routerLink="search" class="btn btn-info"> &#8981; Search Students &#x2315; </a>
+</div>
+
+
+<!--
+  31/01/2023
+  TODO: test adding ' name@email.co5m '
+-->
+
+<h1 id="students">Students</h1>
+<!-- <h2>Gym Members</h2> -->
+
+<!-- <p>This part demonstrates fetching student data from the server.</p> -->
+
+<p *ngIf="!students">
+    <em>
+        Loading... Please refresh once the ASP.NET backend has started.
+    </em>
+</p>
+
+<table *ngIf="students" class="students table">
+    <thead>
+        <tr>
+            <th>Student Id</th>
+            <th>E-mail</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let student of students" (click)="onSelect(student)" [class.selected]="student === selectedStudent">
+            <td class="badge">{{ student.studentId }}</td>
+            <td class="email">{{ student.email }}</td>
+
+            <td>
+                <a routerLink="/students/{{ student.studentId }}" class="edit btn btn-warning">
+                    Edit &#9999; id=<span class="badge">{{ student.studentId }}</span>
+                </a>
+            </td>
+
+            <td>
+                <button (click)="delete(student)" class="delete btn btn-danger" title="delete student" type="button">
+                    x Delete id=<span class="badge">{{ student.studentId }}</span>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- <app-student-detail *ngIf="selectedStudent" [student]="selectedStudent"></app-student-detail> -->

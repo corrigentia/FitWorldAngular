@@ -1,1 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
+
+div span {
+    background-color: aqua;
+}
+
+td .delete,
+td .edit {
+    width: 100%;
+}
+
+li {
+    list-style-type: none;
+}
+
+h1,
+h2,
+.container,
+table,
+th {
+    text-align: center;
+}
+
+td.price,
+th.price,
+th.price-per-hour,
+td.price-per-hour {
+    text-align: right;
+}
+
+
+/* @import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css'); */
+/* either works apparently */
+/* @import 'https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css'; */

@@ -1,0 +1,43 @@
+<div class="container">
+    <a routerLink="new" class="btn btn-success"> &plus; Add new Martial Art </a>
+    &nbsp;
+    <a routerLink="search" class="btn btn-info"> &#8981; Search Martial Arts &#x2315; </a>
+</div>
+
+<h1 id="martial-arts">Martial Arts</h1>
+<!-- <h2>Martial Arts</h2> -->
+
+<p *ngIf="!martialArts">
+    <em>
+        Loading... Please refresh once the ASP.NET back-end has started!
+    </em>
+</p>
+
+<table *ngIf="martialArts" class="martial-arts table">
+    <thead>
+        <tr>
+            <th> Martial Art Id </th>
+            <th> Name </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let martialArt of martialArts" (click)="onSelect(martialArt)" [class.selected]="martialArt === selectedMartialArt">
+            <td class="badge">{{ martialArt.martialArtId }}</td>
+            <td class="name">{{ martialArt.name }}</td>
+
+            <td>
+                <a routerLink="/martial-arts/{{ martialArt.martialArtId }}" class="edit btn btn-warning">
+                    Edit &#9999; id=<span class="badge">{{ martialArt.martialArtId }}</span>
+                </a>
+            </td>
+
+            <td>
+                <button (click)="delete(martialArt)" class="delete btn btn-danger" title="delete martial art" type="button">
+                    x Delete id=<span class="badge">{{ martialArt.martialArtId }}</span>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- <app-martial-art-detail *ngIf="selectedMartialArt" [martialArt]="selectedMartialArt"></app-martial-art-detail> -->
