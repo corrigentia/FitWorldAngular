@@ -137,7 +137,7 @@ export class InMemoryDataService implements InMemoryDbService {
         studentId: 31,
         email: 'chouki@motobu.jp'
       }
-    ]
+    ].sort(student => student.studentId)
 
     const equipments = [
       {
@@ -170,7 +170,7 @@ export class InMemoryDataService implements InMemoryDbService {
         name: 'Uniform',
         price: 117.5
       }
-    ]
+    ].sort(equipment => equipment.equipmentId)
 
     const martialArts = [
       {
@@ -237,7 +237,7 @@ export class InMemoryDataService implements InMemoryDbService {
         martialArtId: 16,
         name: 'Wing Chun'
       }
-    ]
+    ].sort(martialArt => martialArt.martialArtId)
 
     const instructors = [
       {
@@ -310,7 +310,7 @@ export class InMemoryDataService implements InMemoryDbService {
         firstName: 'Yirusz',
         lastName: null
       }
-    ]
+    ].sort(instructor => instructor.instructorId)
 
     const classes = [
       {
@@ -348,7 +348,7 @@ export class InMemoryDataService implements InMemoryDbService {
         dateTime: '2023-02-06T22:22:00',
         pricePerHour: 1.23
       }
-    ]
+    ].sort(martialArtClass => martialArtClass.classId)
 
     // TODO: discover reason why this must be encapsulated...!!
     // return students;
