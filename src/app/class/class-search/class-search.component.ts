@@ -45,15 +45,13 @@ export class ClassSearchComponent implements OnInit {
 
   protected aliasMartialArt (id: number): string {
     return (
-      this.martialArts.find(martialArt => martialArt.martialArtId === id)
-        ?.name ?? 'invalid martial art'
+      this.martialArts.find(martialArt => martialArt.id === id)?.name ??
+      'invalid martial art'
     )
   }
 
   protected aliasInstructor (id: number): string {
-    const instructor = this.instructors.find(
-      instructor => instructor.instructorId === id
-    )
+    const instructor = this.instructors.find(instructor => instructor.id === id)
     return (
       instructor?.firstName.concat(' '.concat(instructor.lastName ?? '')) ??
       'invalid instructor'

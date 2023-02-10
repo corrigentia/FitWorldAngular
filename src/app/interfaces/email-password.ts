@@ -1,6 +1,4 @@
-import { Email } from './email';
-import { Password } from './password';
+import { Email } from './email'
+import { Password } from './password'
 
-export interface EmailPassword extends Email,Password {
-  // password: string;
-}
+export interface EmailPassword extends Email, Password {}

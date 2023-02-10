@@ -25,7 +25,7 @@ export class MartialArtsComponent implements OnInit {
   onSelect (martialArt: MartialArt): void {
     this.selectedMartialArt = martialArt
     this.messageService.add(
-      `MartialArtsComponent: Selected martialArt id=${martialArt.martialArtId}`
+      `MartialArtsComponent: Selected martialArt id=${martialArt.id}`
     )
   }
 
@@ -34,9 +34,7 @@ export class MartialArtsComponent implements OnInit {
       martialArt => martialArt != martialArtToDelete
     )
 
-    this.martialArtService
-      .deleteMartialArt(martialArtToDelete.martialArtId)
-      .subscribe()
+    this.martialArtService.deleteMartialArt(martialArtToDelete.id).subscribe()
   }
 
   add (name: string): void {

@@ -1,4 +1,4 @@
-export interface MartialArt {
-  martialArtId: number;
-  name: string;
-}
+import { Id } from './id'
+import { Name } from './name'
+
+export interface MartialArt extends Id, Name {}

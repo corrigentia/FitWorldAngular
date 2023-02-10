@@ -7,7 +7,7 @@
 
     <ul class="search-result list-group">
         <li class="list-group-item" *ngFor="let instructor of instructorsByName$ | async">
-            <a routerLink="/instructors/{{instructor.instructorId}}">
+            <a routerLink="/instructors/{{instructor.id}}">
                 {{instructor.firstName}} {{instructor.lastName}}
             </a>
         </li>
@@ -43,7 +43,7 @@
 
     <ul class="search-result  list-group" *ngIf="firstName.valid">
         <li class="list-group-item" *ngFor="let instructor of instructorsByFirstName$ | async">
-            <a routerLink="/instructors/{{instructor.instructorId}}">
+            <a routerLink="/instructors/{{instructor.id}}">
                 {{instructor.firstName}} {{instructor.lastName}}
             </a>
         </li>
@@ -58,7 +58,7 @@
 
     <ul class="search-result list-group">
         <li class="list-group-item" *ngFor="let instructor of instructorsByFullName$ | async">
-            <a routerLink="/instructors/{{instructor.instructorId}}">
+            <a routerLink="/instructors/{{instructor.id}}">
                 {{instructor.firstName}} {{instructor.lastName}}
             </a>
         </li>
@@ -93,7 +93,7 @@
 
     <ul class="search-result list-group" *ngIf="lastName.valid">
         <li class="list-group-item" *ngFor="let instructor of instructorsByLastName$ | async">
-            <a routerLink="/instructors/{{instructor.instructorId}}">
+            <a routerLink="/instructors/{{instructor.id}}">
                 {{instructor.firstName}} {{instructor.lastName}}
             </a>
         </li>

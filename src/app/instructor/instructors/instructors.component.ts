@@ -25,7 +25,7 @@ export class InstructorsComponent implements OnInit {
   onSelect (instructor: Instructor): void {
     this.selectedInstructor = instructor
     this.messageService.add(
-      `InstructorsComponent: Selected instructor id=${instructor.instructorId}`
+      `InstructorsComponent: Selected instructor id=${instructor.id}`
     )
   }
 
@@ -34,9 +34,7 @@ export class InstructorsComponent implements OnInit {
       instructor => instructor != instructorToDelete
     )
 
-    this.instructorService
-      .deleteInstructor(instructorToDelete.instructorId)
-      .subscribe()
+    this.instructorService.deleteInstructor(instructorToDelete.id).subscribe()
   }
 
   add (firstName: string, lastName: string): void {

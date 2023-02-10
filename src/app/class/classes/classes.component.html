@@ -24,21 +24,21 @@
     </thead>
     <tbody>
         <tr *ngFor="let class of classes" (click)="onSelect(class)" [class.selected]="class === selectedClass">
-            <td class="badge">{{ class.classId }}</td>
+            <td class="badge">{{ class.id }}</td>
             <td class="martial-art-id">{{ class.martialArtId }}</td>
             <td class="instructor-id">{{ class.instructorId }}</td>
             <td class="date-time"> &nbsp; {{ class.dateTime | date }} &nbsp;</td>
             <td class="price-per-hour"> &nbsp; {{ class.pricePerHour | currency : 'EUR' }} &nbsp;</td>
 
             <td>
-                <a routerLink="/classes/{{ class.classId }}" class="edit btn btn-warning">
-                    &nbsp; Edit &#9999; id=<span class="badge">{{ class.classId }}</span> &nbsp;
+                <a routerLink="/classes/{{ class.id }}" class="edit btn btn-warning">
+                    &nbsp; Edit &#9999; id=<span class="badge">{{ class.id }}</span> &nbsp;
                 </a>
             </td>
 
             <td>
                 <button (click)="delete(class)" class="delete btn btn-danger" title="delete class" type="button">
-                    &nbsp; x Delete id=<span class="badge">{{ class.classId }}</span>
+                    &nbsp; x Delete id=<span class="badge">{{ class.id }}</span>
                 </button>
             </td>
         </tr>

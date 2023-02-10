@@ -1,25 +1,25 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
-import { EQUIPMENTS } from 'src/app/db/cached-equipments';
-import { Equipment } from '../../interfaces/equipment';
-import { Equipment as EquipmentClass } from '../../models/equipment';
-import { Logger } from './logger.service';
-import { MessageService } from './message.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { Injectable } from '@angular/core'
+import { Observable, of } from 'rxjs'
+import { catchError, map, tap } from 'rxjs/operators'
+import { EQUIPMENTS } from 'src/app/db/cached-equipments'
+import { Equipment } from '../../interfaces/equipment'
+import { Equipment as EquipmentClass } from '../../models/equipment'
+import { Logger } from './logger.service'
+import { MessageService } from './message.service'
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class EquipmentService {
-  private readonly equipments: Equipment[] = [];
+  private readonly equipments: Equipment[] = []
 
   /**
    * :base/:collectionName - URL to web api
    */
-  private equipmentsUrl = '/api/equipments'; // URL to web api
+  private equipmentsUrl = '/api/equipments' // URL to web api
 
-  constructor(
+  constructor (
     private readonly logger: Logger,
     private readonly messageService: MessageService,
     private readonly http: HttpClient
@@ -29,8 +29,8 @@ export class EquipmentService {
    * Log a `EquipmentService` message with the `MessageService`
    * @param message - the `EquipmentService` message to log
    */
-  private log(message: string) {
-    this.messageService.add(`EquipmentService: ${message}`);
+  private log (message: string) {
+    this.messageService.add(`EquipmentService: ${message}`)
   }
 
   /**
@@ -41,38 +41,38 @@ export class EquipmentService {
    * @param result - optional `T` value to return as the `Observable` result
    * @returns an empty `T` result to let the app keep running
    */
-  handleError<T>(operation = 'operation', result?: T) {
+  handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
+      console.error(error) // log to console instead
 
       // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
+      this.log(`${operation} failed: ${error.message}`)
 
       // Let the app keep running by returning an empty result.
       // return of(result);
-      return of(result as T);
-    };
+      return of(result as T)
+    }
   }
 
-  isEquipmentRegistered(name: string, price: number): Observable<boolean> {
-    name = name.trim();
+  isEquipmentRegistered (name: string, price: number): Observable<boolean> {
+    name = name.trim()
 
     return this.getEquipments().pipe(
-      map((equipments) => {
+      map(equipments => {
         /*
     const isRegistered = this.equipments.includes({ name, price } as Equipment);
     */
         const isRegistered =
           equipments.filter(
-            (equipment) =>
+            equipment =>
               equipment.name.toUpperCase() === name.toUpperCase() &&
               equipment.price === price
-          ).length > 0;
+          ).length > 0
 
-        return isRegistered;
+        return isRegistered
       })
-    );
+    )
   }
 
   /**
@@ -80,30 +80,30 @@ export class EquipmentService {
    *
    * @returns an `Observable` array `[]` of `Equipment`s
    */
-  getEquipments(): Observable<Equipment[]> {
+  getEquipments (): Observable<Equipment[]> {
     return this.http.get<Equipment[]>(this.equipmentsUrl).pipe(
       // tap((_) => this.log('fetched equipments')),
-      tap((equipments) => {
-        this.logger.log(`Fetched ${equipments.length} equipments`);
-        this.log('fetched equipments');
+      tap(equipments => {
+        this.logger.log(`Fetched ${equipments.length} equipments`)
+        this.log('fetched equipments')
 
-        this.equipments.splice(0);
-        this.equipments.push(...equipments); // fill cache
+        this.equipments.splice(0)
+        this.equipments.push(...equipments) // fill cache
 
-        EQUIPMENTS.splice(0);
+        EQUIPMENTS.splice(0)
         EQUIPMENTS.push(
           ...equipments.map(
-            (equipment) => new EquipmentClass(equipment.name, equipment.price)
+            equipment => new EquipmentClass(equipment.name, equipment.price)
           )
-        ); // fill cache
-        this.logger.warn('EQUIPMENTS');
-        this.logger.warn(EQUIPMENTS);
+        ) // fill cache
+        this.logger.warn('EQUIPMENTS')
+        this.logger.warn(EQUIPMENTS)
 
-        this.logger.warn('equipments');
-        this.logger.warn(this.equipments);
+        this.logger.warn('equipments')
+        this.logger.warn(this.equipments)
       }),
       catchError(this.handleError<Equipment[]>('getEquipments', []))
-    );
+    )
 
     // return of<Equipment[]>(this.equipments); // never returns the filled array // always returns the empty array
   }
@@ -114,35 +114,35 @@ export class EquipmentService {
    * @param id - the number of the `Equipment` to retrieve
    * @returns `Equipment` with the given `id`
    */
-  getEquipment(id: number): Observable<Equipment> {
-    const url = `${this.equipmentsUrl}/${id}`;
+  getEquipment (id: number): Observable<Equipment> {
+    const url = `${this.equipmentsUrl}/${id}`
 
     return this.http.get<Equipment>(url).pipe(
-      tap((_) => this.log(`fetched equipment id=${id}`)),
+      tap(_ => this.log(`fetched equipment id=${id}`)),
       catchError(this.handleError<Equipment>(`getEquipment id=${id}`))
-    );
+    )
   }
 
   httpOptions = {
     headers: new HttpHeaders({
       // TODO: maybe come back to this as well
-      'Content-Type': 'application/json',
-    }),
-  };
+      'Content-Type': 'application/json'
+    })
+  }
 
   /**
    * `DELETE`: `delete` the `Equipment` from the server
    *
-   * @param equipmentId - the `equipmentId` of the `Equipment` to delete
+   * @param id - the `id` of the `Equipment` to delete
    * @returns an `Observable`
    */
-  deleteEquipment(equipmentId: number): Observable<Equipment> {
-    const url = `${this.equipmentsUrl}/${equipmentId}`;
+  deleteEquipment (id: number): Observable<Equipment> {
+    const url = `${this.equipmentsUrl}/${id}`
 
     return this.http.delete<Equipment>(url, this.httpOptions).pipe(
-      tap((_) => this.log(`deleted equipment id=${equipmentId}`)),
+      tap(_ => this.log(`deleted equipment id=${id}`)),
       catchError(this.handleError<Equipment>('deleteEquipment'))
-    );
+    )
   }
 
   /**
@@ -151,17 +151,17 @@ export class EquipmentService {
    * @param equipment - the changed `Equipment` on the server
    * @returns an `Observable` of the changed `Equipment` on the server
    */
-  updateEquipment(equipment: Equipment): Observable<any> {
-    const url = `${this.equipmentsUrl}/${equipment.equipmentId}`;
+  updateEquipment (equipment: Equipment): Observable<any> {
+    const url = `${this.equipmentsUrl}/${equipment.id}`
 
-    const body = { ...equipment } as Equipment;
+    const body = { ...equipment } as Equipment
 
-    this.log(JSON.stringify(body));
+    this.log(JSON.stringify(body))
 
     return this.http.put(url, body, this.httpOptions).pipe(
-      tap((_) => this.log(`updated equipment id=${equipment.equipmentId}`)),
+      tap(_ => this.log(`updated equipment id=${equipment.id}`)),
       catchError(this.handleError<any>('updateEquipment'))
-    );
+    )
   }
 
   /**
@@ -170,80 +170,80 @@ export class EquipmentService {
    * @param equipment - the new `Equipment` to create on the server
    * @returns the `Observable<Equipment>` to the caller
    */
-  addEquipment(equipment: Equipment): Observable<Equipment> {
-    const url = 'api/equipments';
+  addEquipment (equipment: Equipment): Observable<Equipment> {
+    const url = 'api/equipments'
 
     return this.http.post<Equipment>(url, equipment, this.httpOptions).pipe(
       tap((newEquipment: Equipment) =>
-        this.log(`added equipment w/ id=${newEquipment.equipmentId}`)
+        this.log(`added equipment w/ id=${newEquipment.id}`)
       ),
       catchError(this.handleError<Equipment>('addEquipment'))
-    );
+    )
   }
 
-  getEquipmentsByName(term: string): Observable<Equipment[]> {
+  getEquipmentsByName (term: string): Observable<Equipment[]> {
     if (!term.trim()) {
       // if no `search` `term`, `return` empty `Equipment[]` array
-      return of([]);
+      return of([])
     }
 
     return this.http
       .get<Equipment[]>(`${this.equipmentsUrl}/name/${term}`)
       .pipe(
-        tap((resultList) =>
+        tap(resultList =>
           resultList.length
             ? this.log(`found equipments matching name='${term}'`)
             : this.log(`no equipments matching name='${term}'`)
         ),
         catchError(this.handleError<Equipment[]>('searchEquipments', []))
-      );
+      )
   }
 
-  getEquipmentsByPrice(price: number): Observable<Equipment[]> {
+  getEquipmentsByPrice (price: number): Observable<Equipment[]> {
     return this.http
       .get<Equipment[]>(`${this.equipmentsUrl}/price/${price}`)
       .pipe(
-        tap((resultList) =>
+        tap(resultList =>
           resultList.length
             ? this.log(`found equipments matching price=${price}`)
             : this.log(`no equipments matching price=${price}`)
         ),
         catchError(this.handleError<Equipment[]>('searchEquipments', []))
-      );
+      )
   }
-  searchEquipmentsByName(term: string): Observable<Equipment[]> {
+  searchEquipmentsByName (term: string): Observable<Equipment[]> {
     if (!term.trim()) {
       // if no `search` `term`, `return` empty `Equipment[]` array
-      return of([]);
+      return of([])
     }
 
     return this.http
       .get<Equipment[]>(`${this.equipmentsUrl}/names/${term}`)
       .pipe(
-        tap((resultList) =>
+        tap(resultList =>
           resultList.length
             ? this.log(`found equipments matching name='${term}'`)
             : this.log(`no equipments matching name='${term}'`)
         ),
         catchError(this.handleError<Equipment[]>('searchEquipments', []))
-      );
+      )
   }
 
-  searchEquipmentsByPrice(price: number): Observable<Equipment[]> {
+  searchEquipmentsByPrice (price: number): Observable<Equipment[]> {
     if (!price) {
       // if no `search` `term`, `return` empty `Equipment[]` array
-      return of([]);
+      return of([])
     }
 
     return this.http
       .get<Equipment[]>(`${this.equipmentsUrl}/prices/${price}`)
       .pipe(
-        tap((resultList) =>
+        tap(resultList =>
           resultList.length
             ? this.log(`found equipments matching price=${price}`)
             : this.log(`no equipments matching price=${price}`)
         ),
         catchError(this.handleError<Equipment[]>('searchEquipments', []))
-      );
+      )
   }
 }

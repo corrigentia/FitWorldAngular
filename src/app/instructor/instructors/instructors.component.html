@@ -23,19 +23,19 @@
     </thead>
     <tbody>
         <tr *ngFor="let instructor of instructors" (click)="onSelect(instructor)" [class.selected]="instructor === selectedInstructor">
-            <td class="badge">{{ instructor.instructorId }}</td>
+            <td class="badge">{{ instructor.id }}</td>
             <td class="first-name">{{ instructor.firstName }}</td>
             <td class="last-name">{{ instructor.lastName }}</td>
 
             <td>
-                <a routerLink="/instructors/{{ instructor.instructorId }}" class="edit btn btn-warning">
-                    Edit &#9999; id=<span class="badge">{{ instructor.instructorId }}</span>
+                <a routerLink="/instructors/{{ instructor.id }}" class="edit btn btn-warning">
+                    Edit &#9999; id=<span class="badge">{{ instructor.id }}</span>
                 </a>
             </td>
 
             <td>
                 <button (click)="delete(instructor)" class="delete btn btn-danger" title="delete instructor" type="button">
-                    x Delete id=<span class="badge">{{ instructor.instructorId }}</span>
+                    x Delete id=<span class="badge">{{ instructor.id }}</span>
                 </button>
             </td>
         </tr>

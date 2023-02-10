@@ -22,18 +22,18 @@
     </thead>
     <tbody>
         <tr *ngFor="let martialArt of martialArts" (click)="onSelect(martialArt)" [class.selected]="martialArt === selectedMartialArt">
-            <td class="badge">{{ martialArt.martialArtId }}</td>
+            <td class="badge">{{ martialArt.id }}</td>
             <td class="name">{{ martialArt.name }}</td>
 
             <td>
-                <a routerLink="/martial-arts/{{ martialArt.martialArtId }}" class="edit btn btn-warning">
-                    Edit &#9999; id=<span class="badge">{{ martialArt.martialArtId }}</span>
+                <a routerLink="/martial-arts/{{ martialArt.id }}" class="edit btn btn-warning">
+                    Edit &#9999; id=<span class="badge">{{ martialArt.id }}</span>
                 </a>
             </td>
 
             <td>
                 <button (click)="delete(martialArt)" class="delete btn btn-danger" title="delete martial art" type="button">
-                    x Delete id=<span class="badge">{{ martialArt.martialArtId }}</span>
+                    x Delete id=<span class="badge">{{ martialArt.id }}</span>
                 </button>
             </td>
         </tr>

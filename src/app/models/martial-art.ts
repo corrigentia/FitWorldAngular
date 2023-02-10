@@ -1,3 +1,5 @@
-export class MartialArt {
-  constructor(public name: string) {}
+import { Name } from './name'
+
+export class MartialArt implements Name {
+  constructor (public name: string) {}
 }

@@ -39,7 +39,7 @@ export class ClassesComponent implements OnInit {
   onSelect (classToSelect: Class): void {
     this.selectedClass = classToSelect
     this.messageService.add(
-      `ClassesComponent: Selected class id=${classToSelect.classId}`
+      `ClassesComponent: Selected class id=${classToSelect.id}`
     )
   }
 
@@ -48,7 +48,7 @@ export class ClassesComponent implements OnInit {
       classElement => classElement != classToDelete
     )
 
-    this.classService.deleteClass(classToDelete.classId).subscribe()
+    this.classService.deleteClass(classToDelete.id).subscribe()
   }
 
   // TODO: HACK: FIXME: Date type variable
@@ -98,7 +98,7 @@ export class ClassesComponent implements OnInit {
       .getMartialArts()
       .subscribe((martialArts) =>
         martialArts.forEach((martialArt) =>
-          this.martialArtIds.push(martialArt.martialArtId)
+          this.martialArtIds.push(martialArt.id)
         )
       );
   }
@@ -108,7 +108,7 @@ export class ClassesComponent implements OnInit {
       .getInstructors()
       .subscribe((instructors) =>
         instructors.forEach((instructor) =>
-          this.instructorIds.push(instructor.instructorId)
+          this.instructorIds.push(instructor.id)
         )
       );
   }

@@ -5,7 +5,7 @@
             Class Search by <span class="label label-info">martial art</span> <span class="label label-default">ID</span>
 
             <select id="martialArtId" name="martialArtId" class="form-control" required appId appMartialArtId [(ngModel)]="martialArtIdSought" #martialArtId="ngModel">
-                <option *ngFor="let martialArt of martialArts" [ngValue]="martialArt.martialArtId">{{ martialArt.name }}
+                <option *ngFor="let martialArt of martialArts" [ngValue]="martialArt.id">{{ martialArt.name }}
                 </option>
             </select>
         </label>
@@ -28,7 +28,7 @@
 
     <ul class="search-result list-group" *ngIf="martialArtId.valid">
         <li class="list-group-item" *ngFor="let class of classesByMartialArtId$ | async">
-            <a routerLink="/classes/{{class.classId}}">
+            <a routerLink="/classes/{{class.id}}">
                 {{ aliasMartialArt(class.martialArtId) }} by {{ aliasInstructor(class.instructorId) }} &commat;
                 {{ class.dateTime | date }} for {{ class.pricePerHour | currency:'EUR' }}
             </a>
@@ -40,7 +40,7 @@
             Class Search by <span class="label label-info">instructor</span> <span class="label label-default">ID</span>
 
             <select id="instructorId" name="instructorId" class="form-control" required appId appInstructorId [(ngModel)]="instructorIdSought" #instructorId="ngModel">
-                <option *ngFor="let instructor of instructors" [ngValue]="instructor.instructorId">
+                <option *ngFor="let instructor of instructors" [ngValue]="instructor.id">
                     {{ instructor.firstName }} {{ instructor.lastName }}
                 </option>
             </select>
@@ -66,7 +66,7 @@
 
     <ul class="search-result list-group" *ngIf="instructorId.valid">
         <li class="list-group-item" *ngFor="let class of classesByInstructorId$| async">
-            <a routerLink="/classes/{{class.classId}}">
+            <a routerLink="/classes/{{class.id}}">
                 {{ aliasMartialArt(class.martialArtId) }} by {{ aliasInstructor(class.instructorId) }} &commat;
                 {{ class.dateTime | date }} for {{ class.pricePerHour | currency:'EUR' }}
             </a>
@@ -100,7 +100,7 @@
 
     <ul class="search-result list-group" *ngIf="dateTime.valid">
         <li class="list-group-item" *ngFor="let class of classesByDateTime$ | async">
-            <a routerLink="/classes/{{class.classId}}">
+            <a routerLink="/classes/{{class.id}}">
                 {{ aliasMartialArt(class.martialArtId) }} by {{ aliasInstructor(class.instructorId) }} &commat;
                 {{ class.dateTime | date }} for {{ class.pricePerHour | currency:'EUR' }}
             </a>
@@ -137,7 +137,7 @@
 
     <ul class="search-result list-group" *ngIf="pricePerHour.valid">
         <li class="list-group-item" *ngFor="let class of classesByPrice$ | async">
-            <a routerLink="/classes/{{class.classId}}">
+            <a routerLink="/classes/{{class.id}}">
                 {{ aliasMartialArt(class.martialArtId) }} by {{ aliasInstructor(class.instructorId) }} &commat;
                 {{ class.dateTime | date }} for {{ class.pricePerHour | currency: 'EUR' }}
             </a>

@@ -25,7 +25,7 @@ export class EquipmentsComponent implements OnInit {
   onSelect (equipment: Equipment): void {
     this.selectedEquipment = equipment
     this.messageService.add(
-      `EquipmentsComponent: Selected equipment id=${equipment.equipmentId}`
+      `EquipmentsComponent: Selected equipment id=${equipment.id}`
     )
   }
 
@@ -34,9 +34,7 @@ export class EquipmentsComponent implements OnInit {
       equipment => equipment != equipmentToDelete
     )
 
-    this.equipmentService
-      .deleteEquipment(equipmentToDelete.equipmentId)
-      .subscribe()
+    this.equipmentService.deleteEquipment(equipmentToDelete.id).subscribe()
   }
 
   add (name: string, price: number): void {

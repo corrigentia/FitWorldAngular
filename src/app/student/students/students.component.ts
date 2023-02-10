@@ -30,14 +30,14 @@ export class StudentsComponent implements OnInit {
   onSelect (student: StudentIdEmail): void {
     this.selectedStudent = student
     this.messageService.add(
-      `StudentsComponent: Selected student id=${student.studentId}`
+      `StudentsComponent: Selected student id=${student.id}`
     )
   }
 
   delete (studentToDelete: StudentIdEmail): void {
     this.students = this.students.filter(student => student != studentToDelete)
 
-    this.studentService.deleteStudent(studentToDelete.studentId).subscribe()
+    this.studentService.deleteStudent(studentToDelete.id).subscribe()
   }
 
   add (email: string, password: string): void {

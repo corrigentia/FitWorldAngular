@@ -30,7 +30,7 @@
 
     <ul class="search-result list-group" *ngIf="name.valid">
         <li class="list-group-item" *ngFor="let equipment of equipmentsByName$ | async">
-            <a routerLink="/instructors/{{equipment.equipmentId}}">
+            <a routerLink="/instructors/{{equipment.id}}">
                 {{ equipment.name }} - {{ equipment.price | currency:'EUR' }}
             </a>
         </li>
@@ -66,7 +66,7 @@
 
     <ul class="search-result list-group" *ngIf="price.valid">
         <li class="list-group-item" *ngFor="let equipment of equipmentsByPrice$ | async">
-            <a routerLink="/instructors/{{equipment.equipmentId}}">
+            <a routerLink="/instructors/{{equipment.id}}">
                 {{ equipment.name }} - {{ equipment.price | currency:'EUR' }}
             </a>
         </li>

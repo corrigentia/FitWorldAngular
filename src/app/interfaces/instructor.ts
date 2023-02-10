@@ -1,5 +1,6 @@
-export interface Instructor {
-  instructorId: number;
-  firstName: string;
-  lastName: string;
+import { Id } from './id'
+
+export interface Instructor extends Id {
+  firstName: string
+  lastName: string | null
 }

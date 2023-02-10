@@ -6,7 +6,7 @@
 
     <ul class="search-result list-group">
         <li class="list-group-item" *ngFor="let martialArt of martialArts$ | async">
-            <a routerLink="/martial-arts/{{martialArt.martialArtId}}">
+            <a routerLink="/martial-arts/{{martialArt.id}}">
                 {{martialArt.name}}
             </a>
         </li>

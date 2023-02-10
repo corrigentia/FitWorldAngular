@@ -95,15 +95,13 @@ export class ClassDetailComponent
 
   protected aliasMartialArt (id: number): string {
     return (
-      this.martialArts.find(martialArt => martialArt.martialArtId === id)
-        ?.name ?? 'invalid martial art'
+      this.martialArts.find(martialArt => martialArt.id === id)?.name ??
+      'invalid martial art'
     )
   }
 
   protected aliasInstructor (id: number): string {
-    const instructor = this.instructors.find(
-      instructor => instructor.instructorId === id
-    )
+    const instructor = this.instructors.find(instructor => instructor.id === id)
     return (
       instructor?.firstName.concat(' '.concat(instructor.lastName ?? '')) ??
       'invalid instructor'
@@ -135,7 +133,7 @@ export class ClassDetailComponent
         /*
       console.log(JSON.stringify(martialArtClass))
       console.log(JSON.stringify((martialArtClass as Class)))
-      console.log(JSON.stringify((martialArtClass as Class).classId))
+      console.log(JSON.stringify((martialArtClass as Class).id))
       */
         this.instructors = instructors
         this.martialArts = martialArts
@@ -178,7 +176,7 @@ export class ClassDetailComponent
     this.martialArtName =
       this.martialArts.find(
         (martialArt) =>
-          martialArt.martialArtId === this.martialArtClass?.martialArtId
+          martialArt.id === this.martialArtClass?.martialArtId
       )?.name ?? 'invalid martial art';
     */
   }
@@ -195,13 +193,11 @@ export class ClassDetailComponent
 
     this.martialArtName =
       this.martialArts.find(
-        martialArt =>
-          martialArt.martialArtId === this.martialArtClass?.martialArtId
+        martialArt => martialArt.id === this.martialArtClass?.martialArtId
       )?.name ?? 'invalid martial art'
 
     this.instructor = this.instructors.find(
-      instructor =>
-        instructor.instructorId === this.martialArtClass?.instructorId
+      instructor => instructor.id === this.martialArtClass?.instructorId
     )
 
     this.instructorFirstName =

@@ -10,7 +10,7 @@
                         Martial Art ID
                         <select id="martialArtId" name="martialArtId" class="form-control" required appId
                             appMartialArtId [(ngModel)]="martialArtClass.martialArtId" #martialArtId="ngModel">
-                            <option *ngFor="let martialArt of martialArts" [ngValue]="martialArt.martialArtId">{{
+                            <option *ngFor="let martialArt of martialArts" [ngValue]="martialArt.id">{{
                                 martialArt.name }}
                             </option>
                         </select>
@@ -37,7 +37,7 @@
                         Instructor ID
                         <select id="instructorId" name="instructorId" class="form-control" required appId
                             appInstructorId [(ngModel)]="martialArtClass.instructorId" #instructorId="ngModel">
-                            <option *ngFor="let instructor of instructors" [ngValue]="instructor.instructorId">
+                            <option *ngFor="let instructor of instructors" [ngValue]="instructor.id">
                                 {{ instructor.firstName }}
                                 {{ instructor.lastName }}</option>
                         </select>

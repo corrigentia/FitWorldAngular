@@ -30,18 +30,18 @@
     </thead>
     <tbody>
         <tr *ngFor="let student of students" (click)="onSelect(student)" [class.selected]="student === selectedStudent">
-            <td class="badge">{{ student.studentId }}</td>
+            <td class="badge">{{ student.id }}</td>
             <td class="email">{{ student.email }}</td>
 
             <td>
-                <a routerLink="/students/{{ student.studentId }}" class="edit btn btn-warning">
-                    Edit &#9999; id=<span class="badge">{{ student.studentId }}</span>
+                <a routerLink="/students/{{ student.id }}" class="edit btn btn-warning">
+                    Edit &#9999; id=<span class="badge">{{ student.id }}</span>
                 </a>
             </td>
 
             <td>
                 <button (click)="delete(student)" class="delete btn btn-danger" title="delete student" type="button">
-                    x Delete id=<span class="badge">{{ student.studentId }}</span>
+                    x Delete id=<span class="badge">{{ student.id }}</span>
                 </button>
             </td>
         </tr>
