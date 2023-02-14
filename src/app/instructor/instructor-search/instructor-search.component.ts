@@ -17,7 +17,7 @@ export class InstructorSearchComponent implements OnInit {
   protected lastNameSought!: string
 
   protected uniqueFirstNames!: string[]
-  protected uniqueLastNames!: string[]
+  protected uniqueLastNames!: (string|null)[]
 
   private readonly collator = new Intl.Collator(undefined, {
     numeric: true,
