@@ -283,7 +283,8 @@ export class StudentService {
         // 20/01/2023
         // TODO: change route url path to access c# api
         // .get<StudentIdEmail[]>(`${this.studentsUrl}/?email=${term}`)
-        .get<StudentIdEmail[]>(`${this.studentsUrl}/emails/${term}`)
+        // .get<StudentIdEmail[]>(`${this.studentsUrl}/emails/${term}`)
+        .get<StudentIdEmail[]>(`${this.studentsUrl}?email=${term}`)
         .pipe(
           tap(resultList =>
             resultList.length
