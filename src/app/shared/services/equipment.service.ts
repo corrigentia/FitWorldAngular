@@ -188,7 +188,7 @@ export class EquipmentService {
     }
 
     return this.http
-      .get<Equipment[]>(`${this.equipmentsUrl}/name/${term}`)
+      .get<Equipment[]>(`${this.equipmentsUrl}?name=^${term}$`)
       .pipe(
         tap(resultList =>
           resultList.length
@@ -201,7 +201,7 @@ export class EquipmentService {
 
   getEquipmentsByPrice (price: number): Observable<Equipment[]> {
     return this.http
-      .get<Equipment[]>(`${this.equipmentsUrl}/price/${price}`)
+      .get<Equipment[]>(`${this.equipmentsUrl}?price=^${price}$`)
       .pipe(
         tap(resultList =>
           resultList.length

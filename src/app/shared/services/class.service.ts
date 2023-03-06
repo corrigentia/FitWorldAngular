@@ -184,7 +184,7 @@ export class ClassService {
 
   // TODO: implement search functionality for the 4 features: martialArt, instructor, price & dateTime
   searchClassesByMartialArtId (id: number): Observable<Class[]> {
-    return this.http.get<Class[]>(`${this.classesUrl}/martialArt/${id}`).pipe(
+    return this.http.get<Class[]>(`${this.classesUrl}?martialArtId=^${id}$`).pipe(
       tap(resultList =>
         resultList.length
           ? this.log(`found classes matching martialArtId=${id}`)
@@ -195,7 +195,7 @@ export class ClassService {
   }
 
   searchClassesByInstructorId (id: number): Observable<Class[]> {
-    return this.http.get<Class[]>(`${this.classesUrl}/instructor/${id}`).pipe(
+    return this.http.get<Class[]>(`${this.classesUrl}?instructorId=^${id}$`).pipe(
       tap(resultList =>
         resultList.length
           ? this.log(`found classes matching instructorId=${id}`)
@@ -207,7 +207,7 @@ export class ClassService {
 
   searchClassesByDateTime (dateTime: Date): Observable<Class[]> {
     return this.http
-      .get<Class[]>(`${this.classesUrl}/dateTime/${dateTime}`)
+      .get<Class[]>(`${this.classesUrl}?dateTime=${dateTime.toString().substring(0, 16)}`)
       .pipe(
         tap(resultList =>
           resultList.length
@@ -219,7 +219,7 @@ export class ClassService {
   }
 
   searchClassesByPrice (price: number): Observable<Class[]> {
-    return this.http.get<Class[]>(`${this.classesUrl}/price/${price}`).pipe(
+    return this.http.get<Class[]>(`${this.classesUrl}?pricePerHour=^${price}$`).pipe(
       tap(resultList =>
         resultList.length
           ? this.log(`found classes matching price=${price}`)

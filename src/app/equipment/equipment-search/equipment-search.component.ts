@@ -95,7 +95,7 @@ export class EquipmentSearchComponent implements OnInit {
     this.equipmentsByName$ = this.nameSearchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
       // debounceTime(300),
-      debounceTime(150),
+      // debounceTime(150),
 
       // ignore new term if same as previous term
       distinctUntilChanged(),
@@ -109,7 +109,7 @@ export class EquipmentSearchComponent implements OnInit {
     this.equipmentsByPrice$ = this.priceSearchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
       // debounceTime(300),
-      debounceTime(150),
+      // debounceTime(150),
 
       // ignore new term if same as previous term
       distinctUntilChanged(),

@@ -223,7 +223,7 @@ export class InstructorService {
     }
 
     return this.http
-      .get<Instructor[]>(`${this.instructorsUrl}/firstName/${term}`)
+      .get<Instructor[]>(`${this.instructorsUrl}?firstName=^${term}$`)
       .pipe(
         tap(resultList =>
           resultList.length
@@ -277,10 +277,7 @@ export class InstructorService {
   }
 
   getInstructorsByLastName (lastName?: string): Observable<Instructor[]> {
-    const url =
-      lastName === null
-        ? `${this.instructorsUrl}/lastName/`
-        : `${this.instructorsUrl}/lastName/${lastName}`
+    const url = `${this.instructorsUrl}?lastName=^${lastName}$`
 
     return this.http.get<Instructor[]>(url).pipe(
       tap(resultList =>

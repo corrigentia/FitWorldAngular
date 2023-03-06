@@ -79,7 +79,7 @@
 
             <select id="dateTime" name="dateTime" class="form-control" required appDateTime [(ngModel)]="dateTimeSought" #dateTime="ngModel">
                 <option *ngFor="let class of classes" [ngValue]="class.dateTime">
-                    {{ class.dateTime | date }}
+                    {{ class.dateTime }}
                 </option>
             </select>
         </label>
@@ -102,7 +102,7 @@
         <li class="list-group-item" *ngFor="let class of classesByDateTime$ | async">
             <a routerLink="/classes/{{class.id}}">
                 {{ aliasMartialArt(class.martialArtId) }} by {{ aliasInstructor(class.instructorId) }} &commat;
-                {{ class.dateTime | date }} for {{ class.pricePerHour | currency:'EUR' }}
+                {{ class.dateTime }} for {{ class.pricePerHour | currency:'EUR' }}
             </a>
         </li>
     </ul>
@@ -141,6 +141,7 @@
                 {{ aliasMartialArt(class.martialArtId) }} by {{ aliasInstructor(class.instructorId) }} &commat;
                 {{ class.dateTime | date }} for {{ class.pricePerHour | currency: 'EUR' }}
             </a>
+{{ class | json }}
         </li>
     </ul>
 

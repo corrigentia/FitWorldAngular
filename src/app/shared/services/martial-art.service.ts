@@ -185,7 +185,7 @@ export class MartialArtService {
     }
 
     return this.http
-      .get<MartialArt[]>(`${this.martialArtsUrl}/name/${term}`)
+      .get<MartialArt[]>(`${this.martialArtsUrl}?name=${term}`)
       .pipe(
         tap(resultList =>
           resultList.length
