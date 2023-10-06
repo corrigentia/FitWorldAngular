@@ -5985,11 +5985,6 @@ typedarray-to-buffer@^3.1.5:
   dependencies:
     is-typedarray "^1.0.0"
 
-"typescript@>=4.8.2 <4.9", typescript@~4.8.2:
-  version "4.8.4"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-4.8.4.tgz"
-  integrity sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==
-
 ua-parser-js@^0.7.30:
   version "0.7.32"
   resolved "https://registry.npmjs.org/ua-parser-js/-/ua-parser-js-0.7.32.tgz"
