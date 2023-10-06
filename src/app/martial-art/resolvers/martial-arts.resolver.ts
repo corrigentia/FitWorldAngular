@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  Router,
-  Resolve,
-  RouterStateSnapshot,
-  ActivatedRouteSnapshot,
-} from '@angular/router';
+import { Router, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { MartialArt } from 'src/app/interfaces/martial-art';
 import { MartialArtService } from '../services/martial-art.service';
@@ -12,7 +7,7 @@ import { MartialArtService } from '../services/martial-art.service';
 @Injectable({
   providedIn: 'root',
 })
-export class MartialArtsResolver implements Resolve<MartialArt[]> {
+export class MartialArtsResolver  {
   constructor(private readonly martialArtService: MartialArtService) {}
 
   resolve(

@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  Router,
-  Resolve,
-  RouterStateSnapshot,
-  ActivatedRouteSnapshot,
-} from '@angular/router';
+import { Router, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Equipment } from 'src/app/interfaces/equipment';
 import { EquipmentService } from '../../equipment/services/equipment.service';
@@ -12,7 +7,7 @@ import { EquipmentService } from '../../equipment/services/equipment.service';
 @Injectable({
   providedIn: 'root',
 })
-export class EquipmentsResolver implements Resolve<Equipment[]> {
+export class EquipmentsResolver  {
   constructor(private readonly equipmentService: EquipmentService) {}
 
   resolve(

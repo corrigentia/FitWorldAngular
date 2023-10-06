@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  Resolve,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IStudentSpring } from 'src/app/interfaces/student-spring';
 import { StudentService } from '../../student/services/student.service';
@@ -12,7 +8,7 @@ import { StudentService } from '../../student/services/student.service';
   providedIn: 'root',
 })
 // export class StudentResolver implements Resolve<StudentIdEmail> {
-export class StudentResolver implements Resolve<IStudentSpring> {
+export class StudentResolver  {
   constructor(private readonly studentService: StudentService) {}
 
   resolve(
