@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Equipment } from 'src/app/models/equipment';
 import { Equipment as IEquipment } from 'src/app/interfaces/equipment';
-import { EquipmentService } from 'src/app/shared/services/equipment.service';
+import { EquipmentService } from 'src/app/equipment/services/equipment.service';
 import { Logger } from 'src/app/shared/services/logger.service';
 import { MessageService } from 'src/app/shared/services/message.service';
 import { Router } from '@angular/router';
@@ -32,7 +32,7 @@ export class EquipmentFormTemplateComponent {
     }
 
     this.equipmentService
-      .addEquipment({ name, price } as IEquipment)
+      .addEntity({ name, price } as IEquipment)
       .subscribe((equipment) => {
         this.logger.log(`Added equipment ${JSON.stringify(equipment)}`);
         this.messageService.add(`Added equipment ${JSON.stringify(equipment)}`);

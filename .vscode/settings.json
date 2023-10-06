@@ -1,5 +1,8 @@
 {
-    "todo-tree.tree.scanMode": "workspace",
-    "editor.tabCompletion": "on",
-    "diffEditor.codeLens": true,
+  "todo-tree.tree.scanMode": "workspace",
+  "editor.tabCompletion": "on",
+  "diffEditor.codeLens": true,
+  "WhiteSource Advise.Diff.BaseBranch": "master",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true
 }

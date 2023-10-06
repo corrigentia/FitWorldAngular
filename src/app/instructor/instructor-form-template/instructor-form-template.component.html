@@ -1,70 +1,116 @@
 <div class="container">
-    <h2>Instructor Form Template</h2>
-    <form #instructorForm="ngForm" appUniqueInstructor (ngSubmit)="add(firstName.value, lastName.value)">
-        <div [hidden]="instructorForm.submitted">
-            <div class="cross-validation" [class.cross-validation-error]="instructorForm.errors?.['uniqueInstructor'] && (instructorForm.dirty || instructorForm.touched)">
-                <div class="form-group">
-                    <label for="firstName">
-                        First Name
-                        <input type="text" id="firstName" name="firstName" class="form-control" required minlength="1" maxlength="255" [(ngModel)]="instructor.firstName" #firstName="ngModel">
+  <h3>Instructor Form Template</h3>
+  <form
+    #instructorForm="ngForm"
+    appUniqueInstructor
+    (ngSubmit)="add(firstName.value, lastName.value)"
+  >
+    <div [hidden]="instructorForm.submitted">
+      <div
+        class="cross-validation"
+        [class.cross-validation-error]="instructorForm.errors?.['uniqueInstructor'] && (instructorForm.dirty || instructorForm.touched)"
+      >
+        <div class="form-group">
+          <label for="firstName">
+            First Name
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              class="form-control"
+              required
+              minlength="1"
+              maxlength="255"
+              [(ngModel)]="instructor.firstName"
+              #firstName="ngModel"
+            />
 
-                        <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="alert alert-danger">
-
-                            <div *ngIf="firstName.errors?.['required']">
-                                First Name is required.
-                            </div>
-                            <div *ngIf="firstName.errors?.['minlength']">
-                                First Name must be at least 1 character long.
-                            </div>
-                            <div *ngIf="firstName.errors?.['maxlength']">
-                                First Name must be at most 255 characters long.
-                            </div>
-                        </div>
-                    </label>
-                </div>
-
-                <div class="form-group">
-                    <label for="lastName">
-                        Last Name
-                        <input type="text" id="lastName" name="lastName" class="form-control" maxlength="255" [(ngModel)]="instructor.lastName" #lastName="ngModel">
-
-                        <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="alert alert-danger">
-
-                            <div *ngIf="lastName.errors?.['maxlength']">
-                                Last Name must be at most 255 characters long.
-                            </div>
-                        </div>
-                    </label>
-                </div>
-
-                <div *ngIf="instructorForm.pending">
-                    Validating...
-                </div>
-
-                <div *ngIf="instructorForm.errors?.['uniqueInstructor']" class="cross-validation-error-message alert alert-danger instructor-errors">
-                    Instructor is already registered.
-                </div>
+            <div
+              *ngIf="
+                firstName.invalid && (firstName.dirty || firstName.touched)
+              "
+              class="alert alert-danger"
+            >
+              <div *ngIf="firstName.errors?.['required']">
+                First Name is required.
+              </div>
+              <div *ngIf="firstName.errors?.['minlength']">
+                First Name must be at least 1 character long.
+              </div>
+              <div *ngIf="firstName.errors?.['maxlength']">
+                First Name must be at most 255 characters long.
+              </div>
             </div>
-
-            <p>Complete the form to enable the Submit button.</p>
-            <button type="submit" [disabled]="instructorForm.invalid" class="btn btn-success">
-                Submit
-            </button>
-
-            &nbsp;
-
-            <button type="button" (click)="instructorForm.resetForm({firstName: ''})" class="btn btn-warning">
-                Reset
-            </button>
+          </label>
         </div>
 
-        <div class="submitted-message" *ngIf="instructorForm.submitted">
-            <p>You’ve submitted your instructor, {{instructorForm.value.firstName}} {{instructorForm.value.lastName}}!
-            </p>
+        <div class="form-group">
+          <label for="lastName">
+            Last Name
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              class="form-control"
+              maxlength="255"
+              [(ngModel)]="instructor.lastName"
+              #lastName="ngModel"
+            />
 
-            <button type="button" (click)="instructorForm.resetForm({firstName: ''})" class="btn btn-success">
-                Add new instructor
-            </button>
+            <div
+              *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
+              class="alert alert-danger"
+            >
+              <div *ngIf="lastName.errors?.['maxlength']">
+                Last Name must be at most 255 characters long.
+              </div>
+            </div>
+          </label>
         </div>
-    </form>
+
+        <div *ngIf="instructorForm.pending">Validating...</div>
+
+        <div
+          *ngIf="instructorForm.errors?.['uniqueInstructor']"
+          class="cross-validation-error-message alert alert-danger instructor-errors"
+        >
+          Instructor is already registered.
+        </div>
+      </div>
+
+      <p>Complete the form to enable the Submit button.</p>
+      <button
+        type="submit"
+        [disabled]="instructorForm.invalid"
+        class="btn btn-success"
+      >
+        Submit
+      </button>
+
+      &nbsp;
+
+      <button
+        type="button"
+        (click)="instructorForm.resetForm({ firstName: '' })"
+        class="btn btn-warning"
+      >
+        Reset
+      </button>
+    </div>
+
+    <div class="submitted-message" *ngIf="instructorForm.submitted">
+      <p>
+        You’ve submitted your instructor, {{ instructorForm.value.firstName }}
+        {{ instructorForm.value.lastName }}!
+      </p>
+
+      <button
+        type="button"
+        (click)="instructorForm.resetForm({ firstName: '' })"
+        class="btn btn-success"
+      >
+        Add new instructor
+      </button>
+    </div>
+  </form>
 </div>

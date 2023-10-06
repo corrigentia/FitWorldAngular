@@ -1,0 +1,45 @@
+<p>log-in works!</p>
+
+<article>
+  <section>
+    <div class="form-signin w-100 m-auto">
+      <form (submit)="onSubmit()" #form="ngForm" [formGroup]="loginForm">
+        <h4 class="h3 mb-3 font-weight-normal text-center">Please Log In</h4>
+
+        <div class="mb-3">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            formControlName="username"
+            placeholder="Enter your username"
+            required="required"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            formControlName="password"
+            placeholder="Enter your password"
+            required="required"
+          />
+        </div>
+
+        <div class="d-grid">
+          <button
+            type="submit"
+            class="btn btn-success primary"
+            [disabled]="!form.form.valid"
+          >
+            Log In
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+</article>

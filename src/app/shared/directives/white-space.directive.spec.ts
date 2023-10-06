@@ -1,8 +1,13 @@
-import { WhiteSpaceDirective } from './white-space.directive';
+import {
+  WhiteSpaceValidator,
+  WhiteSpaceValidatorDirective,
+} from './white-space.directive';
 
 describe('WhiteSpaceDirective', () => {
   it('should create an instance', () => {
-    const directive = new WhiteSpaceDirective();
+    const validator = new WhiteSpaceValidator();
+
+    const directive = new WhiteSpaceValidatorDirective(validator);
     expect(directive).toBeTruthy();
   });
 });

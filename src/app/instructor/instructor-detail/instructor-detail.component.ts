@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Instructor } from 'src/app/interfaces/instructor';
-import { InstructorService } from 'src/app/shared/services/instructor.service';
+import { InstructorService } from 'src/app/instructor/services/instructor.service';
 
 @Component({
   selector: 'app-instructor-detail',
@@ -25,7 +25,7 @@ export class InstructorDetailComponent implements OnInit {
   save(): void {
     if (this.instructor) {
       this.instructorService
-        .updateInstructor(this.instructor)
+        .updateEntity(this.instructor)
         .subscribe(() => this.goBack());
     }
   }
@@ -34,7 +34,7 @@ export class InstructorDetailComponent implements OnInit {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
 
     this.instructorService
-      .getInstructor(id)
+      .getEntity(id)
       .subscribe((instructor) => (this.instructor = instructor));
   }
 

@@ -1,61 +1,68 @@
 <!-- <p>equipment-form-reactive works!</p> -->
 
 <div class="container">
-    <h2>Equipment Form Reactive</h2>
+  <h3>Equipment Form Reactive</h3>
 
-    <form [formGroup]="equipmentForm" #formDir="ngForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="equipmentForm" #formDir="ngForm" (ngSubmit)="onSubmit()">
+    <div [hidden]="formDir.submitted">
+      <div
+        class="cross-validation"
+        [class.cross-validation-error]="equipmentForm.errors?.['uniqueEquipment'] && (equipmentForm.dirty || equipmentForm.touched)"
+      >
+        <div class="form-group">
+          <label for="name">
+            Name
+            <input
+              type="text"
+              id="name"
+              class="form-control"
+              formControlName="name"
+            />
+          </label>
 
-        <div [hidden]="formDir.submitted">
+          <div
+            *ngIf="name.invalid && (name.dirty || name.touched)"
+            class="alert alert-danger"
+          >
+            <div *ngIf="name.errors?.['required']">Name is required</div>
+            <div *ngIf="name.errors?.['minlength']">
+              Name must be at least 1 character long.
+            </div>
+            <div *ngIf="name.errors?.['maxlength']">
+              Name must be at most 42 characters long.
+            </div>
+          </div>
+        </div>
 
-            <div class="cross-validation" [class.cross-validation-error]="equipmentForm.errors?.['uniqueEquipment'] && (equipmentForm.dirty || equipmentForm.touched)">
+        <div class="form-group">
+          <label for="price">
+            Price
+            <input
+              type="number"
+              id="price"
+              class="form-control"
+              formControlName="price"
+              step="0.01"
+            />
+          </label>
 
-                <div class="form-group">
+          <div
+            *ngIf="price.invalid && (price.dirty || price.touched)"
+            class="alert alert-danger"
+          >
+            <div *ngIf="price.errors?.['required']">Price is required</div>
+            <div *ngIf="price.errors?.['min']">
+              Price must be at least 0.01.
+            </div>
+            <div *ngIf="price.errors?.['max']">
+              Price must be at most 99999999998.99.
+            </div>
+          </div>
+        </div>
 
-                    <label for="name">
-                        Name
-                        <input type="text" id="name" class="form-control" formControlName="name">
-                    </label>
+        <div *ngIf="equipmentForm.pending">Validating...</div>
 
-                    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
-
-                        <div *ngIf="name.errors?.['required']">
-                            Name is required
-                        </div>
-                        <div *ngIf="name.errors?.['minlength']">
-                            Name must be at least 1 character long.
-                        </div>
-                        <div *ngIf="name.errors?.['maxlength']">
-                            Name must be at most 42 characters long.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-
-                    <label for="price">
-                        Price
-                        <input type="number" id="price" class="form-control" formControlName="price" step="0.01">
-                    </label>
-
-                    <div *ngIf="price.invalid && (price.dirty || price.touched)" class="alert alert-danger">
-
-                        <div *ngIf="price.errors?.['required']">
-                            Price is required
-                        </div>
-                        <div *ngIf="price.errors?.['min']">
-                            Price must be at least 0.01.
-                        </div>
-                        <div *ngIf="price.errors?.['max']">
-                            Price must be at most 99999999998.99.
-                        </div>
-                    </div>
-                </div>
-
-                <div *ngIf="equipmentForm.pending">
-                    Validating...
-                </div>
-
-                <!--
+        <!--
                 <div *ngIf="equipmentForm.invalid && (equipmentForm.dirty)" class="alert alert-danger equipment-errors">
                     <div *ngIf="equipmentForm.errors?.['uniqueEquipment']">
                         Equipment is already registered; invalid.
@@ -63,29 +70,43 @@
                 </div>
               -->
 
-                <div *ngIf="equipmentForm.errors?.['uniqueEquipment']" class="cross-validation-error-message equipment-errors alert alert-danger">
-                    Equipment is already registered.
-                </div>
-            </div>
-
-            <p>Complete the form to enable the Submit button.</p>
-            <button type="submit" class="btn btn-success" [disabled]="equipmentForm.invalid">
-                Submit
-            </button>
-
-            &nbsp;
-
-            <button type="button" class="btn btn-warning" (click)="formDir.resetForm({name:'', price:0})">
-                Reset
-            </button>
+        <div
+          *ngIf="equipmentForm.errors?.['uniqueEquipment']"
+          class="cross-validation-error-message equipment-errors alert alert-danger"
+        >
+          Equipment is already registered.
         </div>
+      </div>
 
-    </form>
-    <div class="submitted-message" *ngIf="formDir.submitted">
-        <p>You've submitted your equipment, {{equipmentForm.value.name}}!</p>
+      <p>Complete the form to enable the Submit button.</p>
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="equipmentForm.invalid"
+      >
+        Submit
+      </button>
 
-        <button type="button" (click)="formDir.resetForm({name:'', price:0})" class="btn btn-success">
-            Add new equipment
-        </button>
+      &nbsp;
+
+      <button
+        type="button"
+        class="btn btn-warning"
+        (click)="formDir.resetForm({ name: '', price: 0 })"
+      >
+        Reset
+      </button>
     </div>
+  </form>
+  <div class="submitted-message" *ngIf="formDir.submitted">
+    <p>You've submitted your equipment, {{ equipmentForm.value.name }}!</p>
+
+    <button
+      type="button"
+      (click)="formDir.resetForm({ name: '', price: 0 })"
+      class="btn btn-success"
+    >
+      Add new equipment
+    </button>
+  </div>
 </div>

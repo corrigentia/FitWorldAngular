@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Equipment } from 'src/app/interfaces/equipment';
-import { EquipmentService } from 'src/app/shared/services/equipment.service';
+import { EquipmentService } from 'src/app/equipment/services/equipment.service';
 
 @Component({
   selector: 'app-equipment-detail',
@@ -25,20 +25,20 @@ export class EquipmentDetailComponent implements OnInit {
   save(): void {
     if (this.equipment) {
       this.equipmentService
-        .updateEquipment(this.equipment)
+        .updateEntity(this.equipment)
         .subscribe(() => this.goBack());
     }
   }
 
-  getEquipment(): void {
+  getEntity(): void {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
 
     this.equipmentService
-      .getEquipment(id)
+      .getEntity(id)
       .subscribe((equipment) => (this.equipment = equipment));
   }
 
   ngOnInit(): void {
-    this.getEquipment();
+    this.getEntity();
   }
 }

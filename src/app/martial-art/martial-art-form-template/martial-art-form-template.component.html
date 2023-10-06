@@ -1,50 +1,72 @@
 <div class="container">
+  <h3>Martial Art Form Template</h3>
+  <form #martialArtForm="ngForm" (ngSubmit)="add(name.value)">
+    <div [hidden]="martialArtForm.submitted">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          class="form-control"
+          required
+          minlength="1"
+          maxlength="42"
+          [(ngModel)]="martialArt.name"
+          #name="ngModel"
+          [ngModelOptions]="{ updateOn: 'blur' }"
+          appUniqueMartialArt
+        />
 
-    <h2>Martial Art Form Template</h2>
-    <form #martialArtForm="ngForm" (ngSubmit)="add(name.value)">
-        <div [hidden]="martialArtForm.submitted">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" class="form-control" required minlength="1" maxlength="42" [(ngModel)]="martialArt.name" #name="ngModel" [ngModelOptions]="{ updateOn: 'blur' }" appUniqueMartialArt>
+        <div *ngIf="name.pending">Validating...</div>
+        <div
+          *ngIf="name.invalid && (name.dirty || name.touched)"
+          class="alert alert-danger name-errors"
+        >
+          <div *ngIf="name.errors?.['required']">Name is required.</div>
+          <div *ngIf="name.errors?.['minlength']">
+            Name must be at least 1 character long.
+          </div>
+          <div *ngIf="name.errors?.['maxlength']">
+            Name must be at most 42 characters long.
+          </div>
 
-                <div *ngIf="name.pending">Validating...</div>
-                <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger name-errors">
-
-                    <div *ngIf="name.errors?.['required']">
-                        Name is required.
-                    </div>
-                    <div *ngIf="name.errors?.['minlength']">
-                        Name must be at least 1 character long.
-                    </div>
-                    <div *ngIf="name.errors?.['maxlength']">
-                        Name must be at most 42 characters long.
-                    </div>
-
-                    <div *ngIf="name.errors?.['uniqueMartialArt']">
-                        Name is already taken.
-                    </div>
-
-                </div>
-            </div>
-
-            <p>Complete the form to enable the Submit button.</p>
-            <button type="submit" [disabled]="martialArtForm.invalid" class="btn btn-success">
-                Submit
-            </button>
-
-            &nbsp;
-
-            <button type="button" (click)="martialArtForm.resetForm({})" class="btn btn-warning">
-                Reset
-            </button>
+          <div *ngIf="name.errors?.['uniqueMartialArt']">
+            Name is already taken.
+          </div>
         </div>
+      </div>
 
-        <div class="submitted-message" *ngIf="martialArtForm.submitted">
-            <p>You've submitted your martial art, {{ martialArtForm.value.name }}!</p>
+      <p>Complete the form to enable the Submit button.</p>
+      <button
+        type="submit"
+        [disabled]="martialArtForm.invalid"
+        class="btn btn-success"
+      >
+        Submit
+      </button>
 
-            <button type="button" (click)="martialArtForm.resetForm({})" class="btn btn-success">
-                Add new martial art
-            </button>
-        </div>
-    </form>
+      &nbsp;
+
+      <button
+        type="button"
+        (click)="martialArtForm.resetForm({})"
+        class="btn btn-warning"
+      >
+        Reset
+      </button>
+    </div>
+
+    <div class="submitted-message" *ngIf="martialArtForm.submitted">
+      <p>You've submitted your martial art, {{ martialArtForm.value.name }}!</p>
+
+      <button
+        type="button"
+        (click)="martialArtForm.resetForm({})"
+        class="btn btn-success"
+      >
+        Add new martial art
+      </button>
+    </div>
+  </form>
 </div>

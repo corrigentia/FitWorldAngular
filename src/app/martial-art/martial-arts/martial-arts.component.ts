@@ -1,65 +1,68 @@
-import { HttpClient } from '@angular/common/http'
-import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
-import { MartialArt } from 'src/app/interfaces/martial-art'
-import { MartialArtService } from 'src/app/shared/services/martial-art.service'
-import { MessageService } from 'src/app/shared/services/message.service'
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { MartialArt } from 'src/app/interfaces/martial-art';
+import { MartialArtService } from 'src/app/martial-art/services/martial-art.service';
+import { MessageService } from 'src/app/shared/services/message.service';
 
 @Component({
   selector: 'app-martial-arts',
   templateUrl: './martial-arts.component.html',
-  styleUrls: ['./martial-arts.component.css']
+  styleUrls: ['./martial-arts.component.css'],
 })
 export class MartialArtsComponent implements OnInit {
-  protected martialArts: MartialArt[] = []
+  protected entityCollection: MartialArt[] = [];
 
-  selectedMartialArt?: MartialArt
+  selectedMartialArt?: MartialArt;
 
-  constructor (
+  constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly martialArtService: MartialArtService,
     private readonly messageService: MessageService,
     private readonly http: HttpClient
   ) {}
 
-  onSelect (martialArt: MartialArt): void {
-    this.selectedMartialArt = martialArt
+  onSelect(martialArt: MartialArt): void {
+    this.selectedMartialArt = martialArt;
     this.messageService.add(
       `MartialArtsComponent: Selected martialArt id=${martialArt.id}`
-    )
+    );
   }
 
-  delete (martialArtToDelete: MartialArt): void {
-    this.martialArts = this.martialArts.filter(
-      martialArt => martialArt != martialArtToDelete
-    )
+  delete(martialArtToDelete: MartialArt): void {
+    this.entityCollection = this.entityCollection.filter(
+      (martialArt) => martialArt != martialArtToDelete
+    );
 
-    this.martialArtService.deleteMartialArt(martialArtToDelete.id).subscribe()
+    this.martialArtService.deleteEntity(martialArtToDelete.id).subscribe();
   }
 
-  add (name: string): void {
-    name = name.trim()
+  add(name: string): void {
+    name = name.trim();
 
     if (!name) {
-      return
+      return;
     }
 
     this.martialArtService
-      .addMartialArt({ name } as MartialArt)
-      .subscribe(martialArt => this.martialArts.push(martialArt))
+      .addEntity({ name } as MartialArt)
+      .subscribe((martialArt) => this.entityCollection.push(martialArt));
   }
 
-  getMartialArts (): void {
+  page = 1;
+  entriesPerPage = 5;
+
+  getAll(): void {
     this.martialArtService
-      .getMartialArts()
-      .subscribe(martialArts => (this.martialArts = martialArts))
+      .getMartialArts(this.page - 1, this.entriesPerPage)
+      .subscribe((martialArts) => (this.entityCollection = martialArts));
   }
 
-  ngOnInit (): void {
-    // this.getMartialArts();
+  ngOnInit(): void {
+    // this.getAll();
 
     this.activatedRoute.data.subscribe(({ martialArts }) => {
-      this.martialArts = martialArts
-    })
+      this.entityCollection = martialArts;
+    });
   }
 }

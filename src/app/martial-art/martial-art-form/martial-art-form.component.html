@@ -1,46 +1,60 @@
 <p>martial-art-form works!</p>
 
 <div class="container">
-    <div [hidden]="submitted">
-        <h1>Martial Art Form</h1>
+  <div [hidden]="submitted">
+    <h2>Martial Art Form</h2>
 
-        <form (ngSubmit)="onSubmit()" #martialArtForm="ngForm">
+    <form (ngSubmit)="onSubmit()" #martialArtForm="ngForm">
+      <div class="form-group">
+        <label for="name">
+          Name:
+          <input
+            type="text"
+            class="form-control"
+            minlength="7"
+            required
+            [(ngModel)]="model.name"
+            #name="ngModel"
+            name="name"
+            id="name"
+          />
+        </label>
 
-            <div class="form-group">
-                <label for="name">
-                    Name:
-                    <input type="text" class="form-control" minlength="7" required [(ngModel)]="model.name" #name="ngModel" name="name" id="name">
-                </label>
-
-                <div class="alert alert-danger" [hidden]="name.valid || name.pristine">
-                    Name is required
-                </div>
-            </div>
-
-            <button type="submit" class="btn btn-success" [disabled]="!martialArtForm.form.valid">
-                Submit
-            </button>
-
-            &nbsp;
-
-            <button type="button" class="btn btn-primary" (click)="newMartialArt(); martialArtForm.reset()">
-                New Martial Art
-            </button>
-
-        </form>
-    </div>
-
-    <div [hidden]="!submitted">
-        <h2>You submitted the following:</h2>
-        <div class="row">
-            <div class="col-xs-3">Name</div>
-            <div class="col-xs-9">{{model.name}}</div>
+        <div class="alert alert-danger" [hidden]="name.valid || name.pristine">
+          Name is required
         </div>
+      </div>
 
-        <br>
-        <button type="button" class="btn btn-info" (click)="submitted=false">
-            Edit
-        </button>
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="!martialArtForm.form.valid"
+      >
+        Submit
+      </button>
+
+      &nbsp;
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="newMartialArt(); martialArtForm.reset()"
+      >
+        New Martial Art
+      </button>
+    </form>
+  </div>
+
+  <div [hidden]="!submitted">
+    <h3>You submitted the following:</h3>
+    <div class="row">
+      <div class="col-xs-3">Name</div>
+      <div class="col-xs-9">{{ model.name }}</div>
     </div>
 
+    <br />
+    <button type="button" class="btn btn-info" (click)="submitted = false">
+      Edit
+    </button>
+  </div>
 </div>

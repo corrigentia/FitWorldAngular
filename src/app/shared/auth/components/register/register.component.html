@@ -1,0 +1,71 @@
+<p>register works!</p>
+
+<article>
+  <section>
+    <div class="form-signin w-100 m-auto">
+      <form [formGroup]="registrationForm" (submit)="onSubmit()" #form="ngForm">
+        <h4 class="h3 mb-3 font-weight-normal text-center">
+          Register a new account
+        </h4>
+
+        <div class="mb-3">
+          <label for="first-name">First Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="first-name"
+            formControlName="firstName"
+            placeholder="Enter first name"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="last-name">Last Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="last-name"
+            formControlName="lastName"
+            placeholder="Enter last name"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            formControlName="username"
+            placeholder="Enter username"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            formControlName="password"
+            placeholder="Enter password"
+            required
+          />
+        </div>
+
+        <div class="d-grid">
+          <button
+            class="btn btn-block btn-primary primary"
+            type="submit"
+            [disabled]="!form.form.valid"
+          >
+            Register
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+</article>

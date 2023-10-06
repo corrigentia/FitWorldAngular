@@ -10,7 +10,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, delay, map } from 'rxjs/operators';
 import { EQUIPMENTS } from 'src/app/db/cached-equipments';
 import { Equipment } from 'src/app/models/equipment';
-import { EquipmentService } from '../services/equipment.service';
+import { EquipmentService } from '../../equipment/services/equipment.service';
 
 export const realUniqueEquipmentValidator: AsyncValidatorFn = (
   control: AbstractControl
@@ -87,7 +87,7 @@ export class UniqueEquipmentValidator implements AsyncValidator {
     }
 
     return this.equipmentService
-      .isEquipmentRegistered(name.value.trim(), price.value)
+      .isEntityRegistered(name.value.trim(), price.value)
       .pipe(
         map((isRegistered) =>
           isRegistered ? { uniqueEquipment: true } : null

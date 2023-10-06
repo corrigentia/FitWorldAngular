@@ -2,17 +2,18 @@ import { Directive, forwardRef, Injectable } from '@angular/core';
 import {
   AbstractControl,
   AsyncValidator,
-  AsyncValidatorFn,
   NG_ASYNC_VALIDATORS,
   ValidationErrors,
 } from '@angular/forms';
 import { Observable, of } from 'rxjs';
-import { catchError, delay, map } from 'rxjs/operators';
-import { StudentService } from '../services/student.service';
+import { catchError, map } from 'rxjs/operators';
+import { StudentService } from '../../student/services/student.service';
+
+class TService extends StudentService {}
 
 @Injectable({ providedIn: 'root' })
 export class UniqueEmailValidator implements AsyncValidator {
-  constructor(private readonly studentService: StudentService) {
+  constructor(private readonly studentService: TService) {
     console.warn('in unique email validator class ctor');
   }
 
@@ -31,10 +32,12 @@ export class UniqueEmailValidator implements AsyncValidator {
     */
 
     this.studentService
-      .isEmailRegistered(control.value.trim())
+      // .isEmailRegistered(control.value.trim())
+      .isEntityRegistered(control.value.trim())
       .subscribe((isRegistered) => console.warn(isRegistered));
 
-    return this.studentService.isEmailRegistered(control.value.trim()).pipe(
+    // return this.studentService.isEmailRegistered(control.value.trim()).pipe(
+    return this.studentService.isEntityRegistered(control.value.trim()).pipe(
       map((isRegistered) => (isRegistered ? { uniqueEmail: true } : null)),
       catchError(() => of(null))
     );

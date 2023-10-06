@@ -1,3 +1,3 @@
-import { Class } from '../models/class';
+import { Class } from '../interfaces/class';
 
 export const CLASSES: Class[] = [];

@@ -1,12 +1,13 @@
 <!-- <p>dashboard works!</p> -->
 
-<h2>Top Students</h2>
+<h3>Top Students</h3>
 
 <div class="students-menu">
-    <!-- <a *ngFor="let student of students" routerLink="/detail/{{student.id}}"> -->
-    <a *ngFor="let student of students" routerLink="/students/{{student.id}}">
-        {{student.email}}
-    </a>
+  <!-- <a *ngFor="let student of students" routerLink="/detail/{{student.id}}"> -->
+  <a *ngFor="let student of students" routerLink="/students/{{ student.id }}">
+    <!-- {{student.email}} -->
+    {{ student.username }}
+  </a>
 </div>
 
 <app-student-search></app-student-search>

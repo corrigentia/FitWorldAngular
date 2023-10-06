@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { StudentIdEmail } from 'src/app/interfaces/student-id-email';
-import { StudentService } from 'src/app/shared/services/student.service';
+import { IStudentSpring } from 'src/app/interfaces/student-spring';
+import { StudentService } from 'src/app/student/services/student.service';
 
 @Component({
   selector: 'app-student-search',
@@ -25,7 +25,8 @@ export class StudentSearchComponent implements OnInit {
 
   // students$!: Observable<StudentIdEmail>;
   // must be the same type as the return type of studentService.searchStudents() because of the assignment/initialisation in ngOnInit()
-  students$!: Observable<StudentIdEmail[]>;
+  // students$!: Observable<StudentIdEmail[]>;
+  students$!: Observable<IStudentSpring[]>;
 
   /**
    *

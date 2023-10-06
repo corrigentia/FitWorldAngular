@@ -8,21 +8,17 @@ import {
 } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { catchError, delay, map } from 'rxjs/operators';
-import { MartialArtService } from '../services/martial-art.service';
+import { MartialArtService } from '../../martial-art/services/martial-art.service';
 
 @Injectable({ providedIn: 'root' })
 export class UniqueMartialArtValidator implements AsyncValidator {
   constructor(private readonly martialArtService: MartialArtService) {}
 
   validate(control: AbstractControl): Observable<ValidationErrors | null> {
-    return this.martialArtService
-      .isMartialArtRegistered(control.value.trim())
-      .pipe(
-        map((isRegistered) =>
-          isRegistered ? { uniqueMartialArt: true } : null
-        ),
-        catchError(() => of(null))
-      );
+    return this.martialArtService.isEntityRegistered(control.value.trim()).pipe(
+      map((isRegistered) => (isRegistered ? { uniqueMartialArt: true } : null)),
+      catchError(() => of(null))
+    );
   }
 }
 

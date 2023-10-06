@@ -1,51 +1,137 @@
 <div class="container">
-    <a routerLink="new" class="btn btn-success"> &plus; Add new Student </a>
-    &nbsp;
-    <a routerLink="search" class="btn btn-info"> &#8981; Search Students &#x2315; </a>
+  <a routerLink="new" class="btn btn-success"> &plus; Add new Student </a>
+  &nbsp;
+  <a routerLink="search" class="btn btn-info">
+    Search Students &#8981;
+    <!-- &#x2315; -->
+  </a>
 </div>
-
 
 <!--
   31/01/2023
   TODO: test adding ' name@email.co5m '
 -->
 
-<h1 id="students">Students</h1>
-<!-- <h2>Gym Members</h2> -->
+<h2 id="students">Students</h2>
+<!-- <h3>Gym Members</h3> -->
 
 <!-- <p>This part demonstrates fetching student data from the server.</p> -->
 
 <p *ngIf="!students">
-    <em>
-        Loading... Please refresh once the ASP.NET back-end has started.
-    </em>
+  <em> Loading... Please refresh once the ASP.NET back-end has started. </em>
 </p>
 
+<ng-container *ngIf="students">
+  <div class="container">
+    <label for="page">Page </label>
+    <input
+      type="number"
+      [(ngModel)]="page"
+      min="1"
+      placeholder="Page number"
+      (ngModelChange)="getStudents()"
+      id="page"
+    />
+
+    <label for="entries-per-page">Entries per Page </label>
+    <input
+      type="number"
+      [(ngModel)]="entriesPerPage"
+      min="1"
+      placeholder="How many per page"
+      (ngModelChange)="getStudents()"
+      id="entries-per-page"
+    />
+  </div>
+</ng-container>
+
 <table *ngIf="students" class="students table">
-    <thead>
-        <tr>
-            <th>Student Id</th>
-            <th>E-mail</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let student of students" (click)="onSelect(student)" [class.selected]="student === selectedStudent">
-            <td class="badge">{{ student.id }}</td>
-            <td class="email">{{ student.email }}</td>
+  <thead>
+    <tr>
+      <th>Student #</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Username</th>
+      <th>(Encrypted) Password</th>
+      <th>Equipment owned</th>
+      <th>Classes taken</th>
+      <th>authorities</th>
+      <th>Created At</th>
+      <th>Updated At</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let student of students"
+      (click)="onSelect(student)"
+      [class.selected]="student === selectedStudent"
+    >
+      <td class="badge">{{ student.id }}</td>
+      <td>{{ student.firstName }}</td>
+      <td>{{ student.lastName }}</td>
+      <!-- <td class="email">{{ student.email }}</td> -->
+      <td class="username">{{ student.username }}</td>
+      <td>{{ student.password }}</td>
+      <td align="left">
+        <ul>
+          <li *ngFor="let ownedEquipment of student.ownedEquipments">
+            {{ ownedEquipment.quantity }} *
+            <a routerLink="/equipments/{{ ownedEquipment.equipment.id }}">
+              {{ ownedEquipment.equipment.name }}
+            </a>
+          </li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li *ngFor="let classTaken of student.classesTaken">
+            <a
+              [routerLink]="['/martial-arts', classTaken.martialArt.id]"
+              routerLinkActive="router-link-active"
+            >
+              {{ classTaken.martialArt.name }}
+            </a>
 
-            <td>
-                <a routerLink="/students/{{ student.id }}" class="edit btn btn-warning">
-                    Edit &#9999; id=<span class="badge">{{ student.id }}</span>
-                </a>
-            </td>
+            by
 
-            <td>
-                <button (click)="delete(student)" class="delete btn btn-danger" title="delete student" type="button">
-                    x Delete id=<span class="badge">{{ student.id }}</span>
-                </button>
-            </td>
-        </tr>
-    </tbody>
+            <a
+              [routerLink]="['/instructors', classTaken.instructor.id]"
+              routerLinkActive="router-link-active"
+            >
+              {{ classTaken.instructor.firstName }}
+              {{ classTaken.instructor.lastName }}
+            </a>
+          </li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li align="left" *ngFor="let authority of student.authorities">
+            {{ authority.authority }}
+          </li>
+        </ul>
+      </td>
+      <td>{{ student.createdAt }}</td>
+      <td>{{ student.updatedAt }}</td>
+
+      <td>
+        <a routerLink="/students/{{ student.id }}" class="edit btn btn-warning">
+          Edit &#9999; id=<span class="badge">{{ student.id }}</span>
+        </a>
+      </td>
+
+      <td>
+        <button
+          (click)="delete(student)"
+          class="delete btn btn-danger"
+          title="delete student"
+          type="button"
+        >
+          x Delete id=<span class="badge">{{ student.id }}</span>
+        </button>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 <!-- <app-student-detail *ngIf="selectedStudent" [student]="selectedStudent"></app-student-detail> -->

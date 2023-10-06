@@ -1,8 +1,13 @@
-import { DateTimeDirective } from './date-time.directive';
+import {
+  DateTimeValidator,
+  DateTimeValidatorDirective,
+} from './date-time.directive';
 
 describe('DateTimeDirective', () => {
   it('should create an instance', () => {
-    const directive = new DateTimeDirective();
+    const validator = new DateTimeValidator();
+
+    const directive = new DateTimeValidatorDirective(validator);
     expect(directive).toBeTruthy();
   });
 });

@@ -1,8 +1,10 @@
-import { IdValidatorDirective } from './id.directive';
+import { IdValidator, IdValidatorDirective } from './id.directive';
 
 describe('IdDirective', () => {
   it('should create an instance', () => {
-    const directive = new IdValidatorDirective();
+    const validator = new IdValidator();
+
+    const directive = new IdValidatorDirective(validator);
     expect(directive).toBeTruthy();
   });
 });

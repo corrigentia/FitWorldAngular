@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CLASSES } from 'src/app/db/cached-classes';
-import { Class as IClass } from 'src/app/interfaces/class';
 import { Instructor } from 'src/app/interfaces/instructor';
 import { MartialArt } from 'src/app/interfaces/martial-art';
 import { Class } from 'src/app/models/class';
-import { ClassService } from 'src/app/shared/services/class.service';
-import { InstructorService } from 'src/app/shared/services/instructor.service';
+import { ClassService } from 'src/app/class/services/class.service';
+import { InstructorService } from 'src/app/instructor/services/instructor.service';
 import { Logger } from 'src/app/shared/services/logger.service';
-import { MartialArtService } from 'src/app/shared/services/martial-art.service';
+import { MartialArtService } from 'src/app/martial-art/services/martial-art.service';
 import { MessageService } from 'src/app/shared/services/message.service';
 
 @Component({
@@ -42,12 +41,12 @@ export class ClassFormTemplateComponent {
     }
 
     this.classService
-      .addClass({
+      .addEntity({
         martialArtId,
         instructorId,
         dateTime,
         pricePerHour,
-      } as IClass)
+      } as Class)
       .subscribe((martialArtClass) => {
         this.logger.log(`Added class ${JSON.stringify(martialArtClass)}`);
         this.messageService.add(
@@ -55,7 +54,17 @@ export class ClassFormTemplateComponent {
         );
 
         // CLASSES.push({ martialArtId, instructorId, dateTime, pricePerHour } as IClass);
-        CLASSES.push(martialArtClass);
+        CLASSES.push(
+          /*
+          new Class(
+            martialArtClass.martialArt.id,
+            martialArtClass.instructor.id,
+            martialArtClass.dateTime,
+            martialArtClass.pricePerHour
+          )
+          */
+          martialArtClass
+        );
 
         // this.router.onSameUrlNavigation = 'reload';
         // this.router.routeReuseStrategy.shouldReuseRoute = () => false;

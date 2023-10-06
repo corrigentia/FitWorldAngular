@@ -1,8 +1,13 @@
-import { InstructorIdValidatorDirective } from './instructor-id.directive';
+import {
+  InstructorIdValidator,
+  InstructorIdValidatorDirective,
+} from './instructor-id.directive';
 
 describe('InstructorIdDirective', () => {
   it('should create an instance', () => {
-    const directive = new InstructorIdValidatorDirective();
+    const validator = new InstructorIdValidator();
+
+    const directive = new InstructorIdValidatorDirective(validator);
     expect(directive).toBeTruthy();
   });
 });

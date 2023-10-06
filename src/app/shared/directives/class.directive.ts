@@ -8,11 +8,11 @@ import {
 } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { catchError, delay, first, map } from 'rxjs/operators';
-import { ClassService } from '../services/class.service';
+import { ClassService } from '../../class/services/class.service';
 
 @Injectable({ providedIn: 'root' })
 export class UniqueClassValidator implements AsyncValidator {
-  constructor(private classService: ClassService) { }
+  constructor(private classService: ClassService) {}
 
   validate(control: AbstractControl): Observable<ValidationErrors | null> {
     const instructorId = control.get('instructorId');
@@ -23,7 +23,7 @@ export class UniqueClassValidator implements AsyncValidator {
     }
 
     return this.classService
-      .isClassRegistered(instructorId.value, dateTime.value)
+      .isEntityRegistered(instructorId.value, dateTime.value)
       .pipe(
         map((isRegistered) => (isRegistered ? { uniqueClass: true } : null)),
         catchError(() => of(null))
@@ -42,7 +42,7 @@ export class UniqueClassValidator implements AsyncValidator {
   ],
 })
 export class UniqueClassValidatorDirective implements AsyncValidator {
-  constructor(private validator: UniqueClassValidator) { }
+  constructor(private validator: UniqueClassValidator) {}
 
   validate(control: AbstractControl): Observable<ValidationErrors | null> {
     return this.validator.validate(control);

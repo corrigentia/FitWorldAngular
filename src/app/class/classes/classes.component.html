@@ -1,48 +1,110 @@
 <div class="container">
-    <a routerLink="new" class="btn btn-success"> &plus; Add new Class </a>
-    &nbsp;
-    <a routerLink="search" class="btn btn-info"> &#8981; Search Classes &#x2315; </a>
+  <a routerLink="new" class="btn btn-success"> &plus; Add new Class </a>
+  &nbsp;
+  <a routerLink="search" class="btn btn-info">
+    Search Classes &#x2315; &#8981;
+  </a>
 </div>
 
-<h1 id="classes">Classes</h1>
+<h2 id="classes">Classes</h2>
 
 <p *ngIf="!classes">
-    <em>
-        Loading... Please refresh once the ASP.NET back-end has started!
-    </em>
+  <em> Loading... Please refresh once the ASP.NET back-end has started! </em>
 </p>
 
+<ng-container *ngIf="martialArts">
+  <div class="container">
+  <label for="page">Page </label>
+  <input
+    type="number"
+    [(ngModel)]="page"
+    min="1"
+    placeholder="Page number"
+    (ngModelChange)="getClasses()"
+    id="page"
+  />
+
+  <label for="entries-per-page">Entries per Page </label>
+  <input
+    type="number"
+    [(ngModel)]="entriesPerPage"
+    min="1"
+    placeholder="How many per page"
+    (ngModelChange)="getClasses()"
+    id="entries-per-page"
+  />
+  </div>
+</ng-container>
+
 <table *ngIf="classes" class="classes table">
-    <thead>
-        <tr>
-            <th> Class Id </th>
-            <th> Martial Art Id </th>
-            <th> Instructor Id </th>
-            <th> When </th>
-            <th class="price-per-hour"> Price per Hour </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let class of classes" (click)="onSelect(class)" [class.selected]="class === selectedClass">
-            <td class="badge">{{ class.id }}</td>
-            <td class="martial-art-id">{{ class.martialArtId }}</td>
-            <td class="instructor-id">{{ class.instructorId }}</td>
-            <td class="date-time"> &nbsp; {{ class.dateTime | date }} &nbsp;</td>
-            <td class="price-per-hour"> &nbsp; {{ class.pricePerHour | currency : 'EUR' }} &nbsp;</td>
+  <thead>
+    <tr>
+      <th>Class #</th>
+      <th>Martial Art</th>
+      <th>Instructor</th>
+      <th>&#10024; &#8986; &#10036; &#9202; &#11088;</th>
+      <th class="price-per-hour">&#65129;&#36;&#65284;/h</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let martialArtClass of classes"
+      (click)="onSelect(martialArtClass)"
+      [class.selected]="martialArtClass === selectedClass"
+    >
+      <td class="badge">{{ martialArtClass.id }}</td>
+      <td class="martial-art-id">
+        <a
+          [routerLink]="['/martial-arts', martialArtClass.martialArt.id]"
+          routerLinkActive="router-link-active"
+        >
+          {{ martialArtClass.martialArt.name }}
+        </a>
+      </td>
+      <td class="instructor-id">
+        <a
+          [routerLink]="['/instructors', martialArtClass.instructor.id]"
+          routerLinkActive="router-link-active"
+        >
+          {{ martialArtClass.instructor.firstName }}
+          {{ martialArtClass.instructor.lastName }}
+        </a>
+      </td>
+      <td class="date-time">
+        {{ martialArtClass.dateTime | date : "dd/MM/yyyy HH:mm" }}
+        &nbsp;
+      </td>
+      <td class="price-per-hour">
+        {{ martialArtClass.pricePerHour | currency : "EUR" }} &nbsp;
+      </td>
 
-            <td>
-                <a routerLink="/classes/{{ class.id }}" class="edit btn btn-warning">
-                    &nbsp; Edit &#9999; id=<span class="badge">{{ class.id }}</span> &nbsp;
-                </a>
-            </td>
+      <td>
+        <a
+          routerLink="/classes/{{ martialArtClass.id }}"
+          class="edit btn btn-warning"
+        >
+          &nbsp; &#9998; &#10000; id=<span class="badge">{{
+            martialArtClass.id
+          }}</span>
+          &#10002; &#9999; &nbsp;
+        </a>
+      </td>
 
-            <td>
-                <button (click)="delete(class)" class="delete btn btn-danger" title="delete class" type="button">
-                    &nbsp; x Delete id=<span class="badge">{{ class.id }}</span>
-                </button>
-            </td>
-        </tr>
-    </tbody>
+      <td>
+        <button
+          (click)="delete(martialArtClass)"
+          class="delete btn btn-danger"
+          title="delete class"
+          type="button"
+        >
+          &nbsp; &#8998; &#9249; id=<span class="badge">{{
+            martialArtClass.id
+          }}</span>
+          &#9003;
+        </button>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 <!-- <app-class-detail *ngIf="selectedClass" [class]="selectedClass"></app-class-detail> -->

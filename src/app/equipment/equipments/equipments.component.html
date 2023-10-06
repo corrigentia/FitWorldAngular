@@ -40,9 +40,9 @@
 
 <!--
 <div *ngIf="selectedEquipment">
-    <h2>
+    <h3>
         {{selectedEquipment.name | uppercase}} Details
-    </h2>
+    </h3>
 
     <div>id: {{selectedEquipment.id}}</div>
 
@@ -64,48 +64,83 @@
 
 <!-- <app-equipment-detail *ngIf="selectedEquipment" [equipment]="selectedEquipment"></app-equipment-detail> -->
 
-
 <div class="container">
-    <a routerLink="new" class="btn btn-success"> &plus; Add new Equipment </a>
-    &nbsp;
-    <a routerLink="search" class="btn btn-info"> &#8981; Search Equipments &#x2315; </a>
+  <a routerLink="new" class="btn btn-success"> &plus; Add new Equipment </a>
+  &nbsp;
+  <a routerLink="search" class="btn btn-info">
+    Search Equipments &#x2315; &#8981;
+  </a>
 </div>
 
-<h1 id="equipments">Equipments</h1>
+<h2 id="equipments">Equipments</h2>
 
 <p *ngIf="!equipments">
-    <em>
-        Loading... Please refresh once the ASP.NET back-end has started!
-    </em>
+  <em> Loading... Please refresh once the ASP.NET back-end has started! </em>
 </p>
 
+<ng-container *ngIf="equipments">
+  <div class="container">
+    <label for="page">Page </label>
+    <input
+      type="number"
+      [(ngModel)]="page"
+      min="1"
+      placeholder="Page number"
+      (ngModelChange)="getAll()"
+      id="page"
+    />
+
+    <label for="entries-per-page">Entries per Page </label>
+    <input
+      type="number"
+      [(ngModel)]="entriesPerPage"
+      min="1"
+      placeholder="How many per page"
+      (ngModelChange)="getAll()"
+      id="entries-per-page"
+    />
+  </div>
+</ng-container>
+
 <table *ngIf="equipments" class="equipments table">
-    <thead>
-        <tr>
-            <th> Equipment ID </th>
-            <th> Name </th>
-            <th class="price"> Price </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let equipment of equipments" (click)="onSelect(equipment)" [class.selected]="equipment === selectedEquipment">
-            <td class="badge">{{ equipment.id }}</td>
-            <td class="name">{{ equipment.name }}</td>
-            <td class="price">{{ equipment.price | currency : 'EUR' }}</td>
+  <thead>
+    <tr>
+      <th>Equipment #</th>
+      <th>Name</th>
+      <th class="price">&#65129;&#36;&#65284;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let equipment of equipments"
+      (click)="onSelect(equipment)"
+      [class.selected]="equipment === selectedEquipment"
+    >
+      <td class="badge">{{ equipment.id }}</td>
+      <td class="name">{{ equipment.name }}</td>
+      <td class="price">{{ equipment.price | currency : "EUR" }}</td>
 
-            <td>
-                <a routerLink="/equipments/{{ equipment.id }}" class="edit btn btn-warning">
-                    Edit &#9999; id=<span class="badge">{{ equipment.id }}</span>
-                </a>
-            </td>
+      <td>
+        <a
+          routerLink="/equipments/{{ equipment.id }}"
+          class="edit btn btn-warning"
+        >
+          Edit &#9999; id=<span class="badge">{{ equipment.id }}</span>
+        </a>
+      </td>
 
-            <td>
-                <button (click)="delete(equipment)" class="delete btn btn-danger" title="delete equipment" type="button">
-                    x Delete id=<span class="badge">{{ equipment.id }}</span>
-                </button>
-            </td>
-        </tr>
-    </tbody>
+      <td>
+        <button
+          (click)="delete(equipment)"
+          class="delete btn btn-danger"
+          title="delete equipment"
+          type="button"
+        >
+          x Delete id=<span class="badge">{{ equipment.id }}</span>
+        </button>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
-<h2>Shopping Cart</h2>
+<h3>Shopping Cart</h3>

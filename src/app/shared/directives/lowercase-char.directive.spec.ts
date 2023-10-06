@@ -1,8 +1,13 @@
-import { LowercaseCharDirective } from './lowercase-char.directive';
+import {
+  LowercaseCharValidator,
+  LowercaseCharValidatorDirective,
+} from './lowercase-char.directive';
 
 describe('LowercaseCharDirective', () => {
   it('should create an instance', () => {
-    const directive = new LowercaseCharDirective();
+    const validator = new LowercaseCharValidator();
+
+    const directive = new LowercaseCharValidatorDirective(validator);
     expect(directive).toBeTruthy();
   });
 });

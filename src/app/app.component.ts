@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from './shared/auth/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
+  title = 'Fit World';
+
+  protected loggedInId = Number(localStorage.getItem('logged_in_id'));
+
   public forecasts?: WeatherForecast[];
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly http: HttpClient,
+    protected readonly authService: AuthService
+  ) {}
   ngOnInit(): void {
     //throw new Error('Method not implemented.');
 
@@ -24,7 +32,9 @@ export class AppComponent implements OnInit {
     });
   }
 
-  title = 'Fit World';
+  onClick() {
+    this.authService.doLogOut();
+  }
 }
 
 interface WeatherForecast {

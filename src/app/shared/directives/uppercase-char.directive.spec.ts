@@ -1,8 +1,13 @@
-import { UppercaseCharDirective } from './uppercase-char.directive';
+import {
+  UppercaseCharValidator,
+  UppercaseCharValidatorDirective,
+} from './uppercase-char.directive';
 
 describe('UppercaseCharDirective', () => {
   it('should create an instance', () => {
-    const directive = new UppercaseCharDirective();
+    const validator = new UppercaseCharValidator();
+
+    const directive = new UppercaseCharValidatorDirective(validator);
     expect(directive).toBeTruthy();
   });
 });

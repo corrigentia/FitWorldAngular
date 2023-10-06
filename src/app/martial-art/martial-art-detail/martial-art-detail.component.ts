@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MartialArt } from 'src/app/interfaces/martial-art';
-import { MartialArtService } from 'src/app/shared/services/martial-art.service';
+import { MartialArtService } from 'src/app/martial-art/services/martial-art.service';
 
 @Component({
   selector: 'app-martial-art-detail',
@@ -25,7 +25,7 @@ export class MartialArtDetailComponent implements OnInit {
   save(): void {
     if (this.martialArt) {
       this.martialArtService
-        .updateMartialArt(this.martialArt)
+        .updateEntity(this.martialArt)
         .subscribe(() => this.goBack());
     }
   }
@@ -34,7 +34,7 @@ export class MartialArtDetailComponent implements OnInit {
     const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
 
     this.martialArtService
-      .getMartialArt(id)
+      .getEntity(id)
       .subscribe((martialArt) => (this.martialArt = martialArt));
   }
 

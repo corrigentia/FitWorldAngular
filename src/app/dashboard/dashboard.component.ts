@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { StudentIdEmail } from '../interfaces/student-id-email';
-import { StudentService } from '../shared/services/student.service';
+import { IStudentSpring } from '../interfaces/student-spring';
+import { StudentService } from '../student/services/student.service';
 // import { Student } from '../interfaces/student';
 
 @Component({
@@ -9,7 +9,8 @@ import { StudentService } from '../shared/services/student.service';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  students: StudentIdEmail[] = [];
+  // students: StudentIdEmail[] = [];
+  students: IStudentSpring[] = [];
 
   /**
    *
@@ -18,15 +19,15 @@ export class DashboardComponent implements OnInit {
     // super();
   }
 
-  getStudents(): void {
+  getAll(): void {
     this.studentService
-      .getStudents()
+      .getStudents(0,7)
       .subscribe((students) => (this.students = students.slice(1, 5)));
   }
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.getStudents();
+    this.getAll();
   }
 }

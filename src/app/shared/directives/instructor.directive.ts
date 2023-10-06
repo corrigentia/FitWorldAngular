@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { catchError, delay, first, map } from 'rxjs/operators';
-import { InstructorService } from '../services/instructor.service';
+import { InstructorService } from '../../instructor/services/instructor.service';
 
 @Injectable({ providedIn: 'root' })
 export class UniqueInstructorValidator implements AsyncValidator {
@@ -23,7 +23,7 @@ export class UniqueInstructorValidator implements AsyncValidator {
     }
 
     return this.instructorService
-      .isInstructorRegistered(firstName.value.trim(), lastName.value?.trim())
+      .isEntityRegistered(firstName.value.trim(), lastName.value?.trim())
       .pipe(
         map((isRegistered) =>
           isRegistered ? { uniqueInstructor: true } : null

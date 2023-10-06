@@ -1,370 +1,777 @@
-import { Injectable } from '@angular/core'
-import { InMemoryDbService } from 'angular-in-memory-web-api'
-import { Class } from 'src/app/interfaces/class'
-import { Equipment } from 'src/app/interfaces/equipment'
-import { Instructor } from 'src/app/interfaces/instructor'
-import { MartialArt } from 'src/app/interfaces/martial-art'
-import { StudentIdEmail } from '../../interfaces/student-id-email'
+import { Injectable } from '@angular/core';
+import { InMemoryDbService } from 'angular-in-memory-web-api';
+import { Class } from 'src/app/interfaces/class';
+import { Equipment } from 'src/app/interfaces/equipment';
+import { Instructor } from 'src/app/interfaces/instructor';
+import { MartialArt } from 'src/app/interfaces/martial-art';
+// import { StudentIdEmail } from '../../interfaces/student-id-email'
+import { IStudentSpring } from '../../interfaces/student-spring';
 // import { Student } from '../interfaces/student';
 
+type TStudent = IStudentSpring;
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class InMemoryDataService implements InMemoryDbService {
-  createDb () {
-    const students: StudentIdEmail[] = [
-      {
-        id: 1,
-        email: 'andrew_rix@fitworld.be'
-      },
-      {
-        id: 2,
-        email: 'bella_novy@fitworld.be'
-      },
-      {
-        id: 3,
-        email: 'chris_tyana@fitworld.be'
-      },
-      {
-        id: 4,
-        email: 'danny_kit@fitworld.be'
-      },
-      {
-        id: 5,
-        email: 'emma_star@fiworld.be'
-      },
-      {
-        id: 6,
-        email: 'fynn_chin@fitworld.be'
-      },
-      {
-        id: 7,
-        email: 'gottlieb_master@fitworld.be'
-      },
-      {
-        id: 8,
-        email: 'hector_sing@fitworld.be'
-      },
-      {
-        id: 9,
-        email: 'ibis_fall@fitworld.be'
-      },
-      {
-        id: 10,
-        email: 'jane_red@fitworld.be'
-      },
-      {
-        id: 11,
-        email: 'kourtney_k@fitworld.be'
-      },
-      {
-        id: 12,
-        email: 'lore_map@fitworld.be'
-      },
-      {
-        id: 13,
-        email: 'mane_shein@fitworld.be'
-      },
-      {
-        id: 14,
-        email: 'naave_stem@fitworld.be'
-      },
-      {
-        id: 15,
-        email: 'olivia_win@fitworld.be'
-      },
-      {
-        id: 16,
-        email: 'paolo_rubia@fitworld.be'
-      },
-      {
-        id: 17,
-        email: 'qian_storre@fitworld.be'
-      },
-      {
-        id: 18,
-        email: 'rider_ban@fitworld.be'
-      },
-      {
-        id: 19,
-        email: 'shannon_crow@fitworld.be'
-      },
-      {
-        id: 20,
-        email: 'tiffany_ruby@fitworld.be'
-      },
-      {
-        id: 21,
-        email: 'ursula_bear@fitworld.be'
-      },
-      {
-        id: 22,
-        email: 'veronika_bold@fitworld.be'
-      },
-      {
-        id: 23,
-        email: 'walter_must@fitworld.be'
-      },
-      {
-        id: 24,
-        email: 'xena_sim@fitworld.be'
-      },
-      {
-        id: 25,
-        email: 'yian_exo@fitworld.be'
-      },
-      {
-        id: 26,
-        email: 'zen_vann@fitworld.be'
-      },
-      {
-        id: 27,
-        email: 'username@site.tld'
-      },
-      {
-        id: 28,
-        email: 'masutatsu@oyama.kr'
-      },
-      {
-        id: 29,
-        email: 'gichin@funakoshi.jp'
-      },
-      {
-        id: 30,
-        email: 'anko@itosu.jp'
-      },
-      {
-        id: 31,
-        email: 'chouki@motobu.jp'
-      }
-    ].sort(student => student.id)
-
+  createDb() {
     const equipments: Equipment[] = [
       {
         id: 1,
         name: 'Bo stick',
-        price: 129.98
+        price: 129.98,
       },
       {
         id: 2,
         name: 'Bokken',
-        price: 22.0
+        price: 22.0,
       },
       {
         id: 3,
         name: 'Hanbo',
-        price: 16.9
+        price: 16.9,
       },
       {
         id: 4,
         name: 'Katana',
-        price: 169.0
+        price: 169.0,
       },
       {
         id: 5,
         name: 'Tanto',
-        price: 90.0
+        price: 90.0,
       },
       {
         id: 6,
         name: 'Uniform',
-        price: 117.5
-      }
-    ].sort(equipment => equipment.id)
+        price: 117.5,
+      },
+      {
+        id: 7,
+        name: 'Uniform',
+        price: 169.0,
+      },
+      {
+        id: 8,
+        name: 'Tan',
+        price: 6,
+      },
+      {
+        id: 9,
+        name: 'to',
+        price: 1,
+      },
+    ].sort((equipment) => equipment.id);
 
     const martialArts: MartialArt[] = [
       {
         id: 1,
-        name: 'Aikido'
+        name: 'Aikido',
       },
       {
         id: 2,
-        name: 'Baguazhang'
+        name: 'Baguazhang',
       },
       {
         id: 3,
-        name: 'Boxing'
+        name: 'Boxing',
       },
       {
         id: 4,
-        name: 'Brazilian JuJutsu'
+        name: 'Brazilian JuJutsu',
       },
       {
         id: 5,
-        name: 'JKD'
+        name: 'JKD',
       },
       {
         id: 6,
-        name: 'Judo'
+        name: 'Judo',
       },
       {
         id: 7,
-        name: 'Karate'
+        name: 'Karate',
       },
       {
         id: 8,
-        name: 'Kendo'
+        name: 'Kendo',
       },
       {
         id: 9,
-        name: 'Kickboxing'
+        name: 'Kickboxing',
       },
       {
         id: 10,
-        name: 'MMA'
+        name: 'MMA',
       },
       {
         id: 11,
-        name: 'Muay Thai'
+        name: 'Muay Thai',
       },
       {
         id: 12,
-        name: 'Ninjutsu'
+        name: 'Ninjutsu',
       },
       {
         id: 13,
-        name: 'Shaolin Kung Fu'
+        name: 'Shaolin Kung Fu',
       },
       {
         id: 14,
-        name: 'Tai chi'
+        name: 'Tai chi',
       },
       {
         id: 15,
-        name: 'TKD'
+        name: 'TKD',
       },
       {
         id: 16,
-        name: 'Wing Chun'
-      }
-    ].sort(martialArt => martialArt.id)
+        name: 'Wing Chun',
+      },
+    ].sort((martialArt) => martialArt.id);
 
     const instructors: Instructor[] = [
       {
         id: 2004,
         firstName: 'Astra',
-        lastName: null
+        lastName: null,
+        username: 'chouki@fitworld.be',
+        password: 'chouki@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: 2006,
         firstName: 'Bell',
-        lastName: null
+        lastName: null,
+        username: 'chouki@fitworld.be',
+        password: 'chouki@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: 1,
         firstName: 'Bruce',
-        lastName: 'Lee'
+        lastName: 'Lee',
+        username: 'chouki@fitworld.be',
+        password: 'chouki@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: 2005,
         firstName: 'Heinz',
-        lastName: null
+        lastName: null,
+        username: 'chouki@fitworld.be',
+        password: 'chouki@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: 3,
         firstName: 'Ip',
-        lastName: 'Man'
+        lastName: 'Man',
+        username: 'chouki@fitworld.be',
+        password: 'chouki@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: 2,
         firstName: 'Jet',
-        lastName: 'Li'
+        lastName: 'Li',
+        username: 'chouki@fitworld.be',
+        password: 'chouki@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: 2002,
         firstName: 'May',
-        lastName: null
+        lastName: null,
+        username: 'chouki@fitworld.be',
+        password: 'chouki@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: 4,
         firstName: 'Mike',
-        lastName: 'Tyson'
+        lastName: 'Tyson',
+        username: 'chouki@fitworld.be',
+        password: 'chouki@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: 5,
         firstName: 'Muhammad',
-        lastName: 'Ali'
+        lastName: 'Ali',
+        username: 'chouki@fitworld.be',
+        password: 'chouki@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: 1001,
         firstName: 'Nameless',
-        lastName: null
+        lastName: null,
+        username: 'chouki@fitworld.be',
+        password: 'chouki@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: 1003,
         firstName: 'NoName',
-        lastName: null
+        lastName: null,
+        username: 'chouki@fitworld.be',
+        password: 'chouki@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: 2003,
         firstName: 'Tzaho',
-        lastName: null
+        lastName: null,
+        username: 'chouki@fitworld.be',
+        password: 'chouki@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: 2001,
         firstName: 'Xun',
-        lastName: null
+        lastName: null,
+        username: 'chouki@fitworld.be',
+        password: 'chouki@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: 2007,
         firstName: 'Yirusz',
-        lastName: null
-      }
-    ].sort(instructor => instructor.id)
+        lastName: null,
+        username: 'chouki@fitworld.be',
+        password: 'chouki@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ].sort((instructor) => instructor.id);
 
     const classes: Class[] = [
       {
         id: 1,
-        martialArtId: 2,
-        instructorId: 1,
+        // martialArtId: 2,
+        martialArt: martialArts[1],
+        // instructorId: 1,
+        instructor: instructors[0],
         dateTime: new Date('2023-02-06T11:31:00'),
-        pricePerHour: 0.06
+        pricePerHour: 0.06,
       },
       {
         id: 2,
-        martialArtId: 16,
-        instructorId: 3,
+        // martialArtId: 16,
+        martialArt: martialArts[15],
+        // instructorId: 3,
+        instructor: instructors[2],
         dateTime: new Date('2023-02-06T22:20:00'),
-        pricePerHour: 0.42
+        pricePerHour: 0.42,
       },
       {
         id: 3,
-        martialArtId: 3,
-        instructorId: 4,
+        // martialArtId: 3,
+        martialArt: martialArts[2],
+        // instructorId: 4,
+        instructor: instructors[3],
         dateTime: new Date('2023-02-06T22:21:00'),
-        pricePerHour: 1.25
+        pricePerHour: 1.25,
       },
       {
         id: 4,
-        martialArtId: 3,
-        instructorId: 5,
+        // martialArtId: 3,
+        martialArt: martialArts[2],
+        // instructorId: 5,
+        instructor: instructors[4],
         dateTime: new Date('2023-02-06T22:21:00'),
-        pricePerHour: 1.17
+        pricePerHour: 1.17,
       },
       {
         id: 5,
-        martialArtId: 13,
-        instructorId: 2,
+        // martialArtId: 13,
+        martialArt: martialArts[12],
+        // instructorId: 2,
+        instructor: instructors[1],
         dateTime: new Date('2023-02-06T22:22:00'),
-        pricePerHour: 1.23
-      }
-    ].sort(martialArtClass => martialArtClass.id)
+        pricePerHour: 1.23,
+      },
+    ].sort((martialArtClass) => martialArtClass.id);
+
+    // const students: StudentIdEmail[] = [
+    const students: TStudent[] = [
+      {
+        id: 1,
+        firstName: 'Andrew',
+        lastName: 'Rix',
+        // email: 'andrew_rix@fitworld.be',
+        username: 'andrew_rix@fitworld.be',
+        password: 'Andrew_rix@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 2,
+        firstName: 'Bella',
+        lastName: 'Novy',
+        // email: 'bella_novy@fitworld.be',
+        username: 'bella_novy@fitworld.be',
+        password: 'bella_novy@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 3,
+        firstName: 'Chris',
+        lastName: 'Tyana',
+        // email: 'chris_tyana@fitworld.be',
+        username: 'chris_tyana@fitworld.be',
+        password: 'chris_tyana@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 4,
+        firstName: 'Danny',
+        lastName: 'Kit',
+        // email: 'danny_kit@fitworld.be',
+        username: 'danny_kit@fitworld.be',
+        password: 'danny_kit@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 5,
+        firstName: 'Emma',
+        lastName: 'Star',
+        // email: 'emma_star@fiworld.be',
+        username: 'emma_star@fitworld.be',
+        password: 'emma_star@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 6,
+        firstName: 'Fynn',
+        lastName: 'Chin',
+        // email: 'fynn_chin@fitworld.be',
+        username: 'fynn_chin@fitworld.be',
+        password: 'fynn_chin@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 7,
+        firstName: 'Gottlieb',
+        lastName: 'Master',
+        // email: 'gottlieb_master@fitworld.be',
+        username: 'gottlieb_master@fitworld.be',
+        password: 'gottlieb_master@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 8,
+        firstName: 'Hector',
+        lastName: 'Sing',
+        // email: 'hector_sing@fitworld.be',
+        username: 'hector_sing@fitworld.be',
+        password: 'hector_sing@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 9,
+        firstName: 'Ibis',
+        lastName: 'Fall',
+        // email: 'ibis_fall@fitworld.be',
+        username: 'ibis_fall@fitworld.be',
+        password: 'ibis_fall@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 10,
+        firstName: 'Jane',
+        lastName: 'Red',
+        // email: 'jane_red@fitworld.be',
+        username: 'jane_red@fitworld.be',
+        password: 'jane_red@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 11,
+        firstName: 'Kourtney',
+        lastName: 'K',
+        // email: 'kourtney_k@fitworld.be',
+        username: 'kourtney_k@fitworld.be',
+        password: 'kourtney_k@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 12,
+        firstName: 'Lore',
+        lastName: 'Map',
+        // email: 'lore_map@fitworld.be',
+        username: 'lore_map@fitworld.be',
+        password: 'lore_map@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 13,
+        firstName: 'Mane',
+        lastName: 'Shein',
+        // email: 'mane_shein@fitworld.be',
+        username: 'mane_shein@fitworld.be',
+        password: 'mane_shein@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 14,
+        firstName: 'Naave',
+        lastName: 'Stem',
+        // email: 'naave_stem@fitworld.be',
+        username: 'naave_stem@fitworld.be',
+        password: 'naave_stem@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 15,
+        firstName: 'Olivia',
+        lastName: 'Win',
+        // email: 'olivia_win@fitworld.be',
+        username: 'olivia_win@fitworld.be',
+        password: 'olivia_win@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 16,
+        firstName: 'Paolo',
+        lastName: 'Rubia',
+        // email: 'paolo_rubia@fitworld.be',
+        username: 'paolo_rubia@fitworld.be',
+        password: 'paolo_rubia@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 17,
+        firstName: 'Qian',
+        lastName: 'Storre',
+        // email: 'qian_storre@fitworld.be',
+        username: 'qian_storre@fitworld.be',
+        password: 'qian_storre@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 18,
+        firstName: 'Rider',
+        lastName: 'Ban',
+        // email: 'rider_ban@fitworld.be',
+        username: 'rider_ban@fitworld.be',
+        password: 'rider_ban@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 19,
+        firstName: 'Shannon',
+        lastName: 'Crow',
+        // email: 'shannon_crow@fitworld.be',
+        username: 'shannon_crow@fitworld.be',
+        password: 'shannon_crow@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 20,
+        firstName: 'Tiffany',
+        lastName: 'Ruby',
+        // email: 'tiffany_ruby@fitworld.be',
+        username: 'tiffany_ruby@fitworld.be',
+        password: 'tiffany_ruby@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 21,
+        firstName: 'Ursula',
+        lastName: 'Bear',
+        // email: 'ursula_bear@fitworld.be',
+        username: 'ursula_bear@fitworld.be',
+        password: 'ursula_bear@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 22,
+        firstName: 'Veronika',
+        lastName: 'Bold',
+        // email: 'veronika_bold@fitworld.be',
+        username: 'veronika_bold@fitworld.be',
+        password: 'veronika_bold@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 23,
+        firstName: 'Walter',
+        lastName: 'Must',
+        // email: 'walter_must@fitworld.be',
+        username: 'walter_must@fitworld.be',
+        password: 'walter_must@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 24,
+        firstName: 'Xena',
+        lastName: 'Sim',
+        // email: 'xena_sim@fitworld.be',
+        username: 'xena_sim@fitworld.be',
+        password: 'xena_sim@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 25,
+        firstName: 'Yian',
+        lastName: 'Exo',
+        // email: 'yian_exo@fitworld.be',
+        username: 'yian_exo@fitworld.be',
+        password: 'yian_exo@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 26,
+        firstName: 'Zen',
+        lastName: 'Vann',
+        // email: 'zen_vann@fitworld.be',
+        username: 'zen_vann@fitworld.be',
+        password: 'zen_vann@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 27,
+        firstName: 'User',
+        lastName: 'Name',
+        // email: 'username@site.tld',
+        username: 'username@fitworld.be',
+        password: 'username@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 28,
+        firstName: 'Masutatsu',
+        lastName: 'Oyama',
+        // email: 'masutatsu@oyama.kr',
+        username: 'masutatsu@fitworld.be',
+        password: 'masutatsu@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 29,
+        firstName: 'Gichin',
+        lastName: 'Funakoshi',
+        // email: 'gichin@funakoshi.jp',
+        username: 'gichin@fitworld.be',
+        password: 'gichin@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 30,
+        firstName: 'Anko',
+        lastName: 'Itosu',
+        // email: 'anko@itosu.jp',
+        username: 'anko@fitworld.be',
+        password: 'anko@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 31,
+        firstName: 'Chouki',
+        lastName: 'Motobu',
+        // email: 'chouki@motobu.jp',
+        username: 'chouki@fitworld.be',
+        password: 'chouki@2A',
+        ownedEquipments: [],
+        classesTaken: [],
+        authorities: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ].sort((student) => student.id);
 
     // TODO: discover reason why this must be encapsulated...!!
     // return students;
-    return { students, equipments, martialArts, instructors, classes }
+    return { students, equipments, martialArts, instructors, classes };
   }
 
-  constructor () {}
+  constructor() {}
 
-  genId<T extends StudentIdEmail | Equipment | MartialArt | Instructor | Class> (
+  // genId<T extends StudentIdEmail | Equipment | MartialArt | Instructor | Class>(
+  genId<T extends TStudent | Equipment | MartialArt | Instructor | Class>(
     collection: T[]
   ): number {
-    console.log('typeof collection:', typeof collection)
-    console.log('typeof (collection[0]):', typeof collection[0])
+    console.log('typeof collection:', typeof collection);
+    console.log('typeof (collection[0]):', typeof collection[0]);
 
     return collection.length > 0
-      ? Math.max(...collection.map(member => member.id)) + 1
-      : 51
+      ? Math.max(...collection.map((member) => member.id)) + 1
+      : 51;
   }
 }

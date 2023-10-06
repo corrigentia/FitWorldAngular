@@ -1,43 +1,79 @@
 <div class="container">
-    <a routerLink="new" class="btn btn-success"> &plus; Add new Martial Art </a>
-    &nbsp;
-    <a routerLink="search" class="btn btn-info"> &#8981; Search Martial Arts &#x2315; </a>
+  <a routerLink="new" class="btn btn-success"> &plus; Add new Martial Art </a>
+  &nbsp;
+  <a routerLink="search" class="btn btn-info">
+    Search Martial Arts &#x2315; &#8981;
+  </a>
 </div>
 
-<h1 id="martial-arts">Martial Arts</h1>
-<!-- <h2>Martial Arts</h2> -->
+<h2 id="martial-arts">Martial Arts</h2>
+<!-- <h3>Martial Arts</h3> -->
 
-<p *ngIf="!martialArts">
-    <em>
-        Loading... Please refresh once the ASP.NET back-end has started!
-    </em>
+<p *ngIf="!entityCollection">
+  <em> Loading... Please refresh once the ASP.NET back-end has started! </em>
 </p>
 
-<table *ngIf="martialArts" class="martial-arts table">
-    <thead>
-        <tr>
-            <th> Martial Art Id </th>
-            <th> Name </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let martialArt of martialArts" (click)="onSelect(martialArt)" [class.selected]="martialArt === selectedMartialArt">
-            <td class="badge">{{ martialArt.id }}</td>
-            <td class="name">{{ martialArt.name }}</td>
+<ng-container *ngIf="entityCollection">
+  <div class="container">
+  <label for="page">Page </label>
+  <input
+    type="number"
+    [(ngModel)]="page"
+    min="1"
+    placeholder="Page number"
+    (ngModelChange)="getAll()"
+    id="page"
+  />
 
-            <td>
-                <a routerLink="/martial-arts/{{ martialArt.id }}" class="edit btn btn-warning">
-                    Edit &#9999; id=<span class="badge">{{ martialArt.id }}</span>
-                </a>
-            </td>
+  <label for="entries-per-page">Entries per Page </label>
+  <input
+    type="number"
+    [(ngModel)]="entriesPerPage"
+    min="1"
+    placeholder="How many per page"
+    (ngModelChange)="getAll()"
+    id="entries-per-page"
+  />
+  </div>
+</ng-container>
 
-            <td>
-                <button (click)="delete(martialArt)" class="delete btn btn-danger" title="delete martial art" type="button">
-                    x Delete id=<span class="badge">{{ martialArt.id }}</span>
-                </button>
-            </td>
-        </tr>
-    </tbody>
+<table *ngIf="entityCollection" class="martial-arts table">
+  <thead>
+    <tr>
+      <th>Martial Art #</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let martialArt of entityCollection"
+      (click)="onSelect(martialArt)"
+      [class.selected]="martialArt === selectedMartialArt"
+    >
+      <td class="badge">{{ martialArt.id }}</td>
+      <td class="name">{{ martialArt.name }}</td>
+
+      <td>
+        <a
+          routerLink="/martial-arts/{{ martialArt.id }}"
+          class="edit btn btn-warning"
+        >
+          Edit &#9999; id=<span class="badge">{{ martialArt.id }}</span>
+        </a>
+      </td>
+
+      <td>
+        <button
+          (click)="delete(martialArt)"
+          class="delete btn btn-danger"
+          title="delete martial art"
+          type="button"
+        >
+          x Delete id=<span class="badge">{{ martialArt.id }}</span>
+        </button>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 <!-- <app-martial-art-detail *ngIf="selectedMartialArt" [martialArt]="selectedMartialArt"></app-martial-art-detail> -->

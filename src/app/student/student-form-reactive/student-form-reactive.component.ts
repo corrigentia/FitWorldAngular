@@ -1,28 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  EmailValidator,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { STUDENTS } from 'src/app/db/cached-students';
-import { EmailPassword } from 'src/app/models/email-password';
-import { EmailPassword as IEmailPassword } from 'src/app/interfaces/email-password';
-import { UniqueEmailValidator } from 'src/app/shared/directives/email.directive';
-import { identityRevealedValidator } from 'src/app/shared/directives/identity-revealed.directive';
-import {
-  WhiteSpaceValidator,
-  WhiteSpaceValidatorDirective,
-} from 'src/app/shared/directives/white-space.directive';
-import { StudentService } from 'src/app/shared/services/student.service';
-import { MessageService } from 'src/app/shared/services/message.service';
-import { Logger } from 'src/app/shared/services/logger.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UppercaseCharValidator } from 'src/app/shared/directives/uppercase-char.directive';
-import { LowercaseCharValidator } from 'src/app/shared/directives/lowercase-char.directive';
+import { STUDENTS } from 'src/app/db/cached-students';
+import { IStudentSpring } from 'src/app/interfaces/student-spring';
+// import { EmailPassword as IEmailPassword } from 'src/app/interfaces/email-password';
+// import { EmailPassword } from 'src/app/models/email-password';
+import { StudentSpring as StudentSpringClass } from 'src/app/models/student-spring';
 import { DigitCharValidator } from 'src/app/shared/directives/digit-char.directive';
+import { LowercaseCharValidator } from 'src/app/shared/directives/lowercase-char.directive';
 import { SymbolCharValidator } from 'src/app/shared/directives/symbol-char.directive';
-import { EmailTldValidator } from 'src/app/shared/directives/email-tld.directive';
+import { UppercaseCharValidator } from 'src/app/shared/directives/uppercase-char.directive';
+import { UniqueUsernameValidator } from 'src/app/shared/directives/username.directive';
+import { WhiteSpaceValidator } from 'src/app/shared/directives/white-space.directive';
+import { Logger } from 'src/app/shared/services/logger.service';
+import { MessageService } from 'src/app/shared/services/message.service';
+import { StudentService } from 'src/app/student/services/student.service';
+
+class TService extends StudentService {}
+type TInterface = IStudentSpring;
+class TClass extends StudentSpringClass {
+  /*
+  constructor(
+    firstName: string,
+    lastName: string,
+    username: string,
+    password: string
+  ) {
+    super(firstName, lastName, username, password);
+  }
+  */
+}
 
 @Component({
   selector: 'app-student-form-reactive',
@@ -31,31 +38,62 @@ import { EmailTldValidator } from 'src/app/shared/directives/email-tld.directive
 })
 export class StudentFormReactiveComponent implements OnInit {
   studentForm!: FormGroup;
-  student = { ...new EmailPassword('', ''), confirmPassword: '' };
+  student = { ...new TClass('', '', '', ''), confirmPassword: '' };
 
   constructor(
     private readonly router: Router,
     private readonly logger: Logger,
     private readonly messageService: MessageService,
+    // private readonly studentService: TService, // .spec threw a hissy
     private readonly studentService: StudentService,
-    private readonly emailValidator: UniqueEmailValidator
+    // private readonly emailValidator: UniqueEmailValidator
+    private readonly usernameValidator: UniqueUsernameValidator
   ) {}
 
+  // TODO: fails the spec/test with undefined.pending probably from some validator // ngOnInit seems to fall unde the category of "change" since detectChanges() throws it
   ngOnInit(): void {
     this.studentForm = new FormGroup(
       {
-        email: new FormControl(this.student.email, {
+        firstName: new FormControl(this.student.firstName, {
           validators: [
             Validators.required,
-            Validators.email,
-            Validators.minLength(5),
+            Validators.minLength(2),
             // Validators.maxLength(64),
             WhiteSpaceValidator.noWhiteSpace,
-            EmailTldValidator.hasTld,
             // forbiddenNameValidator(/bob/i) // <-- Here's how you pass in the custom validator.
           ],
           asyncValidators: [
-            this.emailValidator.validate.bind(this.emailValidator),
+            //
+          ],
+          updateOn: 'blur',
+        }),
+        lastName: new FormControl(this.student.lastName, {
+          validators: [
+            Validators.required,
+            Validators.minLength(2),
+            // Validators.maxLength(64),
+            WhiteSpaceValidator.noWhiteSpace,
+            // forbiddenNameValidator(/bob/i) // <-- Here's how you pass in the custom validator.
+          ],
+          asyncValidators: [
+            //
+          ],
+          updateOn: 'blur',
+        }),
+        // email: new FormControl(this.student.email, {
+        username: new FormControl(this.student.username, {
+          validators: [
+            Validators.required,
+            // Validators.email,
+            Validators.minLength(2),
+            // Validators.maxLength(64),
+            WhiteSpaceValidator.noWhiteSpace,
+            // EmailTldValidator.hasTld,
+            // forbiddenNameValidator(/bob/i) // <-- Here's how you pass in the custom validator.
+          ],
+          asyncValidators: [
+            // this.emailValidator.validate.bind(this.emailValidator),
+            this.usernameValidator.validate.bind(this.usernameValidator),
           ],
           updateOn: 'blur',
         }),
@@ -95,7 +133,21 @@ export class StudentFormReactiveComponent implements OnInit {
     );
   }
 
+  /*
   get email() {
+    return this.studentForm.get('email')!;
+  }
+  */
+
+  get firstName() {
+    return this.studentForm.get('email')!;
+  }
+
+  get lastName() {
+    return this.studentForm.get('email')!;
+  }
+
+  get username() {
     return this.studentForm.get('email')!;
   }
 
@@ -107,18 +159,30 @@ export class StudentFormReactiveComponent implements OnInit {
     return this.studentForm.get('confirmPassword')!;
   }
 
-  add(email: string, password: string): void {
+  // add(email: string, password: string): void {
+  add(
+    firstName: string,
+    lastName: string,
+    username: string,
+    password: string
+  ): void {
     // 30/01/2023
     // TODO: check for spaces before and after entered string
-    email = email.trim();
+    // email = email.trim();
+    firstName = firstName.trim();
+    lastName = lastName.trim();
+    username = username.trim();
     password = password.trim();
 
-    if (!email || !password) {
+    // if (!email || !password) {
+    if (!firstName || !username || !password) {
       return;
     }
 
+    // this.studentService
     this.studentService
-      .addStudent({ email, password } as IEmailPassword)
+      // .addStudent({ email, password } as IEmailPassword)
+      .addStudent({ firstName, lastName, username, password } as TInterface)
       .subscribe((student) => {
         this.logger.log(`Added student ${JSON.stringify(student)}`);
         this.messageService.add(`Added student ${JSON.stringify(student)}`);
@@ -126,14 +190,12 @@ export class StudentFormReactiveComponent implements OnInit {
         // STUDENTS.push({ email, password } as IEmailPassword);
         STUDENTS.push(student);
 
-
         // this.router.onSameUrlNavigation = 'reload';
         // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.navigateByUrl('students');
 
         // this.router.routeReuseStrategy.shouldReuseRoute = () => true;
         // this.router.onSameUrlNavigation = 'ignore';
-
       });
   }
 }

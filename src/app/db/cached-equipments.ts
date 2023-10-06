@@ -1,3 +1,3 @@
-import { Equipment } from '../models/equipment';
+import { Equipment } from '../interfaces/equipment';
 
 export const EQUIPMENTS: Equipment[] = [];
