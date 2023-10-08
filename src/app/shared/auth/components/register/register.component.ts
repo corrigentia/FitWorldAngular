@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { firstNameLastNameEmailPasswordRegistrationForm } from './../../forms/first-name-last-name-email-password-register-form';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -19,7 +20,7 @@ export type IForm<T> = {
 const registrationFormConst: IForm<UserRegistration> = {
   firstName: [''],
   lastName: [''],
-  username: [''],
+  email: [''],
   password: [''],
 };
 
@@ -28,7 +29,7 @@ const registrationFormConst: IForm<UserRegistration> = {
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   protected /*readonly*/ registrationForm = new FormGroup({
     firstName: new FormControl<string>('', {
       validators: [Validators.required],
@@ -36,7 +37,7 @@ export class RegisterComponent {
 
     lastName: new FormControl<string>(''),
 
-    username: new FormControl<string>('', {
+    email: new FormControl<string>('', {
       validators: [Validators.required],
     }),
 
@@ -73,9 +74,19 @@ export class RegisterComponent {
   ) {
     // this.registrationForm = this.fb.group(registrationForm);
   }
+  ngOnInit(): void {
+    // throw new Error('Method not implemented.');
+    this.registrationForm = this.fb.group({
+      ...firstNameLastNameEmailPasswordRegistrationForm,
+    });
+  }
 
   onSubmit() {
     console.log('registrationForm:', this.registrationForm);
+
+    if (this.registrationForm.invalid) {
+      return;
+    }
 
     this.authService
       .registerStudent(
@@ -88,6 +99,8 @@ export class RegisterComponent {
 
           this.registrationForm.value.password ?? ''
         )
+
+        // this.registrationForm.value
       )
       .subscribe((authResponse: AuthResponse) => {
         console.log(`data after registration: ${authResponse}`);

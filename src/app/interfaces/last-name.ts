@@ -1,3 +1,3 @@
 export interface LastName {
-  lastName: string | null;
+  lastName: string | undefined;
 }

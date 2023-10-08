@@ -58,7 +58,7 @@ export class InstructorSearchComponent implements OnInit {
   private nameSearchTerms = new Subject<string>();
   private firstNameSearchTerms = new Subject<string>();
   private fullNameSearchTerms = new Subject<string>();
-  private lastNameSearchTerms = new Subject<string | undefined>();
+  private lastNameSearchTerms = new Subject<string>();
 
   /**
    * Push a search term into the `Observable` stream
@@ -77,7 +77,7 @@ export class InstructorSearchComponent implements OnInit {
     this.fullNameSearchTerms.next(term);
   }
 
-  searchByLastName(term?: string): void {
+  searchByLastName(term: string): void {
     this.lastNameSearchTerms.next(term);
   }
 

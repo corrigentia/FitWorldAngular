@@ -6,8 +6,10 @@ import { IStudentSpring } from 'src/app/interfaces/student-spring';
 import { Logger } from '../../services/logger.service';
 import { MessageService } from '../../services/message.service';
 import { AuthResponse } from '../interfaces/auth-response';
-import { Login } from '../interfaces/login';
+import { IUserLogInForm } from '../interfaces/login';
 import { UserRegistration } from '../interfaces/user-registration';
+import { UserTokenDTO } from '../../session/interfaces/user-token-d-t-o';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -47,10 +49,17 @@ export class AuthService {
     };
   }
 
-  registerStudent(form: UserRegistration): Observable<AuthResponse> {
+  // registerStudent(form: UserRegistration): Observable<AuthResponse> {
+  registerStudent(form: UserRegistration): Observable<UserTokenDTO> {
     const url = `${this.endpoint}/register`;
 
-    return this.http.post<AuthResponse>(url, form).pipe(
+    // return this.http.post<AuthResponse>(url, form).pipe(
+    return this.http.post<UserTokenDTO>(
+      environment.apiBaseUrl + '/register',
+      form
+    );
+    /*
+    .pipe(
       tap((authResponse: AuthResponse) => {
         this.logger.log(
           `Registered student ${JSON.stringify(authResponse)} w/ id=${
@@ -61,6 +70,7 @@ export class AuthService {
       }),
       catchError(this.handleError<AuthResponse>('registerStudent'))
     );
+    */
   }
 
   getUserProfile(id: number): Observable<IStudentSpring> {
@@ -76,35 +86,40 @@ export class AuthService {
     );
   }
 
-  logInStudent(form: Login) {
+  logInStudent(form: IUserLogInForm): Observable<UserTokenDTO> {
     const url = `${this.endpoint}/signIn`;
 
-    return this.http
-      .post<AuthResponse>(url, form)
-      .subscribe((authResponse: AuthResponse) => {
-        console.log('form:', form);
-        console.log('authResponse.token: ', authResponse.token);
-        console.log('authResponse: ', authResponse);
+    return (
+      this.http
+        // .post<AuthResponse>(url, form)
+        .post<UserTokenDTO>(environment.apiBaseUrl + '/signIn', form)
+      /*
+        .subscribe((authResponse: AuthResponse) => {
+          console.log('form:', form);
+          console.log('authResponse.token: ', authResponse.token);
+          console.log('authResponse: ', authResponse);
 
-        localStorage.setItem('access_token', authResponse.token);
-        console.log('access_token:', localStorage.getItem('access_token'));
-        console.log('authResponse.user:', authResponse.user);
-        console.log('authResponse.user.id:', authResponse.user.id);
+          localStorage.setItem('access_token', authResponse.token);
+          console.log('access_token:', localStorage.getItem('access_token'));
+          console.log('authResponse.user:', authResponse.user);
+          console.log('authResponse.user.id:', authResponse.user.id);
 
-        this.getUserProfile(authResponse.user.id).subscribe((fetchedUser) => {
-          console.log('this.currentUser:', this.currentUser);
-          console.log('fetchedUser:', fetchedUser);
+          this.getUserProfile(authResponse.user.id).subscribe((fetchedUser) => {
+            console.log('this.currentUser:', this.currentUser);
+            console.log('fetchedUser:', fetchedUser);
 
-          this.currentUser = fetchedUser;
-          console.log('this.currentUser:', this.currentUser);
+            this.currentUser = fetchedUser;
+            console.log('this.currentUser:', this.currentUser);
 
-          localStorage.setItem('logged_in_id', String(fetchedUser.id));
+            localStorage.setItem('logged_in_id', String(fetchedUser.id));
 
-          this.router.navigate([
-            'students/' + localStorage.getItem('logged_in_id'),
-          ]);
-        });
-      });
+            this.router.navigate([
+              'students/' + localStorage.getItem('logged_in_id'),
+            ]);
+          });
+        })
+        */
+    );
   }
 
   getToken() {

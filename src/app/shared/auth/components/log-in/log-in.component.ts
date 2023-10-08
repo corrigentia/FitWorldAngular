@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { emailPasswordLogInForm } from './../../forms/email-password-log-in-form';
+import { Router } from '@angular/router';
+import { SessionService } from './../../../session/services/session.service';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -6,15 +9,16 @@ import {
   Validators,
 } from '@angular/forms';
 import { LoginCtor } from '../../classes/models/login-ctor';
-import { Login } from '../../interfaces/login';
+import { IUserLogInForm } from '../../interfaces/login';
 import { AuthService } from '../../services/auth.service';
+import { UserTokenDTO } from '../../../session/interfaces/user-token-d-t-o';
 
 export type IForm<T> = {
   [K in keyof T]: any;
 };
 
-const loginFormConst: IForm<Login> = {
-  username: new FormControl<string>('', {
+const loginFormConst: IForm<IUserLogInForm> = {
+  email: new FormControl<string>('', {
     validators: [Validators.required],
   }),
 
@@ -28,10 +32,10 @@ const loginFormConst: IForm<Login> = {
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.css'],
 })
-export class LogInComponent {
+export class LogInComponent implements OnInit {
   // loginForm: FormGroup;
   loginForm: FormGroup = new FormGroup({
-    username: new FormControl<string>('', {
+    email: new FormControl<string>('', {
       validators: [Validators.required],
     }),
 
@@ -42,20 +46,41 @@ export class LogInComponent {
 
   constructor(
     private readonly authService: AuthService,
-    private readonly fb: FormBuilder
+    private readonly fb: FormBuilder,
+    private readonly _session: SessionService,
+    private readonly _router: Router
   ) {
     // this.loginForm = this.fb.group(loginForm);
+  }
+  ngOnInit(): void {
+    // throw new Error('Method not implemented.');
+    this.loginForm = this.fb.group({ ...emailPasswordLogInForm });
   }
 
   onSubmit() {
     console.log('loginForm:', this.loginForm);
 
-    this.authService.logInStudent(
-      new LoginCtor(
-        this.loginForm.value.username,
+    if (this.loginForm.invalid) {
+      return;
+    }
 
-        this.loginForm.value.password
+    this.authService
+      .logInStudent(
+        /*
+        new LoginCtor(
+          this.loginForm.value.email,
+
+          this.loginForm.value.password
+        )
+        */
+        this.loginForm.value
       )
-    );
+      .subscribe({
+        next: (value: UserTokenDTO) => {
+          this._session.start(value);
+
+          this._router.navigate(['home']);
+        },
+      });
   }
 }
