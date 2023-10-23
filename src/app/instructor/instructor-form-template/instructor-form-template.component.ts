@@ -10,11 +10,11 @@ import { INSTRUCTORS } from 'src/app/db/cached-instructors';
 @Component({
   selector: 'app-instructor-form-template',
   templateUrl: './instructor-form-template.component.html',
-  styleUrls: ['./instructor-form-template.component.css'],
+  // styleUrls: ['./instructor-form-template.component.css'],
 })
 export class InstructorFormTemplateComponent {
   // instructor = new Instructor('');
-  instructor = new Instructor('',null);
+  instructor = { ...new Instructor('', '', '', null), confirmPassword: '' };
 
   constructor(
     private readonly router: Router,
@@ -23,18 +23,28 @@ export class InstructorFormTemplateComponent {
     private readonly instructorService: InstructorService
   ) {}
 
-  add(firstName: string, lastName?: string): void {
+  add(
+    email: string,
+    password: string,
+    firstName: string,
+    lastName?: string
+  ): void {
+    console.log('inside the form template ts : ');
+    console.log('firstName : ', firstName);
+    console.log('lastName : ', lastName);
     // 30/01/2023
     // TODO: check for spaces before and after entered string
+    email = email.trim();
+    password = password.trim();
     firstName = firstName.trim();
     lastName = lastName?.trim();
 
-    if (!firstName) {
+    if (!email || !password || !firstName) {
       return;
     }
 
     this.instructorService
-      .addEntity({ firstName, lastName } as IInstructor)
+      .addEntity({ email, password, firstName, lastName } as IInstructor)
       .subscribe((instructor) => {
         this.logger.log(`Added equipment ${JSON.stringify(instructor)}`);
         this.messageService.add(

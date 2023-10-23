@@ -6,7 +6,7 @@ import { StudentService } from '../student/services/student.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'],
+  // styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
   // students: StudentIdEmail[] = [];
@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
 
   getAll(): void {
     this.studentService
-      .getStudents(0,7)
+      .getStudents(0, 7)
       .subscribe((students) => (this.students = students.slice(1, 5)));
   }
 

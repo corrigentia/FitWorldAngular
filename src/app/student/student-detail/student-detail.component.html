@@ -14,48 +14,135 @@
         <div>
           <span> <span> id: </span>{{ student.id }} </span>
         </div>
+        student fully here:
+        {{ student | json }}
         <h3>
-          <!-- {{ student.email | uppercase }} Details -->
-          {{ student.username | uppercase }} Details
+          {{ student.email | uppercase }} Details
+          <!-- {{ student.username | uppercase }} Details -->
         </h3>
-        <!-- 
-                <div class="form-group">
-                    <label for="email">
-                        Email
-                        <input type="email" id="email" class="form-control" required name="email" minlength="5" [(ngModel)]="student.email" #email="ngModel" [ngModelOptions]="{ updateOn: 'blur' }" appUniqueEmail appNoWhiteSpace email appEmailTld>
-                    </label>
 
-                    <div *ngIf="email.pending">Validating...</div>
-                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger email-errors">
+        <div class="form-group">
+          <label for="first-name">
+            First Name
+            <input
+              type="text"
+              id="first-name"
+              class="form-control"
+              required
+              name="first-name"
+              minlength="2"
+              [(ngModel)]="student.firstName"
+              #firstName="ngModel"
+              [ngModelOptions]="{ updateOn: 'blur' }"
+              appNoWhiteSpace
+            />
+          </label>
+          <div *ngIf="firstName.pending">Validating...</div>
+          <div
+            *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+            class="alert alert-danger first-name-errors"
+          >
+            <div *ngIf="firstName.errors?.['required']">
+              First Name is required.
+            </div>
+            <div *ngIf="firstName.errors?.['minlength']">
+              First Name must be at least 5 characters long.
+            </div>
+            <div *ngIf="firstName.errors?.['maxlength']">
+              First Name must be at most 64 characters long.
+            </div>
+            <div *ngIf="firstName.errors?.['noWhiteSpace']">
+              First Name must not contain spaces.
+            </div>
+          </div>
+        </div>
 
-                        <div *ngIf="email.errors?.['required']">
-                            Email is required.
-                        </div>
-                        <div *ngIf="email.errors?.['minlength']">
-                            Email must be at least 5 characters long.
-                        </div>
-                        <div *ngIf="email.errors?.['maxlength']">
-                            Email must be at most 64 characters long.
-                        </div>
-                        <div *ngIf="email.errors?.['email']">
-                            Email must be properly formatted.
-                        </div>
-                        <div *ngIf="email.errors?.['emailTld']">
-                            Email must have a TLD after the last '.' character.
-                        </div>
-                        <div *ngIf="email.errors?.['pattern']">
-                            Email must be properly formatted.
-                        </div>
-                        <div *ngIf="email.errors?.['noWhiteSpace']">
-                            Email must not contain spaces.
-                        </div>
-                        <div *ngIf="email.errors?.['uniqueEmail']">
-                            Email is already registered.
-                        </div>
-                    </div>
-                </div>
-                 -->
+        <div class="form-group">
+          <label for="last-name">
+            Last Name
+            <input
+              type="text"
+              id="last-name"
+              class="form-control"
+              name="last-name"
+              minlength="0"
+              [(ngModel)]="student.lastName"
+              #lastName="ngModel"
+              [ngModelOptions]="{ updateOn: 'blur' }"
+              appNoWhiteSpace
+            />
+          </label>
+          <div *ngIf="lastName.pending">Validating...</div>
+          <div
+            *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
+            class="alert alert-danger last-name-errors"
+          >
+            <div *ngIf="lastName.errors?.['required']">
+              Last Name is required.
+            </div>
+            <div *ngIf="lastName.errors?.['minlength']">
+              Last Name must be at least 0 characters long.
+            </div>
+            <div *ngIf="lastName.errors?.['maxlength']">
+              Last Name must be at most 64 characters long.
+            </div>
+            <div *ngIf="lastName.errors?.['noWhiteSpace']">
+              Last Name must not contain spaces.
+            </div>
+          </div>
+        </div>
 
+        <div class="form-group">
+          <label for="email">
+            Email
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              required
+              name="email"
+              minlength="5"
+              [(ngModel)]="student.email"
+              #email="ngModel"
+              [ngModelOptions]="{ updateOn: 'blur' }"
+              appNoWhiteSpace
+              email
+              appEmailTld
+            />
+            <!-- appUniqueEmail -->
+          </label>
+
+          <div *ngIf="email.pending">Validating...</div>
+          <div
+            *ngIf="email.invalid && (email.dirty || email.touched)"
+            class="alert alert-danger email-errors"
+          >
+            <div *ngIf="email.errors?.['required']">Email is required.</div>
+            <div *ngIf="email.errors?.['minlength']">
+              Email must be at least 5 characters long.
+            </div>
+            <div *ngIf="email.errors?.['maxlength']">
+              Email must be at most 64 characters long.
+            </div>
+            <div *ngIf="email.errors?.['email']">
+              Email must be properly formatted.
+            </div>
+            <div *ngIf="email.errors?.['emailTld']">
+              Email must have a TLD after the last '.' character.
+            </div>
+            <div *ngIf="email.errors?.['pattern']">
+              Email must be properly formatted.
+            </div>
+            <div *ngIf="email.errors?.['noWhiteSpace']">
+              Email must not contain spaces.
+            </div>
+            <div *ngIf="email.errors?.['uniqueEmail']">
+              Email is already registered.
+            </div>
+          </div>
+        </div>
+
+        <!--
         <div class="form-group">
           <label for="username">
             Username
@@ -100,6 +187,7 @@
             </div>
           </div>
         </div>
+         -->
 
         <div class="form-group">
           <label for="password">

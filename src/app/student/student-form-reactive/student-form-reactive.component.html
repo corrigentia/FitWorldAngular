@@ -7,7 +7,7 @@
     [formGroup]="studentForm"
     #formDir="ngForm"
     (ngSubmit)="
-      add(firstName.value, lastName.value, username.value, password?.value)
+      add(firstName.value, lastName.value, email.value, password?.value)
     "
   >
     <div [hidden]="formDir.submitted">
@@ -99,7 +99,6 @@
         <!-- #endregion -->
 
         <!-- #region email -->
-        <!-- 
         <div class="form-group">
           <label for="email">
             Email
@@ -122,20 +121,16 @@
               Email must be at least 5 characters long.
             </div>
             <div *ngIf="email.errors?.['maxlength']">
-               -->
-        <!--
+              <!--
                             31/01/2023
                             TODO: update email maxlength 64, not 320
                           -->
-        <!-- 
               Email must be at most 64 characters long.
             </div>
- -->
-        <!--
+            <!--
                         {{ email.value.length }} :
                           {{ email.value }}
                         -->
-        <!-- 
             <div *ngIf="email.errors?.['email']">
               Email must be properly formatted.
             </div>
@@ -150,10 +145,10 @@
             </div>
           </div>
         </div>
-         -->
         <!-- #endregion -->
 
         <!-- #region username -->
+        <!--
         <div class="form-group">
           <label for="username">
             Username
@@ -177,16 +172,20 @@
               Username must be at least 2 characters long.
             </div>
             <div *ngIf="username.errors?.['maxlength']">
-              <!--
+               -->
+        <!--
                             31/01/2023
                             TODO: update username maxlength 64, not 320
                           -->
+        <!--
               Username must be at most 64 characters long.
             </div>
-            <!--
+             -->
+        <!--
                         {{ username.value.length }} :
                           {{ username.value }}
                         -->
+        <!--
             <div *ngIf="username.errors?.['noWhiteSpace']">
               Username must not contain spaces.
             </div>
@@ -195,6 +194,7 @@
             </div>
           </div>
         </div>
+         -->
         <!-- #endregion -->
 
         <div

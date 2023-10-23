@@ -10,7 +10,7 @@ import { MARTIAL_ARTS } from 'src/app/db/cached-martial-arts';
 @Component({
   selector: 'app-martial-art-form-template',
   templateUrl: './martial-art-form-template.component.html',
-  styleUrls: ['./martial-art-form-template.component.css'],
+  // styleUrls: ['./martial-art-form-template.component.css'],
 })
 export class MartialArtFormTemplateComponent {
   martialArt = new MartialArt('');

@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "types": [
+      "node",
+      "webdriverio/async",
+      "jest",
+      "mocha",
+      "expect-webdriverio",
+      "@wdio/globals/types",
+      "@wdio/mocha-framework",
+      "@wdio/jasmine-framework",
+      "@wdio/cucumber-framework",
+      "@wdio/devtools-service",
+    ],
+    "target": "es2019"
+  }
+}

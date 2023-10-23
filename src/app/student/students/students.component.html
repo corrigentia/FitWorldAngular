@@ -1,5 +1,11 @@
 <div class="container">
-  <a routerLink="new" class="btn btn-success"> &plus; Add new Student </a>
+  <a
+    routerLink="new"
+    class="btn btn-success"
+    *ngIf="anonymousAdminNotInstructorUserGuard"
+  >
+    &plus; Add new Student
+  </a>
   &nbsp;
   <a routerLink="search" class="btn btn-info">
     Search Students &#8981;
@@ -69,8 +75,8 @@
       <td class="badge">{{ student.id }}</td>
       <td>{{ student.firstName }}</td>
       <td>{{ student.lastName }}</td>
-      <!-- <td class="email">{{ student.email }}</td> -->
-      <td class="username">{{ student.username }}</td>
+      <td class="email">{{ student.email }}</td>
+      <!-- <td class="username">{{ student.username }}</td> -->
       <td>{{ student.password }}</td>
       <td align="left">
         <ul>

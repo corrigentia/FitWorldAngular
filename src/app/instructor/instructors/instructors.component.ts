@@ -8,7 +8,7 @@ import { MessageService } from 'src/app/shared/services/message.service';
 @Component({
   selector: 'app-instructors',
   templateUrl: './instructors.component.html',
-  styleUrls: ['./instructors.component.css'],
+  // styleUrls: ['./instructors.component.css'],
 })
 export class InstructorsComponent implements OnInit {
   protected instructors: Instructor[] = [];

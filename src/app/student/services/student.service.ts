@@ -1,3 +1,5 @@
+import { AuthService } from './../../shared/auth/services/auth.service';
+import { UserRegistration } from './../../shared/auth/interfaces/user-registration';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
@@ -14,17 +16,23 @@ import { IStudentSpring } from 'src/app/interfaces/student-spring';
 import { MessageService } from '../../shared/services/message.service';
 import { EntityCrudService } from 'src/app/shared/services/entity-crud.service';
 import { IEntityRegisteredService } from 'src/app/shared/services/i-entity-registered';
+import { environment } from '../../../environments/environment';
+import { UserTokenDTO } from '../../shared/session/interfaces/user-token-d-t-o';
+import { SessionService } from '../../shared/session/services/session.service';
+import { NavigationService } from '../../shared/services/navigation.service';
+// import { Student } from 'src/app/interfaces/student';
 
 type MainType = IStudentSpring;
+// type MainType = UserRegistration;
 
 class ModelClassConstructor extends StudentSpringClass {
   constructor(
-    firstName: string,
-    lastName: string | null,
     username: string,
-    password: string
+    password: string,
+    firstName: string,
+    lastName: string | null
   ) {
-    super(firstName, lastName, username, password);
+    super(username, password, firstName, lastName);
   }
 }
 
@@ -42,7 +50,11 @@ export class StudentService
   // TODO: STUDENTS
   // students = of(STUDENTS);
 
-  constructor() {
+  constructor(
+    private readonly authService: AuthService,
+    private readonly _session: SessionService,
+    private readonly _navigation: NavigationService
+  ) {
     super('student', STUDENTS);
   }
 
@@ -59,7 +71,7 @@ export class StudentService
           students.filter(
             // student => student.email.toUpperCase() === givenEmail.toUpperCase()
             (student) =>
-              student.username.toUpperCase() === givenUsername.toUpperCase()
+              student.email.toUpperCase() === givenUsername.toUpperCase()
           ).length > 0;
 
         return isRegistered;
@@ -94,10 +106,10 @@ export class StudentService
     return super.getAll(
       (student) =>
         new ModelClassConstructor(
+          student.email,
+          student.password,
           student.firstName,
-          student.lastName,
-          student.username,
-          student.password
+          student.lastName
         ),
 
       /*
@@ -206,8 +218,15 @@ export class StudentService
     // WORKS above
     // TODO: check whether the below works, mimicking official Angular way
     // const body = { ...student } as EmailPassword
-    const body = { ...student } as MainType;
+    // const body = { ...student } as MainType;
+    const body = {
+      firstName: student.firstName,
+      lastName: student.lastName,
+      email: student.email,
+      password: student.password,
+    };
 
+    this.log('student update form : ');
     this.log(JSON.stringify(body));
 
     // this.log(body.studentId.toString());
@@ -221,6 +240,7 @@ export class StudentService
     return this.http.put(url, body, this.httpOptions).pipe(
       // tap((_) => {
       tap((object) => {
+        console.log('just inside put request');
         this.logger.log(
           `Updated student ${JSON.stringify(student)} id=${
             student.id
@@ -239,8 +259,9 @@ export class StudentService
    * @returns the `Observable<StudentIdEmail>` to the caller
    */
   // addStudent (/*arg0*/ student: EmailPassword): Observable<StudentIdEmail> {
-  addStudent(/*arg0*/ student: MainType): Observable<MainType> {
-    const url = 'api/auth/register';
+  addStudent(/*arg0*/ student: UserRegistration): Observable<MainType> {
+    // const url = 'api/auth/register';
+    const url = `http://localhost:8080/register`;
 
     // return this.http.post<StudentIdEmail>(url, student, this.httpOptions).pipe(
     return this.http.post<MainType>(url, student, this.httpOptions).pipe(

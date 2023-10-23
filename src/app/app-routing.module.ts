@@ -40,19 +40,23 @@ import { StudentFormTemplateComponent } from './student/student-form-template/st
 import { StudentSearchComponent } from './student/student-search/student-search.component';
 import { StudentsComponent } from './student/students/students.component';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
+import { adminGuard } from './shared/auth/guards/admin.guard';
+import { instructorOrHigherGuard } from './shared/auth/guards/instructor-or-higher.guard';
+import { anonymousAdminNotInstructorUserGuard } from './shared/auth/guards/anonymous-admin-not-instructor-user.guard';
+import { anonymousGuard } from './shared/auth/guards/anonymous.guard';
+import { loggedInNotInstructorGuard } from './shared/auth/guards/logged-in-not-instructor.guard';
 
 export const routes: Routes = [
   {
-    // path: '/',
     path: '',
+    component: LogInComponent,
     // redirectTo: '/dashboard',
     // redirectTo: 'dashboard',
-    redirectTo: 'classes',
+    // redirectTo: 'classes',
     pathMatch: 'full',
   },
   /*
   {
-    // path: '/dashboard',
     path: 'dashboard',
     component: DashboardComponent,
   },
@@ -60,230 +64,251 @@ export const routes: Routes = [
   // 31/01/2023
   // TODO: remove this route
   {
-    // path: '/students/newReactive',
-    path: 'students/newReactive',
-    component: StudentFormReactiveComponent,
-    resolve: {
-      students: StudentsResolver,
-    },
-  },
-  {
-    // path: '/students/new',
-    path: 'students/new',
-    component: StudentFormTemplateComponent,
-    resolve: {
-      students: StudentsResolver,
-    },
-  },
-  {
-    // path: '/students/search',
-    path: 'students/search',
-    component: StudentSearchComponent,
-    resolve: {
-      students: StudentsResolver,
-    },
-  },
-  {
-    // path: '/students/:id',
-    path: 'students/:id',
-    component: StudentDetailComponent,
-    resolve: {
-      student: StudentResolver,
-    },
-  },
-  {
-    // path: '/students',
     path: 'students',
-    component: StudentsComponent,
-    resolve: {
-      students: StudentsResolver,
-    },
+    canActivate: [AuthGuard],
+    // canActivateChild: [instructorOrHigherGuard],
+    children: [
+      {
+        path: '',
+        component: StudentsComponent,
+        resolve: {
+          students: StudentsResolver,
+        },
+      },
+      {
+        path: 'newReactive',
+        canActivate: [anonymousAdminNotInstructorUserGuard],
+        canActivateChild: [anonymousAdminNotInstructorUserGuard],
+        component: StudentFormReactiveComponent,
+        resolve: {
+          students: StudentsResolver,
+        },
+      },
+      {
+        path: 'new',
+        canActivate: [anonymousAdminNotInstructorUserGuard],
+        canActivateChild: [anonymousAdminNotInstructorUserGuard],
+        component: StudentFormTemplateComponent,
+        resolve: {
+          students: StudentsResolver,
+        },
+      },
+      {
+        path: 'search',
+        component: StudentSearchComponent,
+        resolve: {
+          students: StudentsResolver,
+        },
+      },
+      {
+        path: ':id',
+        canActivate: [AuthGuard],
+        component: StudentDetailComponent,
+        resolve: {
+          student: StudentResolver,
+        },
+      },
+    ],
   },
   {
     path: 'register',
+    canActivate: [anonymousGuard],
     component: RegisterComponent,
     title: 'Sign Up',
   },
   {
     path: 'log-in',
+    canActivate: [anonymousGuard],
     component: LogInComponent,
     title: 'Sign In',
   },
   {
-    // path: '/instructors/newReactive',
-    path: 'instructors/newReactive',
-    component: InstructorFormReactiveComponent,
-    resolve: {
-      instructors: InstructorsResolver,
-    },
-  },
-  {
-    // path: '/instructors/new',
-    path: 'instructors/new',
-    component: InstructorFormTemplateComponent,
-    resolve: {
-      instructors: InstructorsResolver,
-    },
-  },
-  {
-    // path: '/instructors/search',
-    path: 'instructors/search',
-    component: InstructorSearchComponent,
-    resolve: {
-      instructors: InstructorsResolver,
-    },
-    canActivate: [AuthGuard],
-  },
-  {
-    // path: '/instructors/:id',
-    path: 'instructors/:id',
-    component: InstructorDetailComponent,
-    resolve: {
-      instructor: InstructorResolver,
-    },
-  },
-  {
-    // path: '/instructors',
     path: 'instructors',
-    component: InstructorsComponent,
-    resolve: {
-      instructors: InstructorsResolver,
-    },
+    canActivate: [AuthGuard, loggedInNotInstructorGuard],
+    children: [
+      {
+        path: '',
+        component: InstructorsComponent,
+        resolve: {
+          instructors: InstructorsResolver,
+        },
+      },
+      {
+        path: 'newReactive',
+        component: InstructorFormReactiveComponent,
+        resolve: {
+          instructors: InstructorsResolver,
+        },
+      },
+      {
+        path: 'new',
+        component: InstructorFormTemplateComponent,
+        resolve: {
+          instructors: InstructorsResolver,
+        },
+      },
+      {
+        path: 'search',
+        component: InstructorSearchComponent,
+        resolve: {
+          instructors: InstructorsResolver,
+        },
+        canActivate: [AuthGuard],
+      },
+      {
+        path: ':id',
+        component: InstructorDetailComponent,
+        resolve: {
+          instructor: InstructorResolver,
+        },
+      },
+    ],
   },
   {
-    // path: '/martial-arts/newReactive',
-    path: 'martial-arts/newReactive',
-    component: MartialArtFormReactiveComponent,
-    resolve: {
-      martialArts: MartialArtsResolver,
-    },
-  },
-  {
-    // path: '/martial-arts/new',
-    path: 'martial-arts/new',
-    component: MartialArtFormTemplateComponent,
-    resolve: {
-      martialArts: MartialArtsResolver,
-    },
-  },
-  {
-    // path: '/martial-arts/search',
-    path: 'martial-arts/search',
-    component: MartialArtSearchComponent,
-    resolve: {
-      martialArts: MartialArtsResolver,
-    },
-  },
-  {
-    // path: '/martial-arts/:id',
-    path: 'martial-arts/:id',
-    component: MartialArtDetailComponent,
-    resolve: {
-      martialArt: MartialArtResolver,
-    },
-  },
-  {
-    // path: '/martial-arts',
     path: 'martial-arts',
-    component: MartialArtsComponent,
-    resolve: {
-      martialArts: MartialArtsResolver,
-    },
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        component: MartialArtsComponent,
+        resolve: {
+          martialArts: MartialArtsResolver,
+        },
+      },
+      {
+        path: 'newReactive',
+        component: MartialArtFormReactiveComponent,
+        resolve: {
+          martialArts: MartialArtsResolver,
+        },
+      },
+      {
+        path: 'new',
+        component: MartialArtFormTemplateComponent,
+        resolve: {
+          martialArts: MartialArtsResolver,
+        },
+      },
+      {
+        path: 'search',
+        component: MartialArtSearchComponent,
+        resolve: {
+          martialArts: MartialArtsResolver,
+        },
+      },
+      {
+        path: ':id',
+        component: MartialArtDetailComponent,
+        resolve: {
+          martialArt: MartialArtResolver,
+        },
+      },
+    ],
   },
   {
-    // path: '/classes/newReactive',
-    path: 'classes/newReactive',
-    component: ClassFormReactiveComponent,
-    resolve: {
-      classes: ClassesResolver,
-    },
-  },
-  {
-    // path: '/classes/new',
-    path: 'classes/new',
-    component: ClassFormTemplateComponent,
-    resolve: {
-      classes: ClassesResolver,
-    },
-  },
-  {
-    // path: '/classes/search',
-    path: 'classes/search',
-    component: ClassSearchComponent,
-    resolve: {
-      classes: ClassesResolver,
-      martialArts: MartialArtsResolver,
-      instructors: InstructorsResolver,
-    },
-  },
-  {
-    // path: '/classes/:id',
-    path: 'classes/:id',
-    component: ClassDetailComponent,
-    resolve: {
-      martialArtClass: ClassResolver,
-      instructors: InstructorsResolver,
-      martialArts: MartialArtsResolver,
-      // classes: ClassesResolver,
-    },
-  },
-  {
-    // path: '/classes',
+    // main.ts:10  Error: NG04014: Invalid configuration of route '/classes': path cannot start with a slash
     path: 'classes',
-    component: ClassesComponent,
-    resolve: {
-      classes: ClassesResolver,
-    },
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        component: ClassesComponent,
+        resolve: { classes: ClassesResolver },
+      },
+      {
+        path: 'newReactive',
+        canActivate: [adminGuard],
+        component: ClassFormReactiveComponent,
+        resolve: {
+          classes: ClassesResolver,
+        },
+      },
+      {
+        path: 'new',
+        canActivate: [adminGuard],
+        component: ClassFormTemplateComponent,
+        resolve: {
+          classes: ClassesResolver,
+        },
+      },
+      {
+        path: 'search',
+        canActivate: [AuthGuard],
+        component: ClassSearchComponent,
+        resolve: {
+          classes: ClassesResolver,
+          martialArts: MartialArtsResolver,
+          instructors: InstructorsResolver,
+        },
+      },
+      {
+        path: ':id',
+        component: ClassDetailComponent,
+        resolve: {
+          martialArtClass: ClassResolver,
+          instructors: InstructorsResolver,
+          martialArts: MartialArtsResolver,
+          // classes: ClassesResolver,
+        },
+      },
+    ],
   },
   {
-    // path: '/equipments/newReactive',
-    path: 'equipments/newReactive',
-    component: EquipmentFormReactiveComponent,
-    resolve: {
-      equipments: EquipmentsResolver,
-    },
-  },
-  {
-    // path: '/equipments/new',
-    path: 'equipments/new',
-    component: EquipmentFormTemplateComponent,
-    resolve: {
-      equipments: EquipmentsResolver,
-    },
-  },
-  {
-    // path: '/equipments/search',
-    path: 'equipments/search',
-    component: EquipmentSearchComponent,
-    resolve: {
-      equipments: EquipmentsResolver,
-    },
-  },
-  {
-    // path: '/equipments/:id',
-    path: 'equipments/:id',
-    component: EquipmentDetailComponent,
-    resolve: {
-      equipment: EquipmentResolver,
-    },
-  },
-  {
-    // path: '/equipments',
     path: 'equipments',
-    component: EquipmentsComponent,
-    resolve: {
-      equipments: EquipmentsResolver,
-    },
+    canActivate: [AuthGuard],
+    // without specifying component: EquipmentsComponent, on navigation away from and back to this route, no component is loaded ... never mind, I just had to include the resolver in the sub-route as well
+    children: [
+      {
+        path: '',
+        component: EquipmentsComponent,
+        resolve: { equipments: EquipmentsResolver },
+      },
+      {
+        path: 'newReactive',
+        canActivate: [adminGuard],
+        component: EquipmentFormReactiveComponent,
+        resolve: { equipments: EquipmentsResolver },
+      },
+      {
+        path: 'new',
+        canActivate: [adminGuard],
+        component: EquipmentFormTemplateComponent,
+        resolve: { equipments: EquipmentsResolver },
+      },
+      {
+        path: 'search',
+        component: EquipmentSearchComponent,
+        resolve: { equipments: EquipmentsResolver },
+      },
+      {
+        // should NOT come before others, or it will capture the route and throw an error if it is not a number
+        path: ':id',
+        component: EquipmentDetailComponent,
+        resolve: { equipment: EquipmentResolver },
+      },
+    ],
+  },
+  {
+    path: 'not-found',
+    component: PageNotFoundComponent,
   },
   {
     path: '**',
-    component: PageNotFoundComponent,
+    // component: PageNotFoundComponent,
+    redirectTo: '/not-found',
   },
 ];
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, RouterModule.forRoot(routes)],
+  imports: [
+    CommonModule,
+    RouterModule.forRoot(routes, {
+      scrollPositionRestoration: 'enabled',
+      anchorScrolling: 'enabled',
+      onSameUrlNavigation: 'reload',
+    }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

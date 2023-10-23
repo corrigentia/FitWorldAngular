@@ -24,7 +24,7 @@ import { Class as ClassClass } from 'src/app/models/class';
 @Component({
   selector: 'app-class-detail',
   templateUrl: './class-detail.component.html',
-  styleUrls: ['./class-detail.component.css'],
+  // styleUrls: ['./class-detail.component.css'],
   // providers: [ClassService], // TODO: analyze what it would do differently
 })
 // AfterContentInit,

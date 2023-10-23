@@ -4,7 +4,7 @@ import { MartialArt } from 'src/app/models/martial-art';
 @Component({
   selector: 'app-martial-art-form',
   templateUrl: './martial-art-form.component.html',
-  styleUrls: ['./martial-art-form.component.css'],
+  // styleUrls: ['./martial-art-form.component.css'],
 })
 export class MartialArtFormComponent {
   protected submitted = false;

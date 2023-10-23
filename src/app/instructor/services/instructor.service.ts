@@ -14,8 +14,13 @@ type MainType = Instructor;
 
 class ModelClassConstructor extends InstructorClass {
   // constructor(firstName: string, lastName: string | undefined) {
-  constructor(firstName: string, lastName: string | null) {
-    super(firstName, lastName);
+  constructor(
+    email: string,
+    password: string,
+    firstName: string,
+    lastName: string | null
+  ) {
+    super(email, password, firstName, lastName);
   }
 }
 
@@ -76,8 +81,13 @@ import INSTRUCTORS
     return super.getAll(
       // fill cache and remember IDs
 
-      (instructors) =>
-        new InstructorClass(instructors.firstName, instructors.lastName),
+      (instructor) =>
+        new InstructorClass(
+          instructor.email,
+          instructor.password,
+          instructor.firstName,
+          instructor.lastName
+        ),
 
       pageOffset,
       entriesPerPage

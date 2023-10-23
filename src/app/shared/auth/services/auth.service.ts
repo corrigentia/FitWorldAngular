@@ -55,7 +55,8 @@ export class AuthService {
 
     // return this.http.post<AuthResponse>(url, form).pipe(
     return this.http.post<UserTokenDTO>(
-      environment.apiBaseUrl + '/register',
+      // environment.apiBaseUrl + '/register',
+      url,
       form
     );
     /*
@@ -87,12 +88,23 @@ export class AuthService {
   }
 
   logInStudent(form: IUserLogInForm): Observable<UserTokenDTO> {
+    console.log('in auth.service.logInStudent');
+
     const url = `${this.endpoint}/signIn`;
+
+    console.log('url', url);
+    console.log('environment.apiBaseUrl', environment.apiBaseUrl);
+    console.log(
+      'environment.apiBaseUrl + /signIn',
+      environment.apiBaseUrl + '/signIn'
+    );
+    console.log('form', form);
 
     return (
       this.http
         // .post<AuthResponse>(url, form)
-        .post<UserTokenDTO>(environment.apiBaseUrl + '/signIn', form)
+        // .post<UserTokenDTO>(environment.apiBaseUrl + '/signIn', form)
+        .post<UserTokenDTO>(this.endpoint + '/signIn', form)
       /*
         .subscribe((authResponse: AuthResponse) => {
           console.log('form:', form);

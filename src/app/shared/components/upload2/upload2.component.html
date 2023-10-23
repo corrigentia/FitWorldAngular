@@ -1,0 +1,10 @@
+<p>upload2 works!</p>
+<form action="">
+  <input
+    type="file"
+    title="image"
+    accept="image/png, image/jpeg"
+    (change)="onFileSelected($event)"
+  />
+  <button type="submit" (click)="uploadFile()">Upload</button>
+</form>

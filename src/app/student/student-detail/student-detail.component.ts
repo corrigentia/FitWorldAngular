@@ -1,3 +1,5 @@
+import { NavigationService } from './../../shared/services/navigation.service';
+import { SessionService } from './../../shared/session/services/session.service';
 import { Location } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -6,11 +8,12 @@ import { AuthService } from 'src/app/shared/auth/services/auth.service';
 // import { Student } from 'src/app/interfaces/student';
 // import { StudentWithPassword } from 'src/app/interfaces/student-with-password';
 import { StudentService } from 'src/app/student/services/student.service';
+import { UserTokenDTO } from '../../shared/session/interfaces/user-token-d-t-o';
 
 @Component({
   selector: 'app-student-detail',
   templateUrl: './student-detail.component.html',
-  styleUrls: ['./student-detail.component.css'],
+  // styleUrls: ['./student-detail.component.css'],
 })
 export class StudentDetailComponent implements OnInit {
   // student?: Student;
@@ -23,7 +26,9 @@ export class StudentDetailComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly studentService: StudentService,
     private readonly location: Location,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly _session: SessionService,
+    private readonly _navigation: NavigationService
   ) {
     const id = Number(this.route.snapshot.paramMap.get('id'));
 
@@ -49,7 +54,34 @@ export class StudentDetailComponent implements OnInit {
         // TODO: not working yet
         // TODO: look into why I had to change [FromForm] to [FromBody] in the C# API PUT update method
         .updateStudent(this.student)
-        .subscribe(() => this.goBack());
+        .subscribe(() => {
+          this.authService
+            .logInStudent(
+              /*
+        new LoginCtor(
+          this.loginForm.value.email,
+
+          this.loginForm.value.password
+        )
+        */
+              // this.loginForm.value
+              { email: this.student?.email!, password: this.student?.password! }
+            )
+            .subscribe({
+              next: (value: UserTokenDTO) => {
+                this._session.start(value);
+
+                // this._router.navigate(['home']);
+
+                // this._router.navigate(['students/' + this._session.data?.id]);
+                console.log('about to try to go to my profile');
+                console.log(this._session.data?.id);
+                this._navigation.visitLoggedInUser();
+              },
+            });
+
+          return this.goBack();
+        });
     }
   }
 

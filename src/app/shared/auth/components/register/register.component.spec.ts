@@ -18,7 +18,7 @@ describe('RegisterComponent', () => {
 
     fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    fixture.detectChanges(); // TODO: Error: Cannot find control with name: 'username' // solved; it was in the html template file, NOT the .TS component class file
   });
 
   it('should create', () => {

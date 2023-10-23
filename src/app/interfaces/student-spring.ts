@@ -1,5 +1,6 @@
 import { Authority } from './authority';
 import { Class } from './class';
+import { Email } from './email';
 import { FirstName } from './first-name';
 import { IOwnedEquipment } from './i-owned-equipment';
 import { Id } from './id';
@@ -11,11 +12,12 @@ export interface IStudentSpring
   extends Id,
     FirstName,
     LastName,
-    Username,
+    // Username,
+    Email,
     Password {
-  ownedEquipments: IOwnedEquipment[];
-  classesTaken: Class[];
-  authorities: Authority[];
-  createdAt: Date;
-  updatedAt: Date;
+  ownedEquipments?: IOwnedEquipment[];
+  classesTaken?: Class[];
+  authorities?: Authority[];
+  createdAt?: Date;
+  updatedAt?: Date;
 }

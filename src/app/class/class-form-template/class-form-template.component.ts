@@ -13,7 +13,7 @@ import { MessageService } from 'src/app/shared/services/message.service';
 @Component({
   selector: 'app-class-form-template',
   templateUrl: './class-form-template.component.html',
-  styleUrls: ['./class-form-template.component.css'],
+  // styleUrls: ['./class-form-template.component.css'],
 })
 export class ClassFormTemplateComponent {
   protected martialArts: MartialArt[] = [];

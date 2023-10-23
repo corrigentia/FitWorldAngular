@@ -1,0 +1,23 @@
+<p>file-upload works!</p>
+
+<meta name="_csrf" content="${_csrf.token}" />
+<meta name="_csrf_header" content="${_csrf.headerName}" />
+
+<form
+  #form="ngForm"
+  enctype="multipart/form-data"
+  method="post"
+  (submit)="handleEventTarget($event.target)"
+>
+  <!-- <div> -->
+  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+  <label for="file">Choose the file you want to upload...?!</label>
+  <input type="file" name="file" id="file" class="file-input" />
+  <!-- (change)="handleEventTarget($event.target)" -->
+
+  <button type="submit" *ngIf="form.form.valid" [disabled]="form.form.invalid">
+    Submit
+  </button>
+  <!-- </div> -->
+</form>

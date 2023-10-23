@@ -34,7 +34,7 @@ class TClass extends StudentSpringClass {
 @Component({
   selector: 'app-student-form-reactive',
   templateUrl: './student-form-reactive.component.html',
-  styleUrls: ['./student-form-reactive.component.css'],
+  // styleUrls: ['./student-form-reactive.component.css'],
 })
 export class StudentFormReactiveComponent implements OnInit {
   studentForm!: FormGroup;
@@ -81,7 +81,7 @@ export class StudentFormReactiveComponent implements OnInit {
           updateOn: 'blur',
         }),
         // email: new FormControl(this.student.email, {
-        username: new FormControl(this.student.username, {
+        email: new FormControl(this.student.email, {
           validators: [
             Validators.required,
             // Validators.email,
@@ -147,7 +147,7 @@ export class StudentFormReactiveComponent implements OnInit {
     return this.studentForm.get('email')!;
   }
 
-  get username() {
+  get email() {
     return this.studentForm.get('email')!;
   }
 
@@ -163,7 +163,7 @@ export class StudentFormReactiveComponent implements OnInit {
   add(
     firstName: string,
     lastName: string,
-    username: string,
+    email: string,
     password: string
   ): void {
     // 30/01/2023
@@ -171,18 +171,18 @@ export class StudentFormReactiveComponent implements OnInit {
     // email = email.trim();
     firstName = firstName.trim();
     lastName = lastName.trim();
-    username = username.trim();
+    email = email.trim();
     password = password.trim();
 
     // if (!email || !password) {
-    if (!firstName || !username || !password) {
+    if (!firstName || !email || !password) {
       return;
     }
 
     // this.studentService
     this.studentService
       // .addStudent({ email, password } as IEmailPassword)
-      .addStudent({ firstName, lastName, username, password } as TInterface)
+      .addStudent({ firstName, lastName, email, password } as TInterface)
       .subscribe((student) => {
         this.logger.log(`Added student ${JSON.stringify(student)}`);
         this.messageService.add(`Added student ${JSON.stringify(student)}`);

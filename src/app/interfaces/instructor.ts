@@ -1,4 +1,5 @@
 import { Authority } from './authority';
+import { Email } from './email';
 import { FirstName } from './first-name';
 import { IOwnedEquipment } from './i-owned-equipment';
 import { Id } from './id';
@@ -8,10 +9,11 @@ import { Username } from './username';
 
 export interface Instructor
   extends Id,
+    // Username,
+    Email,
+    Password,
     FirstName,
-    LastName,
-    Username,
-    Password {
+    LastName {
   ownedEquipments: IOwnedEquipment[];
   authorities: Authority[];
   createdAt: Date;

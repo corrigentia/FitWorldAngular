@@ -1,0 +1,29 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "types": [
+            "node",
+            "webdriverio/async",
+            "expect-webdriverio",
+            "@wdio/local-runner",
+            "@wdio/jasmine-framework",
+            "@wdio/spec-reporter",
+            "@wdio/dot-reporter",
+            "@wdio/junit-reporter",
+            "@wdio/allure-reporter",
+            "@wdio/sumologic-reporter",
+            "@wdio/concise-reporter",
+            "@wdio-light-reporter",
+            "@wdio/sauce-service",
+            "@wdio/testingbot-service",
+            "@wdio/selenium-standalone-service",
+            "@wdio/devtools-service",
+            "@wdio/browserstack-service",
+            "@wdio/appium-service",
+            "@wdio/firefox-profile-service",
+            "@wdio/crossbrowsertesting-service"
+        ]
+    }
+}

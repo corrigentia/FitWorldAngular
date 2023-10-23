@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TrackByFunction } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   debounceTime,
@@ -18,12 +18,13 @@ import { MartialArtService } from 'src/app/martial-art/services/martial-art.serv
 @Component({
   selector: 'app-class-search',
   templateUrl: './class-search.component.html',
-  styleUrls: ['./class-search.component.css'],
+  // styleUrls: ['./class-search.component.css'],
 })
 export class ClassSearchComponent implements OnInit {
   protected martialArts: MartialArt[] = [];
   protected instructors: Instructor[] = [];
   protected classes: IClass[] = [];
+  protected uniqueDates: Date[] = [];
 
   getMartialArts(): void {
     this.martialArtService
@@ -38,9 +39,12 @@ export class ClassSearchComponent implements OnInit {
   }
 
   getClasses(): void {
-    this.classService
-      .getClasses()
-      .subscribe((classes) => (this.classes = classes));
+    this.classService.getClasses().subscribe((classes) => {
+      this.classes = classes;
+      this.uniqueDates = classes.map(
+        (martialArtClass) => martialArtClass.dateTime
+      );
+    });
   }
 
   protected aliasMartialArt(id: number): string {
@@ -153,4 +157,10 @@ export class ClassSearchComponent implements OnInit {
       switchMap((price) => this.classService.searchClassesByPrice(price))
     );
   }
+
+  dateTimeTrackBy: TrackByFunction<Class> = (index: number, item: Class) =>
+    item.dateTime;
+
+  pricePerHourTrackBy: TrackByFunction<Class> = (index: number, item: Class) =>
+    item.pricePerHour;
 }

@@ -245,6 +245,10 @@ export abstract class EntityCrudService<
     // const url = 'api/equipments';
     const url = `${this.collectionUrlSpring}`;
 
+    console.log('inside entity crud service');
+    console.log('trying to add new entry to db');
+    console.log('entity : ', entity);
+
     return (
       this.http
         // .post<TypeInterface & { id: number }>(url, equipment, this.httpOptions)

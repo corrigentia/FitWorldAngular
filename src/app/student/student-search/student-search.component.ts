@@ -7,7 +7,7 @@ import { StudentService } from 'src/app/student/services/student.service';
 @Component({
   selector: 'app-student-search',
   templateUrl: './student-search.component.html',
-  styleUrls: ['./student-search.component.css'],
+  // styleUrls: ['./student-search.component.css'],
 })
 export class StudentSearchComponent implements OnInit {
   // private searchTerms = new Subject();

@@ -1,3 +1,4 @@
+import { UserTokenDTO } from './../../../session/interfaces/user-token-d-t-o';
 import { firstNameLastNameEmailPasswordRegistrationForm } from './../../forms/first-name-last-name-email-password-register-form';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -27,10 +28,12 @@ const registrationFormConst: IForm<UserRegistration> = {
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+  // styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  protected /*readonly*/ registrationForm = new FormGroup({
+  protected /*readonly*/ registrationForm = new FormGroup<
+    typeof registrationFormConst
+  >({
     firstName: new FormControl<string>('', {
       validators: [Validators.required],
     }),
@@ -62,7 +65,7 @@ export class RegisterComponent implements OnInit {
   protected readonly registrationForm: IForm<UserRegistration> = {
     firstName: [''],
     lastName: [''],
-    username: [''],
+    email: [''],
     password: [''],
   };
   */
@@ -95,20 +98,23 @@ export class RegisterComponent implements OnInit {
 
           this.registrationForm.value.lastName ?? null,
 
-          this.registrationForm.value.username ?? '',
+          this.registrationForm.value.email ?? '',
 
           this.registrationForm.value.password ?? ''
         )
 
         // this.registrationForm.value
       )
-      .subscribe((authResponse: AuthResponse) => {
-        console.log(`data after registration: ${authResponse}`);
-        console.log(`data after registration: ${JSON.stringify(authResponse)}`);
+      // .subscribe((authResponse: AuthResponse) => {
+      .subscribe((userTokenDTO: UserTokenDTO) => {
+        console.log(`data after registration: ${userTokenDTO}`);
+        console.log(`data after registration: ${JSON.stringify(userTokenDTO)}`);
 
-        console.log('authResponse.user: ', authResponse.user);
+        // console.log('authResponse.user: ', authResponse.user);
+        console.log('authResponse.user: ', userTokenDTO);
 
-        if (authResponse.user) {
+        // if (authResponse.user) {
+        if (userTokenDTO.token) {
           console.log('we should have a user at this point');
 
           this.registrationForm.reset();

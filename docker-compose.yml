@@ -1,0 +1,11 @@
+services:
+  web:
+    build:
+      context: . # FitWorldAngular  # angular
+      target: builder
+    ports:
+      - 4200:4200
+    volumes:
+#      - ./angular:/project
+      - .:/project
+      - /project/node_modules

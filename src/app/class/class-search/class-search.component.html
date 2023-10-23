@@ -19,7 +19,8 @@
           *ngFor="let martialArt of martialArts"
           [ngValue]="martialArt.id"
         >
-          {{ martialArt.name }} - id={{ martialArt.id }}
+          {{ martialArt.name }}
+          <!-- - id={{ martialArt.id }} -->
         </option>
       </select>
     </label>
@@ -136,8 +137,11 @@
         [(ngModel)]="dateTimeSought"
         #dateTime="ngModel"
       >
-        <option *ngFor="let class of classes" [ngValue]="class.dateTime">
-          {{ class.dateTime }}
+        <option
+          *ngFor="let class1 of classes | uniqueDateTimeFilter"
+          [ngValue]="class1.dateTime"
+        >
+          {{ class1.dateTime }}
         </option>
       </select>
     </label>
@@ -184,7 +188,10 @@
         [(ngModel)]="priceSought"
         #pricePerHour="ngModel"
       >
-        <option *ngFor="let class of classes" [ngValue]="class.pricePerHour">
+        <option
+          *ngFor="let class of classes | uniquePricePerHourFilter"
+          [ngValue]="class.pricePerHour"
+        >
           {{ class.pricePerHour | currency : "EUR" }}
         </option>
       </select>

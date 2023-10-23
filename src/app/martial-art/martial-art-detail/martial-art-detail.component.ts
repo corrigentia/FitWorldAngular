@@ -7,7 +7,7 @@ import { MartialArtService } from 'src/app/martial-art/services/martial-art.serv
 @Component({
   selector: 'app-martial-art-detail',
   templateUrl: './martial-art-detail.component.html',
-  styleUrls: ['./martial-art-detail.component.css'],
+  // styleUrls: ['./martial-art-detail.component.css'],
 })
 export class MartialArtDetailComponent implements OnInit {
   @Input() martialArt?: MartialArt;

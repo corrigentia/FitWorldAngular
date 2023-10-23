@@ -16,7 +16,7 @@ import { EQUIPMENTS } from 'src/app/db/cached-equipments';
 @Component({
   selector: 'app-equipment-form-reactive',
   templateUrl: './equipment-form-reactive.component.html',
-  styleUrls: ['./equipment-form-reactive.component.css'],
+  // styleUrls: ['./equipment-form-reactive.component.css'],
 })
 export class EquipmentFormReactiveComponent implements OnInit {
   equipment = new Equipment('', 0.0);

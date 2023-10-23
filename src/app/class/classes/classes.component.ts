@@ -13,7 +13,7 @@ import { MessageService } from 'src/app/shared/services/message.service';
 @Component({
   selector: 'app-classes',
   templateUrl: './classes.component.html',
-  styleUrls: ['./classes.component.css'],
+  // styleUrls: ['./classes.component.css'],
 })
 export class ClassesComponent implements OnInit {
   protected classes: Class[] = [];

@@ -10,7 +10,7 @@ import { EQUIPMENTS } from 'src/app/db/cached-equipments';
 @Component({
   selector: 'app-equipment-form-template',
   templateUrl: './equipment-form-template.component.html',
-  styleUrls: ['./equipment-form-template.component.css'],
+  // styleUrls: ['./equipment-form-template.component.css'],
 })
 export class EquipmentFormTemplateComponent {
   equipment = new Equipment('', 0.0);

@@ -1,4 +1,4 @@
-import { IStudentSpring } from 'src/app/interfaces/student-spring';
+import { IStudentSpring } from '../../../interfaces/student-spring';
 
 export interface AuthResponse {
   token: string;

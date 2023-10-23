@@ -1,3 +1,4 @@
+import { UserRegistration } from './../../shared/auth/interfaces/user-registration';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { STUDENTS } from 'src/app/db/cached-students';
@@ -13,7 +14,7 @@ type TClass = StudentSpringClass;
 @Component({
   selector: 'app-student-form-template',
   templateUrl: './student-form-template.component.html',
-  styleUrls: ['./student-form-template.component.css'],
+  // styleUrls: ['./student-form-template.component.css'],
 })
 export class StudentFormTemplateComponent {
   // student = { ...new EmailPassword('', ''), confirmPassword: '' };
@@ -30,7 +31,7 @@ export class StudentFormTemplateComponent {
   add(
     firstName: string,
     lastName: string,
-    username: string,
+    email: string,
     password: string
   ): void {
     // 30/01/2023
@@ -38,17 +39,17 @@ export class StudentFormTemplateComponent {
     // email = email.trim();
     firstName = firstName.trim();
     lastName = lastName.trim();
-    username = username.trim();
+    email = email.trim();
     password = password.trim();
 
     // if (!email || !password) {
-    if (!firstName || !username || !password) {
+    if (!firstName || !email || !password) {
       return;
     }
 
     this.studentService
       // .addStudent({ email, password } as IEmailPassword)
-      .addStudent({ firstName, lastName, username, password } as IStudentSpring)
+      .addStudent({ firstName, lastName, email, password } as UserRegistration)
       .subscribe((student) => {
         this.logger.log(`Added student ${JSON.stringify(student)}`);
         this.messageService.add(`Added student ${JSON.stringify(student)}`);

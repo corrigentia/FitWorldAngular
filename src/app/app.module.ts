@@ -1,8 +1,10 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+// import { ButtonModule } from 'primeng/button';
+// import { CheckboxModule } from 'primeng/checkbox';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ClassDetailComponent } from './class/class-detail/class-detail.component';
@@ -59,11 +61,18 @@ import { StudentSearchComponent } from './student/student-search/student-search.
 import { StudentsComponent } from './student/students/students.component';
 import { RegisterComponent } from './shared/auth/components/register/register.component';
 import { LogInComponent } from './shared/auth/components/log-in/log-in.component';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+// import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './shared/services/in-memory-data.service';
 import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
+import { NavigationComponent } from './shared/components/navigation/navigation.component';
+import { FileUploadComponent } from './shared/components/file-upload/file-upload.component';
+import { Upload2Component } from './shared/components/upload2/upload2.component';
+import { OwnedEquipmentPipe } from './equipment/pipes/owned-equipment.pipe';
 // import { ForbiddenNameDirective } from './shared/directives/forbidden-name.directive';
+import { BrowserModule } from '@angular/platform-browser';
+import { UniqueDateTimeFilterPipe } from './class/pipes/unique-date-time-filter.pipe';
+import { UniquePricePerHourFilterPipe } from './class/pipes/unique-price-per-hour-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -123,6 +132,12 @@ import { PageNotFoundComponent } from './shared/components/page-not-found/page-n
     RegisterComponent,
     LogInComponent,
     PageNotFoundComponent,
+    NavigationComponent,
+    FileUploadComponent,
+    Upload2Component,
+    OwnedEquipmentPipe,
+    UniqueDateTimeFilterPipe,
+    UniquePricePerHourFilterPipe,
     // ForbiddenNameDirective,
   ],
   imports: [
@@ -146,6 +161,8 @@ import { PageNotFoundComponent } from './shared/components/page-not-found/page-n
     FormsModule,
     ReactiveFormsModule, // <-- for formGroup
     RouterModule,
+    // ButtonModule,
+    // CheckboxModule,
   ],
   providers: [
     /* logger */

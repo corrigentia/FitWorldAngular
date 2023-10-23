@@ -12,6 +12,8 @@ import { LoginCtor } from '../../classes/models/login-ctor';
 import { IUserLogInForm } from '../../interfaces/login';
 import { AuthService } from '../../services/auth.service';
 import { UserTokenDTO } from '../../../session/interfaces/user-token-d-t-o';
+import { routes } from '../../../../app-routing.module';
+import { NavigationService } from '../../../services/navigation.service';
 
 export type IForm<T> = {
   [K in keyof T]: any;
@@ -30,7 +32,7 @@ const loginFormConst: IForm<IUserLogInForm> = {
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.component.html',
-  styleUrls: ['./log-in.component.css'],
+  // styleUrls: ['./log-in.component.css'],
 })
 export class LogInComponent implements OnInit {
   // loginForm: FormGroup;
@@ -48,7 +50,8 @@ export class LogInComponent implements OnInit {
     private readonly authService: AuthService,
     private readonly fb: FormBuilder,
     private readonly _session: SessionService,
-    private readonly _router: Router
+    private readonly _router: Router,
+    private readonly _navigation: NavigationService
   ) {
     // this.loginForm = this.fb.group(loginForm);
   }
@@ -59,6 +62,9 @@ export class LogInComponent implements OnInit {
 
   onSubmit() {
     console.log('loginForm:', this.loginForm);
+    console.log('loginForm.value:', this.loginForm.value);
+    console.log('email:', this.loginForm.value.email);
+    console.log('password:', this.loginForm.value.password);
 
     if (this.loginForm.invalid) {
       return;
@@ -79,7 +85,12 @@ export class LogInComponent implements OnInit {
         next: (value: UserTokenDTO) => {
           this._session.start(value);
 
-          this._router.navigate(['home']);
+          // this._router.navigate(['home']);
+
+          // this._router.navigate(['students/' + this._session.data?.id]);
+          console.log('about to try to go to my profile');
+          console.log(this._session.data?.id);
+          this._navigation.visitLoggedInUser();
         },
       });
   }

@@ -9,11 +9,12 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { StudentService } from '../../student/services/student.service';
 
-class TService extends StudentService {}
+// class TService extends StudentService {}
 
 @Injectable({ providedIn: 'root' })
 export class UniqueEmailValidator implements AsyncValidator {
-  constructor(private readonly studentService: TService) {
+  // constructor(private readonly studentService: TService) {
+  constructor(private readonly studentService: StudentService) {
     console.warn('in unique email validator class ctor');
   }
 

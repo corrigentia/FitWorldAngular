@@ -1,3 +1,4 @@
+import { UserRegistration } from './../../shared/auth/interfaces/user-registration';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -6,6 +7,7 @@ import { IStudentSpring } from 'src/app/interfaces/student-spring';
 // import { Student } from 'src/app/interfaces/student';
 import { MessageService } from 'src/app/shared/services/message.service';
 import { StudentService } from 'src/app/student/services/student.service';
+import { SessionService } from '../../shared/session/services/session.service';
 
 // type another = { title: string; value: number };
 type TData = IStudentSpring;
@@ -13,7 +15,7 @@ type TData = IStudentSpring;
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
-  styleUrls: ['./students.component.css'],
+  // styleUrls: ['./students.component.css'],
 })
 export class StudentsComponent implements OnInit {
   // TODO: mock-students
@@ -23,18 +25,20 @@ export class StudentsComponent implements OnInit {
 
   // selectedStudent?: StudentIdEmail
   selectedStudent?: TData;
+  anonymousAdminNotInstructorUserGuard: boolean = false;
 
   constructor(
-    private readonly activatedRoute: ActivatedRoute,
-    private readonly studentService: StudentService,
-    private readonly messageService: MessageService,
-    private readonly http: HttpClient
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _studentService: StudentService,
+    private readonly _messageService: MessageService,
+    private readonly _http: HttpClient,
+    private readonly _session: SessionService
   ) {}
 
   // onSelect (student: StudentIdEmail): void {
   onSelect(student: TData): void {
     this.selectedStudent = student;
-    this.messageService.add(
+    this._messageService.add(
       `StudentsComponent: Selected student id=${student.id}`
     );
   }
@@ -45,22 +49,29 @@ export class StudentsComponent implements OnInit {
       (student) => student != studentToDelete
     );
 
-    this.studentService.deleteStudent(studentToDelete.id).subscribe();
+    this._studentService.deleteStudent(studentToDelete.id).subscribe();
   }
 
   // add (email: string, password: string): void {
-  add(username: string, password: string): void {
+  add(
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string
+  ): void {
+    firstName = firstName.trim();
+    lastName = lastName.trim();
     // email = email.trim()
-    username = username.trim();
+    email = email.trim();
     password = password.trim();
 
-    if (!username || !password) {
+    if (!firstName || !lastName || !email || !password) {
       return;
     }
 
-    this.studentService
+    this._studentService
       // .addStudent({ email, password } as EmailPassword)
-      .addStudent({ username, password } as TData)
+      .addStudent({ firstName, lastName, email, password } as UserRegistration)
       .subscribe((student) => {
         this.students.push(student);
       });
@@ -71,7 +82,7 @@ export class StudentsComponent implements OnInit {
 
   getStudents(): void {
     // this.students = this.studentService.getAll();
-    this.studentService
+    this._studentService
       .getStudents(this.page - 1, this.entriesPerPage)
       .subscribe((students) => (this.students = students));
   }
@@ -80,7 +91,7 @@ export class StudentsComponent implements OnInit {
     // this.students = STUDENTS;
     // this.getStudents();
 
-    this.activatedRoute.data.subscribe(({ students }) => {
+    this._activatedRoute.data.subscribe(({ students }) => {
       this.students = students;
     });
 
@@ -96,5 +107,10 @@ export class StudentsComponent implements OnInit {
       },
     });
     */
+
+    this.anonymousAdminNotInstructorUserGuard =
+      this._session.isAnonymous ||
+      this._session.isAdmin ||
+      (!this._session.isInstructor && !this._session.isStudent);
   }
 }

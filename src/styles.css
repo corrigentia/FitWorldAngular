@@ -1,10 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* this does the actual load */
 @import url('~bootstrap/dist/css/bootstrap.min.css');
+/* @import "primeicons/primeicons.css"; */
+/* @import "primeng/resources/themes/bootstrap4-light-blue/theme.css"; */
 
+/*
 div span {
-  /* background-color: aqua; */
+  background-color: aqua;
 }
+*/
 
 td .delete,
 td .edit {
@@ -38,3 +43,11 @@ td.price-per-hour {
 /* @import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css'); */
 /* either works apparently */
 /* @import 'https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css'; */
+
+
+
+
+body{
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+}

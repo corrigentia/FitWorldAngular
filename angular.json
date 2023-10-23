@@ -18,7 +18,15 @@
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": [
+              "src/favicon.ico",
+              {
+                "glob": "**/*",
+                "input": "src/assets/",
+                "ignore": ["**/*.scss"],
+                "output": "/assets/"
+              }
+            ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/fonts/font-file.css",
@@ -50,13 +58,11 @@
             },
             "development": {
               "buildOptimizer": false,
-              // "optimization": false,
               "optimization": {
                 "scripts": false,
-                // "styles": true
                 "styles": {
-                  "minify": true,
-                  // "inlineCritical": true
+                  /* might have been the cause of webpack bug trying to process scss files */
+                  "minify": false, // true,
                   "inlineCritical": false
                 }
               },
@@ -66,7 +72,7 @@
               "namedChunks": true
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -94,12 +100,84 @@
           "options": {
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": [
+              "src/favicon.ico",
+              {
+                "glob": "**/*",
+                "input": "src/assets/",
+                "ignore": ["**/*.scss", "**/*.sass", "**/*.less"],
+                "output": "/assets/"
+              }
+            ],
             "styles": ["src/styles.css"],
             "scripts": []
+          }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "FitWorldAngular:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "FitWorldAngular:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false
+          }
+        },
+        "ct": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "FitWorldAngular:serve",
+            "watch": true,
+            "headless": false,
+            "testingType": "component"
+          },
+          "configurations": {
+            "development": {
+              "devServerTarget": "FitWorldAngular:serve:development"
+            }
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "FitWorldAngular:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "FitWorldAngular:serve:production"
+            }
+          }
+        },
+        "puppeteer": {
+          "builder": "@puppeteer/ng-schematics:puppeteer",
+          "options": {
+            "devServerTarget": "FitWorldAngular:serve",
+            "testRunner": "jasmine"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "FitWorldAngular:serve:production"
+            }
           }
         }
       }
     }
+  },
+  "cli": {
+    "schematicCollections": [
+      "@schematics/angular",
+      "@cypress/schematic",
+      "@cypress/schematic"
+    ]
   }
 }

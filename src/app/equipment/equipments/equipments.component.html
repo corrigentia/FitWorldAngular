@@ -144,3 +144,11 @@
 </table>
 
 <h3>Shopping Cart</h3>
+
+<ul>
+  <li *ngFor="let item of ownedEquipments">
+    <!-- {{ item.quantity }} * {{ item.equipment.name }} @ {{ item.equipment.price }} -->
+
+    {{ item | ownedEquipment }}
+  </li>
+</ul>

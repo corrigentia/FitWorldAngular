@@ -10,7 +10,7 @@ import { InstructorSearchService } from './services/instructor-search.service';
 @Component({
   selector: 'app-instructor-search',
   templateUrl: './instructor-search.component.html',
-  styleUrls: ['./instructor-search.component.css'],
+  // styleUrls: ['./instructor-search.component.css'],
 })
 export class InstructorSearchComponent implements OnInit {
   protected instructors: Instructor[] = [];
