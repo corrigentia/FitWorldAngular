@@ -32,36 +32,17 @@ export class Upload2Component {
     const formData: FormData = new FormData();
     console.log(this.file);
 
-    console.log(this.file.name);
-    console.log(this.file.size);
-    console.log(this.file.type);
-
-    // formData.append(`${this.file.name}`, this.file);
     formData.append('file', this.file);
 
     console.log('still good here');
 
-    console.log(
-      this.httpClient.post(
-        'http://localhost:8080/api/students/16/photo',
-        formData,
-        this.options
-      )
-    );
-
     this.httpClient
-      .post(
-        'http://localhost:8080/api/students/16/photo',
-        formData,
-        this.options
-      )
+      .post('http://localhost:8080/api/students/16/photo', formData, this.options)
       .subscribe(
         (data) => {
-          console.log('managed to upload');
           console.log(data);
         },
         (error) => {
-          console.error('failed to upload');
           console.error(error);
         }
       );

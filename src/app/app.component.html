@@ -58,13 +58,15 @@
 
     <a
       *ngIf="isUserConnected"
-      routerLink="/students/{{ loggedInUser?.id }}"
+      routerLink="/{{ loggedInEntityCollectionName }}/{{ loggedInUser?.id }}"
       class="p-2 text-dark"
     >
       <button class="btn btn-info text-dark me-2" routerLinkActive="active">
         User Profile
       </button>
     </a>
+
+    <!-- admin? {{ _session.isAdmin }} instructor? {{ _session.isInstructor }} -->
 
     <a *ngIf="isUserConnected" routerLink="/log-in" class="p-2">
       <button

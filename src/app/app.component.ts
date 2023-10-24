@@ -18,12 +18,14 @@ export class AppComponent implements OnInit {
 
   // protected loggedInId = Number(localStorage.getItem('logged_in_id'));
 
+  protected loggedInEntityCollectionName: string = '';
+
   public forecasts?: WeatherForecast[];
 
   constructor(
     private readonly http: HttpClient,
     protected readonly authService: AuthService,
-    private readonly _session: SessionService
+    protected readonly _session: SessionService
   ) {}
   ngOnInit(): void {
     //throw new Error('Method not implemented.');
@@ -42,6 +44,11 @@ export class AppComponent implements OnInit {
       next: (value?: UserTokenDTO): void => {
         this.loggedInUser = value;
         this.isUserConnected = value !== undefined;
+        this.loggedInEntityCollectionName = this._session.isAdmin
+          ? 'admins'
+          : this._session.isInstructor
+          ? 'instructors'
+          : 'students';
       },
     });
   }

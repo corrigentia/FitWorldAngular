@@ -124,10 +124,11 @@ export const routes: Routes = [
   },
   {
     path: 'instructors',
-    canActivate: [AuthGuard, loggedInNotInstructorGuard],
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
+        canActivate: [loggedInNotInstructorGuard],
         component: InstructorsComponent,
         resolve: {
           instructors: InstructorsResolver,
