@@ -124,6 +124,7 @@ export const routes: Routes = [
   },
   {
     path: 'instructors',
+    title: 'Instructors',
     canActivate: [AuthGuard],
     children: [
       {
