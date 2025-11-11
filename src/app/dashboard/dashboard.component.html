@@ -4,14 +4,16 @@
 
 <div class="students-menu">
   <!-- <a *ngFor="let student of students" routerLink="/detail/{{student.id}}"> -->
-  <a *ngFor="let student of students" routerLink="/students/{{ student.id }}">
-    <!-- {{student.email}} -->
-    {{ student.email }}
-  </a>
+  @for (student of students; track student) {
+    <a routerLink="/students/{{ student.id }}">
+      <!-- {{student.email}} -->
+      {{ student.email }}
+    </a>
+  }
 </div>
 
 <app-student-search></app-student-search>
 
 <!--
-  24/01/2023
-  TODO: disallow detail display outside of routing to a specific item of a collection -->
+24/01/2023
+TODO: disallow detail display outside of routing to a specific item of a collection -->

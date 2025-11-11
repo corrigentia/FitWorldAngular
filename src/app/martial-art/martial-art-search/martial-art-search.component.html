@@ -1,14 +1,16 @@
 <div class="container" id="search-component">
-    <label for="search-box">
-        Martial Art Search
-        <input class="form-control" #searchBox (input)="search(searchBox.value)" id="search-box">
-    </label>
+  <label for="search-box">
+    Martial Art Search
+    <input class="form-control" #searchBox (input)="search(searchBox.value)" id="search-box">
+  </label>
 
-    <ul class="search-result list-group">
-        <li class="list-group-item" *ngFor="let martialArt of martialArts$ | async">
-            <a routerLink="/martial-arts/{{martialArt.id}}">
-                {{martialArt.name}}
-            </a>
-        </li>
-    </ul>
+  <ul class="search-result list-group">
+    @for (martialArt of martialArts$ | async; track martialArt) {
+      <li class="list-group-item">
+        <a routerLink="/martial-arts/{{martialArt.id}}">
+          {{martialArt.name}}
+        </a>
+      </li>
+    }
+  </ul>
 </div>

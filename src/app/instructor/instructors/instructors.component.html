@@ -9,11 +9,13 @@
 <h2 id="instructors">Instructors</h2>
 <!-- <h3>Instructors</h3> -->
 
-<p *ngIf="!instructors">
-  <em> Loading... Please refresh once the ASP.NET back-end has started! </em>
-</p>
+@if (!instructors) {
+  <p>
+    <em> Loading... Please refresh once the ASP.NET back-end has started! </em>
+  </p>
+}
 
-<ng-container *ngIf="instructors">
+@if (instructors) {
   <div class="container">
     <label for="page">Page </label>
     <input
@@ -23,8 +25,7 @@
       placeholder="Page number"
       (ngModelChange)="getInstructors()"
       id="page"
-    />
-
+      />
     <label for="entries-per-page">Entries per Page </label>
     <input
       type="number"
@@ -33,94 +34,95 @@
       placeholder="How many per page"
       (ngModelChange)="getInstructors()"
       id="entries-per-page"
-    />
+      />
   </div>
-</ng-container>
+}
 
-<table *ngIf="instructors" class="instructors table">
-  <thead>
-    <tr>
-      <th>Instructor #</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Username</th>
-      <th>(Encrypted) Password</th>
-      <th>Equipment owned</th>
-      <th>authorities</th>
-      <th>Created At</th>
-      <th>Updated At</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr
-      *ngFor="let instructor of instructors"
-      (click)="onSelect(instructor)"
-      [class.selected]="instructor === selectedInstructor"
-    >
-      <td class="badge">{{ instructor.id }}</td>
-      <td class="first-name">{{ instructor.firstName }}</td>
-      <td class="last-name">{{ instructor.lastName }}</td>
-
-      <!-- <td class="username">{{ instructor.username }}</td> -->
-      <td class="username">{{ instructor.email }}</td>
-      <td>
-        {{ instructor.password }}
-
-        <img
+@if (instructors) {
+  <table class="instructors table">
+    <thead>
+      <tr>
+        <th>Instructor #</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Username</th>
+        <th>(Encrypted) Password</th>
+        <th>Equipment owned</th>
+        <th>authorities</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (instructor of instructors; track instructor) {
+        <tr
+          (click)="onSelect(instructor)"
+          [class.selected]="instructor === selectedInstructor"
+          >
+          <td class="badge">{{ instructor.id }}</td>
+          <td class="first-name">{{ instructor.firstName }}</td>
+          <td class="last-name">{{ instructor.lastName }}</td>
+          <!-- <td class="username">{{ instructor.username }}</td> -->
+          <td class="username">{{ instructor.email }}</td>
+          <td>
+            {{ instructor.password }}
+            <img
           src="./assets/images/{{ instructor.firstName }}-{{
             instructor.lastName
           }}.png"
-          alt="Photo of {{ instructor.firstName }} {{ instructor.lastName }}"
-          width="256"
-          height="256"
-          class="img-fluid img-thumbnail"
-        />
-      </td>
-      <td>
-        <ul>
-          <li
-            align="left"
-            *ngFor="let ownedEquipment of instructor.ownedEquipments"
-          >
-            {{ ownedEquipment.quantity }} *
-            <a routerLink="/equipments/{{ ownedEquipment.equipment.id }}">
-              {{ ownedEquipment.equipment.name }}
+              alt="Photo of {{ instructor.firstName }} {{ instructor.lastName }}"
+              width="256"
+              height="256"
+              class="img-fluid img-thumbnail"
+              />
+          </td>
+          <td>
+            <ul>
+              @for (ownedEquipment of instructor.ownedEquipments; track ownedEquipment) {
+                <li
+                  align="left"
+                  >
+                  {{ ownedEquipment.quantity }} *
+                  <a routerLink="/equipments/{{ ownedEquipment.equipment.id }}">
+                    {{ ownedEquipment.equipment.name }}
+                  </a>
+                </li>
+              }
+            </ul>
+          </td>
+          <td>
+            <ul>
+              @for (authority of instructor.authorities; track authority) {
+                <li align="left">
+                  {{ authority.authority }}
+                </li>
+              }
+            </ul>
+          </td>
+          <td>{{ instructor.createdAt }}</td>
+          <td>{{ instructor.updatedAt }}</td>
+          <td>
+            <a
+              routerLink="/instructors/{{ instructor.id }}"
+              class="edit btn btn-warning"
+              >
+              Edit &#9999; id=<span class="badge">{{ instructor.id }}</span>
             </a>
-          </li>
-        </ul>
-      </td>
-
-      <td>
-        <ul>
-          <li align="left" *ngFor="let authority of instructor.authorities">
-            {{ authority.authority }}
-          </li>
-        </ul>
-      </td>
-      <td>{{ instructor.createdAt }}</td>
-      <td>{{ instructor.updatedAt }}</td>
-
-      <td>
-        <a
-          routerLink="/instructors/{{ instructor.id }}"
-          class="edit btn btn-warning"
-        >
-          Edit &#9999; id=<span class="badge">{{ instructor.id }}</span>
-        </a>
-      </td>
-
-      <td>
-        <button
-          (click)="delete(instructor)"
-          class="delete btn btn-danger"
-          title="delete instructor"
-          type="button"
-        >
-          x Delete id=<span class="badge">{{ instructor.id }}</span>
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+          </td>
+          <td>
+            <button
+              (click)="delete(instructor)"
+              class="delete btn btn-danger"
+              title="delete instructor"
+              type="button"
+              >
+              x Delete id=<span class="badge">{{ instructor.id }}</span>
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
 
 <!-- <app-instructor-detail *ngIf="selectedInstructor" [instructor]="selectedInstructor"></app-instructor-detail> -->

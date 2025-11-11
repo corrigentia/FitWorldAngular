@@ -5,18 +5,19 @@
 
 <nav>
   <ul class="nav nav-tabs justify-content-center">
-    <ng-container *ngFor="let link of links; let i = index">
+    @for (link of links; track link; let i = $index) {
       <li>
         <a [routerLink]="link.url" routerLinkActive="router-link-active">
           {{ link.title }}
         </a>
       </li>
-
       &nbsp;
-    </ng-container>
+    }
 
-    <li *ngIf="isUserConnected" (click)="viewProfile()">
-      {{ loggedInUser?.email }}
-    </li>
+    @if (isUserConnected) {
+      <li (click)="viewProfile()">
+        {{ loggedInUser?.email }}
+      </li>
+    }
   </ul>
 </nav>

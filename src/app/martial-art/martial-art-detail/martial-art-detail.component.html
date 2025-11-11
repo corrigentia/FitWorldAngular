@@ -4,68 +4,76 @@
   </button>
 </div>
 
-<div class="container" *ngIf="martialArt">
-  <form #martialArtForm="ngForm" (ngSubmit)="save()">
-    <div [hidden]="martialArtForm.submitted">
-      <div><span> id: </span>{{ martialArt.id }}</div>
-
-      <h3>{{ martialArt.name | uppercase }} Details</h3>
-
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          class="form-control"
-          required
-          minlength="1"
-          maxlength="42"
-          [(ngModel)]="martialArt.name"
-          #name="ngModel"
-          [ngModelOptions]="{ updateOn: 'blur' }"
-          appUniqueMartialArt
-        />
-
-        <div *ngIf="name.pending">Validating...</div>
-        <div
-          *ngIf="name.invalid && (name.dirty || name.touched)"
-          class="alert alert-danger name-errors"
-        >
-          <div *ngIf="name.errors?.['required']">Name is required.</div>
-          <div *ngIf="name.errors?.['minlength']">
-            Name must be at least 1 character long.
-          </div>
-          <div *ngIf="name.errors?.['maxlength']">
-            Name must be at most 42 characters long.
-          </div>
-
-          <div *ngIf="name.errors?.['uniqueMartialArt']">
-            Name is already taken.
-          </div>
+@if (martialArt) {
+  <div class="container">
+    <form #martialArtForm="ngForm" (ngSubmit)="save()">
+      <div [hidden]="martialArtForm.submitted">
+        <div><span> id: </span>{{ martialArt.id }}</div>
+        <h3>{{ martialArt.name | uppercase }} Details</h3>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            class="form-control"
+            required
+            minlength="1"
+            maxlength="42"
+            [(ngModel)]="martialArt.name"
+            #name="ngModel"
+            [ngModelOptions]="{ updateOn: 'blur' }"
+            appUniqueMartialArt
+            />
+          @if (name.pending) {
+            <div>Validating...</div>
+          }
+          @if (name.invalid && (name.dirty || name.touched)) {
+            <div
+              class="alert alert-danger name-errors"
+              >
+              @if (name.errors?.['required']) {
+                <div>Name is required.</div>
+              }
+              @if (name.errors?.['minlength']) {
+                <div>
+                  Name must be at least 1 character long.
+                </div>
+              }
+              @if (name.errors?.['maxlength']) {
+                <div>
+                  Name must be at most 42 characters long.
+                </div>
+              }
+              @if (name.errors?.['uniqueMartialArt']) {
+                <div>
+                  Name is already taken.
+                </div>
+              }
+            </div>
+          }
         </div>
+        <p>Make valid changes to enable the Update button.</p>
+        <button
+          type="submit"
+          [disabled]="martialArtForm.invalid"
+          class="btn btn-success"
+          >
+          Update
+        </button>
       </div>
-
-      <p>Make valid changes to enable the Update button.</p>
-      <button
-        type="submit"
-        [disabled]="martialArtForm.invalid"
-        class="btn btn-success"
-      >
-        Update
-      </button>
-    </div>
-
-    <div class="submitted-message" *ngIf="martialArtForm.submitted">
-      <p>You've submitted your martial art, {{ martialArtForm.value.name }}!</p>
-
-      <button
-        type="button"
-        (click)="martialArtForm.resetForm({})"
-        class="btn btn-success"
-      >
-        Add new martial art
-      </button>
-    </div>
-  </form>
-</div>
+      @if (martialArtForm.submitted) {
+        <div class="submitted-message">
+          <p>You've submitted your martial art, {{ martialArtForm.value.name }}!</p>
+          <button
+            type="button"
+            (click)="martialArtForm.resetForm({})"
+            class="btn btn-success"
+            >
+            Add new martial art
+          </button>
+        </div>
+      }
+    </form>
+  </div>
+}
