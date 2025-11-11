@@ -50,16 +50,17 @@ export class UniqueUsernameValidator implements AsyncValidator {
 }
 
 @Directive({
-  // selector: '[appUniqueEmail]',
-  selector: '[appUniqueUsername]',
-  providers: [
-    {
-      provide: NG_ASYNC_VALIDATORS,
-      // useExisting: forwardRef(() => UniqueEmailValidatorDirective),
-      useExisting: forwardRef(() => UniqueUsernameValidatorDirective),
-      multi: true,
-    },
-  ],
+    // selector: '[appUniqueEmail]',
+    selector: '[appUniqueUsername]',
+    providers: [
+        {
+            provide: NG_ASYNC_VALIDATORS,
+            // useExisting: forwardRef(() => UniqueEmailValidatorDirective),
+            useExisting: forwardRef(() => UniqueUsernameValidatorDirective),
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class UniqueUsernameValidatorDirective implements AsyncValidator {
   constructor(private readonly validator: UniqueUsernameValidator) {

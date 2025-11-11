@@ -5,9 +5,9 @@ import { AuthService } from './shared/auth/services/auth.service';
 import { UserTokenDTO } from './shared/session/interfaces/user-token-d-t-o';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  // styleUrls: ['./app.component.css'],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    standalone: false
 })
 export class AppComponent implements OnInit {
   title = 'Fit World';

@@ -11,9 +11,9 @@ import { StudentService } from 'src/app/student/services/student.service';
 import { UserTokenDTO } from '../../shared/session/interfaces/user-token-d-t-o';
 
 @Component({
-  selector: 'app-student-detail',
-  templateUrl: './student-detail.component.html',
-  // styleUrls: ['./student-detail.component.css'],
+    selector: 'app-student-detail',
+    templateUrl: './student-detail.component.html',
+    standalone: false
 })
 export class StudentDetailComponent implements OnInit {
   // student?: Student;

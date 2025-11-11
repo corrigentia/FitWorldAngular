@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { MartialArt } from 'src/app/models/martial-art';
 
 @Component({
-  selector: 'app-martial-art-form',
-  templateUrl: './martial-art-form.component.html',
-  // styleUrls: ['./martial-art-form.component.css'],
+    selector: 'app-martial-art-form',
+    templateUrl: './martial-art-form.component.html',
+    standalone: false
 })
 export class MartialArtFormComponent {
   protected submitted = false;

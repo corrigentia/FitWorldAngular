@@ -2,16 +2,17 @@ import { TestBed } from '@angular/core/testing';
 
 import { StudentResolver } from './student.resolver';
 import { Logger } from 'src/app/shared/services/logger.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('StudentResolver', () => {
   let resolver: StudentResolver;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [Logger],
-      imports: [HttpClientTestingModule],
-    });
+    imports: [],
+    providers: [Logger, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     resolver = TestBed.inject(StudentResolver);
   });
 

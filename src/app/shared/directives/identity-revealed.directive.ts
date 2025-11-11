@@ -34,14 +34,15 @@ export const identityRevealedValidator: ValidatorFn = (
 };
 
 @Directive({
-  selector: '[appIdentityRevealed]',
-  providers: [
-    {
-      provide: NG_VALIDATORS,
-      useExisting: IdentityRevealedValidatorDirective,
-      multi: true,
-    },
-  ],
+    selector: '[appIdentityRevealed]',
+    providers: [
+        {
+            provide: NG_VALIDATORS,
+            useExisting: IdentityRevealedValidatorDirective,
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class IdentityRevealedValidatorDirective implements Validator {
   constructor() {}

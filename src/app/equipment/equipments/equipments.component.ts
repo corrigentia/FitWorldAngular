@@ -11,9 +11,9 @@ import { IOwnedEquipment } from '../../interfaces/i-owned-equipment';
 import { emailPasswordLogInForm } from '../../shared/auth/forms/email-password-log-in-form';
 
 @Component({
-  selector: 'app-equipments',
-  templateUrl: './equipments.component.html',
-  // styleUrls: ['./equipments.component.css'],
+    selector: 'app-equipments',
+    templateUrl: './equipments.component.html',
+    standalone: false
 })
 export class EquipmentsComponent implements OnInit {
   protected equipments: Equipment[] = [];

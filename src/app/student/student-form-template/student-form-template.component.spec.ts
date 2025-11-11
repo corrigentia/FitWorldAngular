@@ -2,8 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StudentFormTemplateComponent } from './student-form-template.component';
 import { Logger } from 'src/app/shared/services/logger.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('StudentFormTemplateComponent', () => {
   let component: StudentFormTemplateComponent;
@@ -11,10 +12,10 @@ describe('StudentFormTemplateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [StudentFormTemplateComponent],
-      providers: [Logger],
-      imports: [HttpClientTestingModule, FormsModule],
-    }).compileComponents();
+    declarations: [StudentFormTemplateComponent],
+    imports: [FormsModule],
+    providers: [Logger, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
 
     fixture = TestBed.createComponent(StudentFormTemplateComponent);
     component = fixture.componentInstance;

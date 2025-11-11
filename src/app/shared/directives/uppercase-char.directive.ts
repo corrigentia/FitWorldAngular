@@ -26,14 +26,15 @@ export class UppercaseCharValidator implements Validator {
 }
 
 @Directive({
-  selector: '[appUppercaseChar]',
-  providers: [
-    {
-      provide: NG_VALIDATORS,
-      useExisting: UppercaseCharValidatorDirective,
-      multi: true,
-    },
-  ],
+    selector: '[appUppercaseChar]',
+    providers: [
+        {
+            provide: NG_VALIDATORS,
+            useExisting: UppercaseCharValidatorDirective,
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class UppercaseCharValidatorDirective implements Validator {
   constructor(private readonly validator: UppercaseCharValidator) {}

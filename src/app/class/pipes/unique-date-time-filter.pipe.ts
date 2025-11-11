@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Class } from '../../interfaces/class';
 
 @Pipe({
-  name: 'uniqueDateTimeFilter',
+    name: 'uniqueDateTimeFilter',
+    standalone: false
 })
 export class UniqueDateTimeFilterPipe implements PipeTransform {
   transform(value: Class[], ...args: unknown[]): Class[] {

@@ -6,9 +6,9 @@ import { MartialArtService } from 'src/app/martial-art/services/martial-art.serv
 import { MessageService } from 'src/app/shared/services/message.service';
 
 @Component({
-  selector: 'app-martial-arts',
-  templateUrl: './martial-arts.component.html',
-  // styleUrls: ['./martial-arts.component.css'],
+    selector: 'app-martial-arts',
+    templateUrl: './martial-arts.component.html',
+    standalone: false
 })
 export class MartialArtsComponent implements OnInit {
   protected entityCollection: MartialArt[] = [];

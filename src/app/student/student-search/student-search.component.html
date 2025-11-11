@@ -9,26 +9,28 @@
       #searchBox
       (input)="search(searchBox.value)"
       id="search-box"
-    />
+      />
   </label>
 
   <ul class="search-result list-group">
     <!--
-          20/01/2023
-          TODO: test each case
-        -->
+    20/01/2023
+    TODO: test each case
+    -->
     <!-- <li class="list-group-item" *ngFor="let student of students$ | async as list"> -->
-    <li class="list-group-item" *ngFor="let student of students$ | async">
-      <!-- <li class="list-group-item" *ngFor="let student of students$"> -->
-      <!--
-            20/01/2023
-            TODO: test both cases
-          -->
-      <!-- <a routerLink="/detail/{{ student.id }}"> -->
-      <a routerLink="/students/{{ student.id }}">
-        {{ student.email }}
-        <!-- {{ student.username }} -->
-      </a>
-    </li>
+    @for (student of students$ | async; track student) {
+      <li class="list-group-item">
+        <!-- <li class="list-group-item" *ngFor="let student of students$"> -->
+        <!--
+        20/01/2023
+        TODO: test both cases
+        -->
+        <!-- <a routerLink="/detail/{{ student.id }}"> -->
+        <a routerLink="/students/{{ student.id }}">
+          {{ student.email }}
+          <!-- {{ student.username }} -->
+        </a>
+      </li>
+    }
   </ul>
 </div>

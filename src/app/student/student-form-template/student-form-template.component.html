@@ -6,12 +6,12 @@
     (ngSubmit)="
       add(firstName.value, lastName.value, email.value, password.value)
     "
-  >
+    >
     <div [hidden]="studentForm.submitted">
       <div
         class="cross-validation"
         [class.cross-validation-error]="studentForm.errors?.['identityRevealed'] && (studentForm.touched || studentForm.dirty)"
-      >
+        >
         <div class="form-group">
           <label for="first-name">
             First Name
@@ -27,26 +27,37 @@
               #firstName="ngModel"
               [ngModelOptions]="{ updateOn: 'blur' }"
               appNoWhiteSpace
-            />
+              />
           </label>
-          <div *ngIf="firstName.pending">Validating...</div>
-          <div
-            *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
-            class="alert alert-danger first-name-errors"
-          >
-            <div *ngIf="firstName.errors?.['required']">
-              First Name is required.
+          @if (firstName.pending) {
+            <div>Validating...</div>
+          }
+          @if (firstName.invalid && (firstName.dirty || firstName.touched)) {
+            <div
+              class="alert alert-danger first-name-errors"
+              >
+              @if (firstName.errors?.['required']) {
+                <div>
+                  First Name is required.
+                </div>
+              }
+              @if (firstName.errors?.['minlength']) {
+                <div>
+                  First Name must be at least 5 characters long.
+                </div>
+              }
+              @if (firstName.errors?.['maxlength']) {
+                <div>
+                  First Name must be at most 64 characters long.
+                </div>
+              }
+              @if (firstName.errors?.['noWhiteSpace']) {
+                <div>
+                  First Name must not contain spaces.
+                </div>
+              }
             </div>
-            <div *ngIf="firstName.errors?.['minlength']">
-              First Name must be at least 5 characters long.
-            </div>
-            <div *ngIf="firstName.errors?.['maxlength']">
-              First Name must be at most 64 characters long.
-            </div>
-            <div *ngIf="firstName.errors?.['noWhiteSpace']">
-              First Name must not contain spaces.
-            </div>
-          </div>
+          }
         </div>
 
         <div class="form-group">
@@ -63,26 +74,37 @@
               #lastName="ngModel"
               [ngModelOptions]="{ updateOn: 'blur' }"
               appNoWhiteSpace
-            />
+              />
           </label>
-          <div *ngIf="lastName.pending">Validating...</div>
-          <div
-            *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
-            class="alert alert-danger last-name-errors"
-          >
-            <div *ngIf="lastName.errors?.['required']">
-              Last Name is required.
+          @if (lastName.pending) {
+            <div>Validating...</div>
+          }
+          @if (lastName.invalid && (lastName.dirty || lastName.touched)) {
+            <div
+              class="alert alert-danger last-name-errors"
+              >
+              @if (lastName.errors?.['required']) {
+                <div>
+                  Last Name is required.
+                </div>
+              }
+              @if (lastName.errors?.['minlength']) {
+                <div>
+                  Last Name must be at least 0 characters long.
+                </div>
+              }
+              @if (lastName.errors?.['maxlength']) {
+                <div>
+                  Last Name must be at most 64 characters long.
+                </div>
+              }
+              @if (lastName.errors?.['noWhiteSpace']) {
+                <div>
+                  Last Name must not contain spaces.
+                </div>
+              }
             </div>
-            <div *ngIf="lastName.errors?.['minlength']">
-              Last Name must be at least 0 characters long.
-            </div>
-            <div *ngIf="lastName.errors?.['maxlength']">
-              Last Name must be at most 64 characters long.
-            </div>
-            <div *ngIf="lastName.errors?.['noWhiteSpace']">
-              Last Name must not contain spaces.
-            </div>
-          </div>
+          }
         </div>
 
         <div class="form-group">
@@ -102,37 +124,56 @@
               appNoWhiteSpace
               email
               appEmailTld
-            />
+              />
           </label>
 
-          <div *ngIf="email.pending">Validating...</div>
-          <div
-            *ngIf="email.invalid && (email.dirty || email.touched)"
-            class="alert alert-danger email-errors"
-          >
-            <div *ngIf="email.errors?.['required']">Email is required.</div>
-            <div *ngIf="email.errors?.['minlength']">
-              Email must be at least 5 characters long.
+          @if (email.pending) {
+            <div>Validating...</div>
+          }
+          @if (email.invalid && (email.dirty || email.touched)) {
+            <div
+              class="alert alert-danger email-errors"
+              >
+              @if (email.errors?.['required']) {
+                <div>Email is required.</div>
+              }
+              @if (email.errors?.['minlength']) {
+                <div>
+                  Email must be at least 5 characters long.
+                </div>
+              }
+              @if (email.errors?.['maxlength']) {
+                <div>
+                  Email must be at most 64 characters long.
+                </div>
+              }
+              @if (email.errors?.['email']) {
+                <div>
+                  Email must be properly formatted.
+                </div>
+              }
+              @if (email.errors?.['emailTld']) {
+                <div>
+                  Email must have a TLD after the last '.' character.
+                </div>
+              }
+              @if (email.errors?.['pattern']) {
+                <div>
+                  Email must be properly formatted.
+                </div>
+              }
+              @if (email.errors?.['noWhiteSpace']) {
+                <div>
+                  Email must not contain spaces.
+                </div>
+              }
+              @if (email.errors?.['uniqueEmail']) {
+                <div>
+                  Email is already registered.
+                </div>
+              }
             </div>
-            <div *ngIf="email.errors?.['maxlength']">
-              Email must be at most 64 characters long.
-            </div>
-            <div *ngIf="email.errors?.['email']">
-              Email must be properly formatted.
-            </div>
-            <div *ngIf="email.errors?.['emailTld']">
-              Email must have a TLD after the last '.' character.
-            </div>
-            <div *ngIf="email.errors?.['pattern']">
-              Email must be properly formatted.
-            </div>
-            <div *ngIf="email.errors?.['noWhiteSpace']">
-              Email must not contain spaces.
-            </div>
-            <div *ngIf="email.errors?.['uniqueEmail']">
-              Email is already registered.
-            </div>
-          </div>
+          }
         </div>
 
         <!--
@@ -152,14 +193,14 @@
               appUniqueUsername
               appNoWhiteSpace
               username
-            />
+              />
           </label>
 
           <div *ngIf="username.pending">Validating...</div>
           <div
             *ngIf="username.invalid && (username.dirty || username.touched)"
             class="alert alert-danger username-errors"
-          >
+            >
             <div *ngIf="username.errors?.['required']">
               Username is required.
             </div>
@@ -180,7 +221,7 @@
             </div>
           </div>
         </div>
-         -->
+        -->
 
         <div class="form-group">
           <label for="password">
@@ -199,44 +240,56 @@
               appUppercaseChar
               appDigitChar
               appSymbolChar
-            />
+              />
           </label>
 
-          <div
-            *ngIf="password.invalid && (password.dirty || password.touched)"
-            class="alert alert-danger"
-          >
-            <div *ngIf="password.errors?.['required']">
-              Password is required.
+          @if (password.invalid && (password.dirty || password.touched)) {
+            <div
+              class="alert alert-danger"
+              >
+              @if (password.errors?.['required']) {
+                <div>
+                  Password is required.
+                </div>
+              }
+              @if (password.errors?.['minlength']) {
+                <div>
+                  Password must be at least 6 characters long.
+                </div>
+              }
+              @if (password.errors?.['maxlength']) {
+                <div>
+                  Password must be at most 14 characters long.
+                </div>
+              }
+              @if (password.errors?.['pattern']) {
+                <div>
+                  Password must be a valid password, with uppercase and lowercase
+                  characters, digits and symbols.
+                </div>
+              }
+              @if (password.errors?.['lowercaseChar']) {
+                <div>
+                  Password must contain at least one lowercase character.
+                </div>
+              }
+              @if (password.errors?.['uppercaseChar']) {
+                <div>
+                  Password must contain at least one uppercase character.
+                </div>
+              }
+              @if (password.errors?.['digitChar']) {
+                <div>
+                  Password must contain at least one digit.
+                </div>
+              }
+              @if (password.errors?.['symbolChar']) {
+                <div>
+                  Password must contain at least one symbol.
+                </div>
+              }
             </div>
-            <div *ngIf="password.errors?.['minlength']">
-              Password must be at least 6 characters long.
-            </div>
-            <div *ngIf="password.errors?.['maxlength']">
-              Password must be at most 14 characters long.
-            </div>
-
-            <div *ngIf="password.errors?.['pattern']">
-              Password must be a valid password, with uppercase and lowercase
-              characters, digits and symbols.
-            </div>
-
-            <div *ngIf="password.errors?.['lowercaseChar']">
-              Password must contain at least one lowercase character.
-            </div>
-
-            <div *ngIf="password.errors?.['uppercaseChar']">
-              Password must contain at least one uppercase character.
-            </div>
-
-            <div *ngIf="password.errors?.['digitChar']">
-              Password must contain at least one digit.
-            </div>
-
-            <div *ngIf="password.errors?.['symbolChar']">
-              Password must contain at least one symbol.
-            </div>
-          </div>
+          }
         </div>
 
         <div class="form-group">
@@ -253,70 +306,80 @@
               [(ngModel)]="student.confirmPassword"
               #confirmPassword="ngModel"
               [pattern]="password.value"
-            />
+              />
           </label>
 
-          <div
-            *ngIf="
-              confirmPassword.invalid &&
-              (confirmPassword.dirty || confirmPassword.touched)
-            "
-            class="alert alert-danger"
-          >
-            <div *ngIf="confirmPassword.errors?.['required']">
-              Password Confirmation is required.
+          @if (
+            confirmPassword.invalid &&
+            (confirmPassword.dirty || confirmPassword.touched)
+            ) {
+            <div
+              class="alert alert-danger"
+              >
+              @if (confirmPassword.errors?.['required']) {
+                <div>
+                  Password Confirmation is required.
+                </div>
+              }
+              @if (confirmPassword.errors?.['minlength']) {
+                <div>
+                  Password Confirmation must be at least 6 characters long.
+                </div>
+              }
+              @if (confirmPassword.errors?.['maxlength']) {
+                <div>
+                  Password Confirmation must be at most 14 characters long.
+                </div>
+              }
+              @if (confirmPassword.errors?.['pattern']) {
+                <div>
+                  Password Confirmation must match Password.
+                </div>
+              }
             </div>
-            <div *ngIf="confirmPassword.errors?.['minlength']">
-              Password Confirmation must be at least 6 characters long.
-            </div>
-            <div *ngIf="confirmPassword.errors?.['maxlength']">
-              Password Confirmation must be at most 14 characters long.
-            </div>
-
-            <div *ngIf="confirmPassword.errors?.['pattern']">
-              Password Confirmation must match Password.
-            </div>
-          </div>
+          }
         </div>
       </div>
 
       <p>Complete the form to enable the Submit button.</p>
-      <button
-        type="submit"
-        *ngIf="studentForm.valid"
-        [disabled]="studentForm.invalid"
-        class="btn btn-success"
-      >
-        Submit
-      </button>
+      @if (studentForm.valid) {
+        <button
+          type="submit"
+          [disabled]="studentForm.invalid"
+          class="btn btn-success"
+          >
+          Submit
+        </button>
+      }
 
       &nbsp;
 
       <!--
-              03/02/2023
-              TODO: search instructors by firstName, lastName selection options
-              TODO: search equipment by name, price selection options
-            -->
+      03/02/2023
+      TODO: search instructors by firstName, lastName selection options
+      TODO: search equipment by name, price selection options
+      -->
 
       <button
         type="button"
         (click)="studentForm.resetForm({})"
         class="btn btn-warning"
-      >
+        >
         Reset
       </button>
     </div>
 
-    <div class="submitted-message" *ngIf="studentForm.submitted">
-      <p>You've submitted your student, {{ studentForm.value.email }}!</p>
-
-      <button
-        type="button"
-        (click)="studentForm.resetForm({})"
-        class="btn btn-success"
-      >
-        Add new student
-      </button>
-    </div>
+    @if (studentForm.submitted) {
+      <div class="submitted-message">
+        <p>You've submitted your student, {{ studentForm.value.email }}!</p>
+        <button
+          type="button"
+          (click)="studentForm.resetForm({})"
+          class="btn btn-success"
+          >
+          Add new student
+        </button>
+      </div>
+    }
   </form>
 </div>

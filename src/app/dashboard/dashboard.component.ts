@@ -4,9 +4,9 @@ import { StudentService } from '../student/services/student.service';
 // import { Student } from '../interfaces/student';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  // styleUrls: ['./dashboard.component.css'],
+    selector: 'app-dashboard',
+    templateUrl: './dashboard.component.html',
+    standalone: false
 })
 export class DashboardComponent implements OnInit {
   // students: StudentIdEmail[] = [];

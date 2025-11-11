@@ -5,9 +5,9 @@ import { MartialArt } from 'src/app/interfaces/martial-art';
 import { MartialArtService } from 'src/app/martial-art/services/martial-art.service';
 
 @Component({
-  selector: 'app-martial-art-search',
-  templateUrl: './martial-art-search.component.html',
-  // styleUrls: ['./martial-art-search.component.css'],
+    selector: 'app-martial-art-search',
+    templateUrl: './martial-art-search.component.html',
+    standalone: false
 })
 export class MartialArtSearchComponent implements OnInit {
   private searchTerms = new Subject<string>();

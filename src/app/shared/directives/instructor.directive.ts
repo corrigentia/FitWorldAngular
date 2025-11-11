@@ -34,14 +34,15 @@ export class UniqueInstructorValidator implements AsyncValidator {
 }
 
 @Directive({
-  selector: '[appUniqueInstructor]',
-  providers: [
-    {
-      provide: NG_ASYNC_VALIDATORS,
-      useExisting: forwardRef(() => UniqueInstructorValidatorDirective),
-      multi: true,
-    },
-  ],
+    selector: '[appUniqueInstructor]',
+    providers: [
+        {
+            provide: NG_ASYNC_VALIDATORS,
+            useExisting: forwardRef(() => UniqueInstructorValidatorDirective),
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class UniqueInstructorValidatorDirective implements AsyncValidator {
   constructor(private validator: UniqueInstructorValidator) {}

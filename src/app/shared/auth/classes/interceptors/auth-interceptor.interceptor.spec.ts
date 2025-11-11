@@ -2,14 +2,15 @@ import { TestBed } from '@angular/core/testing';
 
 import { AuthInterceptor } from './auth-interceptor.interceptor';
 import { Logger } from 'src/app/shared/services/logger.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('AuthInterceptor', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [AuthInterceptor, Logger],
-    })
+    imports: [],
+    providers: [AuthInterceptor, Logger, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
   );
 
   it('should be created', () => {

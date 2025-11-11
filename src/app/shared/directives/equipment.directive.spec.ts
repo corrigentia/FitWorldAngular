@@ -5,16 +5,16 @@ import {
 } from './equipment.directive';
 import { async, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { Logger } from '../services/logger.service';
-import { HttpClient } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 // import { inject } from '@angular/core';
 
 describe('EquipmentDirective', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [Logger],
-    }).compileComponents();
+    imports: [],
+    providers: [Logger, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
   });
 
   it('should create an instance', () => {

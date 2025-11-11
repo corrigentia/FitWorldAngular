@@ -65,14 +65,15 @@ export class DateTimeValidator implements Validator {
 }
 
 @Directive({
-  selector: '[appDateTime]',
-  providers: [
-    {
-      provide: NG_VALIDATORS,
-      useExisting: DateTimeValidatorDirective,
-      multi: true,
-    },
-  ],
+    selector: '[appDateTime]',
+    providers: [
+        {
+            provide: NG_VALIDATORS,
+            useExisting: DateTimeValidatorDirective,
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class DateTimeValidatorDirective implements Validator {
   constructor(private readonly validator: DateTimeValidator) {}

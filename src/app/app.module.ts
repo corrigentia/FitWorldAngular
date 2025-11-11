@@ -1,5 +1,5 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 // import { ButtonModule } from 'primeng/button';
@@ -74,108 +74,98 @@ import { BrowserModule } from '@angular/platform-browser';
 import { UniqueDateTimeFilterPipe } from './class/pipes/unique-date-time-filter.pipe';
 import { UniquePricePerHourFilterPipe } from './class/pipes/unique-price-per-hour-filter.pipe';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    StudentsComponent,
-    StudentDetailComponent,
-    EquipmentsComponent,
-    MartialArtsComponent,
-    MartialArtDetailComponent,
-    InstructorsComponent,
-    InstructorDetailComponent,
-    EquipmentDetailComponent,
-    ClassesComponent,
-    ClassDetailComponent,
-    MessagesComponent,
-    DashboardComponent,
-    StudentSearchComponent,
-    MartialArtSearchComponent,
-    InstructorSearchComponent,
-    EquipmentSearchComponent,
-    ClassSearchComponent,
-    MartialArtFormComponent,
-    MartialArtFormTemplateComponent,
-    MartialArtFormReactiveComponent,
-    StudentFormComponent,
-    StudentFormTemplateComponent,
-    StudentFormReactiveComponent,
-    UniqueUsernameUpdateValidatorDirective,
-    IdentityRevealedValidatorDirective,
-    UniqueEquipmentValidatorDirective,
-    EquipmentFormComponent,
-    EquipmentFormReactiveComponent,
-    EquipmentFormTemplateComponent,
-    UniqueMartialArtValidatorDirective,
-    InstructorFormComponent,
-    InstructorFormReactiveComponent,
-    InstructorFormTemplateComponent,
-    UniqueInstructorValidatorDirective,
-    UniqueEmailValidatorDirective,
-    UniqueUsernameValidatorDirective,
-    WhiteSpaceValidatorDirective,
-    LowercaseCharValidatorDirective,
-    UppercaseCharValidatorDirective,
-    DigitCharValidatorDirective,
-    SymbolCharValidatorDirective,
-    EmailTldValidatorDirective,
-    ClassFormComponent,
-    ClassFormReactiveComponent,
-    ClassFormTemplateComponent,
-    IdValidatorDirective,
-    DateTimeValidatorDirective,
-    MartialArtIdValidatorDirective,
-    InstructorIdValidatorDirective,
-    UniqueClassValidatorDirective,
-    // UsernameDirective,
-    UniqueUsernameValidatorDirective,
-    RegisterComponent,
-    LogInComponent,
-    PageNotFoundComponent,
-    NavigationComponent,
-    FileUploadComponent,
-    Upload2Component,
-    OwnedEquipmentPipe,
-    UniqueDateTimeFilterPipe,
-    UniquePricePerHourFilterPipe,
-    // ForbiddenNameDirective,
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    // TODO: Comment it out to have the server handle HTTP requests!!
-    /**
-     * intercepts HTTP requests
-     * and returns simulated server responses.
-     * TODO: Remove it when a real server is ready to receive requests!
-     */
-
-    /*
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
-      dataEncapsulation: false,
-      // passThruUnknownUrl: false,
-    }),
-    */
-
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule, // <-- for formGroup
-    RouterModule,
-    // ButtonModule,
-    // CheckboxModule,
-  ],
-  providers: [
-    /* logger */
-    Logger,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    },
-  ],
-  exports: [
+@NgModule({ declarations: [
+        AppComponent,
+        StudentsComponent,
+        StudentDetailComponent,
+        EquipmentsComponent,
+        MartialArtsComponent,
+        MartialArtDetailComponent,
+        InstructorsComponent,
+        InstructorDetailComponent,
+        EquipmentDetailComponent,
+        ClassesComponent,
+        ClassDetailComponent,
+        MessagesComponent,
+        DashboardComponent,
+        StudentSearchComponent,
+        MartialArtSearchComponent,
+        InstructorSearchComponent,
+        EquipmentSearchComponent,
+        ClassSearchComponent,
+        MartialArtFormComponent,
+        MartialArtFormTemplateComponent,
+        MartialArtFormReactiveComponent,
+        StudentFormComponent,
+        StudentFormTemplateComponent,
+        StudentFormReactiveComponent,
+        UniqueUsernameUpdateValidatorDirective,
+        IdentityRevealedValidatorDirective,
+        UniqueEquipmentValidatorDirective,
+        EquipmentFormComponent,
+        EquipmentFormReactiveComponent,
+        EquipmentFormTemplateComponent,
+        UniqueMartialArtValidatorDirective,
+        InstructorFormComponent,
+        InstructorFormReactiveComponent,
+        InstructorFormTemplateComponent,
+        UniqueInstructorValidatorDirective,
+        UniqueEmailValidatorDirective,
+        UniqueUsernameValidatorDirective,
+        WhiteSpaceValidatorDirective,
+        LowercaseCharValidatorDirective,
+        UppercaseCharValidatorDirective,
+        DigitCharValidatorDirective,
+        SymbolCharValidatorDirective,
+        EmailTldValidatorDirective,
+        ClassFormComponent,
+        ClassFormReactiveComponent,
+        ClassFormTemplateComponent,
+        IdValidatorDirective,
+        DateTimeValidatorDirective,
+        MartialArtIdValidatorDirective,
+        InstructorIdValidatorDirective,
+        UniqueClassValidatorDirective,
+        // UsernameDirective,
+        UniqueUsernameValidatorDirective,
+        RegisterComponent,
+        LogInComponent,
+        PageNotFoundComponent,
+        NavigationComponent,
+        FileUploadComponent,
+        Upload2Component,
+        OwnedEquipmentPipe,
+        UniqueDateTimeFilterPipe,
+        UniquePricePerHourFilterPipe,
+        // ForbiddenNameDirective,
+    ],
+    exports: [
     /* AppComponent */
-  ],
-  bootstrap: [AppComponent],
-})
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        // TODO: Comment it out to have the server handle HTTP requests!!
+        /**
+         * intercepts HTTP requests
+         * and returns simulated server responses.
+         * TODO: Remove it when a real server is ready to receive requests!
+         */
+        /*
+        HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
+          dataEncapsulation: false,
+          // passThruUnknownUrl: false,
+        }),
+        */
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule, // <-- for formGroup
+        RouterModule], providers: [
+        /* logger */
+        Logger,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+        },
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule {}

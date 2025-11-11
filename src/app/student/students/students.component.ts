@@ -13,9 +13,9 @@ import { SessionService } from '../../shared/session/services/session.service';
 type TData = IStudentSpring;
 
 @Component({
-  selector: 'app-students',
-  templateUrl: './students.component.html',
-  // styleUrls: ['./students.component.css'],
+    selector: 'app-students',
+    templateUrl: './students.component.html',
+    standalone: false
 })
 export class StudentsComponent implements OnInit {
   // TODO: mock-students

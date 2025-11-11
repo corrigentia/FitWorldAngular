@@ -3,8 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { StudentFormReactiveComponent } from './student-form-reactive.component';
 import { Logger } from 'src/app/shared/services/logger.service';
 import { StudentService } from '../services/student.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('StudentFormReactiveComponent', () => {
   let component: StudentFormReactiveComponent;
@@ -14,14 +15,16 @@ describe('StudentFormReactiveComponent', () => {
     class TService extends StudentService {}
 
     await TestBed.configureTestingModule({
-      declarations: [StudentFormReactiveComponent],
-      providers: [
+    declarations: [StudentFormReactiveComponent],
+    imports: [ReactiveFormsModule],
+    providers: [
         Logger,
         StudentService,
         { provide: TService, useValue: StudentService },
-      ],
-      imports: [HttpClientTestingModule, ReactiveFormsModule],
-    }).compileComponents();
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+}).compileComponents();
 
     fixture = TestBed.createComponent(StudentFormReactiveComponent);
     component = fixture.componentInstance;

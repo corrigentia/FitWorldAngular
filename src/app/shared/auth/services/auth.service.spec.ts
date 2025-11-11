@@ -2,16 +2,17 @@ import { TestBed } from '@angular/core/testing';
 
 import { AuthService } from './auth.service';
 import { Logger } from '../../services/logger.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('AuthService', () => {
   let service: AuthService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [Logger],
-    });
+    imports: [],
+    providers: [Logger, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     service = TestBed.inject(AuthService);
   });
 

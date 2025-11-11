@@ -11,12 +11,12 @@
         pricePerHour.value
       )
     "
-  >
+    >
     <div [hidden]="classForm.submitted">
       <div
         class="cross-validation"
         [class.cross-validation-error]="classForm.errors?.['uniqueClass'] && (classForm.dirty || classForm.touched)"
-      >
+        >
         <div class="form-group">
           <label for="martialArtId">
             Martial Art ID
@@ -29,33 +29,41 @@
               appMartialArtId
               [(ngModel)]="martialArtClass.martialArtId"
               #martialArtId="ngModel"
-            >
-              <option
-                *ngFor="let martialArt of martialArts"
-                [ngValue]="martialArt.id"
               >
-                {{ martialArt.name }}
-              </option>
+              @for (martialArt of martialArts; track martialArt) {
+                <option
+                  [ngValue]="martialArt.id"
+                  >
+                  {{ martialArt.name }}
+                </option>
+              }
             </select>
           </label>
 
-          <div
-            *ngIf="
-              martialArtId.invalid &&
-              (martialArtId.dirty || martialArtId.touched)
-            "
-            class="alert alert-danger"
-          >
-            <div *ngIf="martialArtId.errors?.['required']">
-              Martial Art ID is required.
+          @if (
+            martialArtId.invalid &&
+            (martialArtId.dirty || martialArtId.touched)
+            ) {
+            <div
+              class="alert alert-danger"
+              >
+              @if (martialArtId.errors?.['required']) {
+                <div>
+                  Martial Art ID is required.
+                </div>
+              }
+              @if (martialArtId.errors?.['validId']) {
+                <div>
+                  Martial Art ID is invalid.
+                </div>
+              }
+              @if (martialArtId.errors?.['validMartialArtId']) {
+                <div>
+                  Martial Art ID is not an existing martial art's ID.
+                </div>
+              }
             </div>
-            <div *ngIf="martialArtId.errors?.['validId']">
-              Martial Art ID is invalid.
-            </div>
-            <div *ngIf="martialArtId.errors?.['validMartialArtId']">
-              Martial Art ID is not an existing martial art's ID.
-            </div>
-          </div>
+          }
         </div>
 
         <div class="form-group">
@@ -70,34 +78,42 @@
               appInstructorId
               [(ngModel)]="martialArtClass.instructorId"
               #instructorId="ngModel"
-            >
-              <option
-                *ngFor="let instructor of instructors"
-                [ngValue]="instructor.id"
               >
-                {{ instructor.firstName }}
-                {{ instructor.lastName }}
-              </option>
+              @for (instructor of instructors; track instructor) {
+                <option
+                  [ngValue]="instructor.id"
+                  >
+                  {{ instructor.firstName }}
+                  {{ instructor.lastName }}
+                </option>
+              }
             </select>
           </label>
 
-          <div
-            *ngIf="
-              instructorId.invalid &&
-              (instructorId.dirty || instructorId.touched)
-            "
-            class="alert alert-danger"
-          >
-            <div *ngIf="instructorId.errors?.['required']">
-              Instructor ID is required.
+          @if (
+            instructorId.invalid &&
+            (instructorId.dirty || instructorId.touched)
+            ) {
+            <div
+              class="alert alert-danger"
+              >
+              @if (instructorId.errors?.['required']) {
+                <div>
+                  Instructor ID is required.
+                </div>
+              }
+              @if (instructorId.errors?.['validId']) {
+                <div>
+                  Instructor ID is invalid.
+                </div>
+              }
+              @if (instructorId.errors?.['validInstructorId']) {
+                <div>
+                  Instructor ID is not an existing instructor's ID.
+                </div>
+              }
             </div>
-            <div *ngIf="instructorId.errors?.['validId']">
-              Instructor ID is invalid.
-            </div>
-            <div *ngIf="instructorId.errors?.['validInstructorId']">
-              Instructor ID is not an existing instructor's ID.
-            </div>
-          </div>
+          }
         </div>
 
         <div class="form-group">
@@ -112,30 +128,38 @@
               appDateTime
               [(ngModel)]="martialArtClass.dateTime"
               #dateTime="ngModel"
-            />
+              />
           </label>
 
+          @if (dateTime.invalid && (dateTime.dirty || dateTime.touched)) {
+            <div
+              class="alert alert-danger"
+              >
+              @if (dateTime.errors?.['required']) {
+                <div>
+                  Date & Time is required.
+                </div>
+              }
+              @if (dateTime.errors?.['validDateTime']) {
+                <div>
+                  Date & Time is invalid.
+                </div>
+              }
+            </div>
+          }
+        </div>
+
+        @if (classForm.pending) {
+          <div>Validating...</div>
+        }
+
+        @if (classForm.errors?.['uniqueClass']) {
           <div
-            *ngIf="dateTime.invalid && (dateTime.dirty || dateTime.touched)"
-            class="alert alert-danger"
-          >
-            <div *ngIf="dateTime.errors?.['required']">
-              Date & Time is required.
-            </div>
-            <div *ngIf="dateTime.errors?.['validDateTime']">
-              Date & Time is invalid.
-            </div>
+            class="cross-validation-error-message alert alert-danger class-errors"
+            >
+            Class is already registered.
           </div>
-        </div>
-
-        <div *ngIf="classForm.pending">Validating...</div>
-
-        <div
-          *ngIf="classForm.errors?.['uniqueClass']"
-          class="cross-validation-error-message alert alert-danger class-errors"
-        >
-          Class is already registered.
-        </div>
+        }
 
         <div class="form-group">
           <label for="pricePerHour">
@@ -151,26 +175,33 @@
               [(ngModel)]="martialArtClass.pricePerHour"
               #pricePerHour="ngModel"
               step="0.01"
-            />
+              />
           </label>
 
-          <div
-            *ngIf="
-              pricePerHour.invalid &&
-              (pricePerHour.dirty || pricePerHour.touched)
-            "
-            class="alert alert-danger"
-          >
-            <div *ngIf="pricePerHour.errors?.['required']">
-              Price per Hour is required.
+          @if (
+            pricePerHour.invalid &&
+            (pricePerHour.dirty || pricePerHour.touched)
+            ) {
+            <div
+              class="alert alert-danger"
+              >
+              @if (pricePerHour.errors?.['required']) {
+                <div>
+                  Price per Hour is required.
+                </div>
+              }
+              @if (pricePerHour.errors?.['min']) {
+                <div>
+                  Price per Hour must be at least 0.01.
+                </div>
+              }
+              @if (pricePerHour.errors?.['max']) {
+                <div>
+                  Price per Hour must be at most 99999999998.99.
+                </div>
+              }
             </div>
-            <div *ngIf="pricePerHour.errors?.['min']">
-              Price per Hour must be at least 0.01.
-            </div>
-            <div *ngIf="pricePerHour.errors?.['max']">
-              Price per Hour must be at most 99999999998.99.
-            </div>
-          </div>
+          }
         </div>
       </div>
 
@@ -179,7 +210,7 @@
         type="submit"
         [disabled]="classForm.invalid"
         class="btn btn-success"
-      >
+        >
         Submit
       </button>
 
@@ -196,16 +227,16 @@
           })
         "
         class="btn btn-warning"
-      >
+        >
         Reset
       </button>
     </div>
 
-    <div class="submitted-message" *ngIf="classForm.submitted">
-      <p>You've submitted your class, {{ classForm.value.name }}!</p>
-
-      <button
-        type="button"
+    @if (classForm.submitted) {
+      <div class="submitted-message">
+        <p>You've submitted your class, {{ classForm.value.name }}!</p>
+        <button
+          type="button"
         (click)="
           classForm.resetForm({
             martialArtId: 0,
@@ -214,10 +245,11 @@
             pricePerHour: 0
           })
         "
-        class="btn btn-success"
-      >
-        Add new class
-      </button>
-    </div>
+          class="btn btn-success"
+          >
+          Add new class
+        </button>
+      </div>
+    }
   </form>
 </div>

@@ -26,14 +26,15 @@ export class DigitCharValidator implements Validator {
 }
 
 @Directive({
-  selector: '[appDigitChar]',
-  providers: [
-    {
-      provide: NG_VALIDATORS,
-      useExisting: DigitCharValidatorDirective,
-      multi: true,
-    },
-  ],
+    selector: '[appDigitChar]',
+    providers: [
+        {
+            provide: NG_VALIDATORS,
+            useExisting: DigitCharValidatorDirective,
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class DigitCharValidatorDirective implements Validator {
   constructor(private readonly validator: DigitCharValidator) {}

@@ -5,9 +5,9 @@ import { Equipment } from 'src/app/interfaces/equipment';
 import { EquipmentService } from 'src/app/equipment/services/equipment.service';
 
 @Component({
-  selector: 'app-equipment-detail',
-  templateUrl: './equipment-detail.component.html',
-  // styleUrls: ['./equipment-detail.component.css'],
+    selector: 'app-equipment-detail',
+    templateUrl: './equipment-detail.component.html',
+    standalone: false
 })
 export class EquipmentDetailComponent implements OnInit {
   @Input() equipment?: Equipment;

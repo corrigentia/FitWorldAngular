@@ -30,14 +30,15 @@ export class WhiteSpaceValidator implements Validator {
 }
 
 @Directive({
-  selector: '[appNoWhiteSpace]',
-  providers: [
-    {
-      provide: NG_VALIDATORS,
-      useExisting: WhiteSpaceValidatorDirective,
-      multi: true,
-    },
-  ],
+    selector: '[appNoWhiteSpace]',
+    providers: [
+        {
+            provide: NG_VALIDATORS,
+            useExisting: WhiteSpaceValidatorDirective,
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class WhiteSpaceValidatorDirective implements Validator {
   constructor(private readonly validator: WhiteSpaceValidator) {}

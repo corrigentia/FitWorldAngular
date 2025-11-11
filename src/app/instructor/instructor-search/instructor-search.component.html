@@ -1,18 +1,18 @@
 <div class="container" id="search-component">
   <!--
-    <label for="name-search-box">
-        Instructor Search by <span class="label label-default">name</span>
-        <input class="form-control" #nameSearchBox (input)="searchByName(nameSearchBox.value)" id="name-search-box">
-    </label>
+  <label for="name-search-box">
+    Instructor Search by <span class="label label-default">name</span>
+    <input class="form-control" #nameSearchBox (input)="searchByName(nameSearchBox.value)" id="name-search-box">
+  </label>
 
-    <ul class="search-result list-group">
-        <li class="list-group-item" *ngFor="let instructor of instructorsByName$ | async">
-            <a routerLink="/instructors/{{instructor.id}}">
-                {{instructor.firstName}} {{instructor.lastName}}
-            </a>
-        </li>
-      </ul>
-    -->
+  <ul class="search-result list-group">
+    <li class="list-group-item" *ngFor="let instructor of instructorsByName$ | async">
+      <a routerLink="/instructors/{{instructor.id}}">
+        {{instructor.firstName}} {{instructor.lastName}}
+      </a>
+    </li>
+  </ul>
+  -->
 
   <div class="form-group">
     <label for="firstName">
@@ -27,61 +27,74 @@
         required
         [(ngModel)]="firstNameSought"
         #firstName="ngModel"
-      >
-        <option
-          *ngFor="let uniqueFirstName of uniqueFirstNames"
-          [value]="uniqueFirstName"
         >
-          {{ uniqueFirstName }}
-        </option>
+        @for (uniqueFirstName of uniqueFirstNames; track uniqueFirstName) {
+          <option
+            [value]="uniqueFirstName"
+            >
+            {{ uniqueFirstName }}
+          </option>
+        }
       </select>
 
-      <div
-        *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
-        class="alert alert-danger"
-      >
-        <div *ngIf="firstName.errors?.['required']">
-          First Name is required.
+      @if (firstName.invalid && (firstName.dirty || firstName.touched)) {
+        <div
+          class="alert alert-danger"
+          >
+          @if (firstName.errors?.['required']) {
+            <div>
+              First Name is required.
+            </div>
+          }
+          @if (firstName.errors?.['minlength']) {
+            <div>
+              First Name must be at least 1 character long.
+            </div>
+          }
+          @if (firstName.errors?.['maxlength']) {
+            <div>
+              First Name must be at most 255 characters long.
+            </div>
+          }
         </div>
-        <div *ngIf="firstName.errors?.['minlength']">
-          First Name must be at least 1 character long.
-        </div>
-        <div *ngIf="firstName.errors?.['maxlength']">
-          First Name must be at most 255 characters long.
-        </div>
-      </div>
+      }
 
-      <span *ngIf="firstName.valid">{{
-        searchByFirstName(firstName.value)
-      }}</span>
+      @if (firstName.valid) {
+        <span>{{
+          searchByFirstName(firstName.value)
+        }}</span>
+      }
     </label>
   </div>
 
-  <ul class="search-result list-group" *ngIf="firstName.valid">
-    <li
-      class="list-group-item"
-      *ngFor="let instructor of instructorsByFirstName$ | async"
-    >
-      <a routerLink="/instructors/{{ instructor.id }}">
-        {{ instructor.firstName }} {{ instructor.lastName }}
+  @if (firstName.valid) {
+    <ul class="search-result list-group">
+      @for (instructor of instructorsByFirstName$ | async; track instructor) {
+        <li
+          class="list-group-item"
+          >
+          <a routerLink="/instructors/{{ instructor.id }}">
+            {{ instructor.firstName }} {{ instructor.lastName }}
+          </a>
+        </li>
+      }
+    </ul>
+  }
+
+  <!--
+  <label for="full-name-search-box">
+    Instructor Search by <span class="label label-info">full</span> <span class="label label-default">name</span>
+    <input class="form-control" #fullNameSearchBox (input)="searchByFullName(fullNameSearchBox.value)" id="full-name-search-box">
+  </label>
+
+  <ul class="search-result list-group">
+    <li class="list-group-item" *ngFor="let instructor of instructorsByFullName$ | async">
+      <a routerLink="/instructors/{{instructor.id}}">
+        {{instructor.firstName}} {{instructor.lastName}}
       </a>
     </li>
   </ul>
-
-  <!--
-    <label for="full-name-search-box">
-        Instructor Search by <span class="label label-info">full</span> <span class="label label-default">name</span>
-        <input class="form-control" #fullNameSearchBox (input)="searchByFullName(fullNameSearchBox.value)" id="full-name-search-box">
-    </label>
-
-    <ul class="search-result list-group">
-        <li class="list-group-item" *ngFor="let instructor of instructorsByFullName$ | async">
-            <a routerLink="/instructors/{{instructor.id}}">
-                {{instructor.firstName}} {{instructor.lastName}}
-            </a>
-        </li>
-      </ul>
-    -->
+  -->
 
   <div class="form-group">
     <label for="lastName">
@@ -95,42 +108,52 @@
         class="form-control"
         [(ngModel)]="lastNameSought"
         #lastName="ngModel"
-      >
-        <option
-          *ngFor="let uniqueLastName of uniqueLastNames"
-          [ngValue]="uniqueLastName"
         >
-          {{ uniqueLastName }}
-        </option>
+        @for (uniqueLastName of uniqueLastNames; track uniqueLastName) {
+          <option
+            [ngValue]="uniqueLastName"
+            >
+            {{ uniqueLastName }}
+          </option>
+        }
       </select>
 
-      <div
-        *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
-        class="alert alert-danger"
-      >
-        <div *ngIf="lastName.errors?.['required']">Last Name is required.</div>
-        <div *ngIf="lastName.errors?.['maxlength']">
-          Last Name must be at most 255 characters long.
+      @if (lastName.invalid && (lastName.dirty || lastName.touched)) {
+        <div
+          class="alert alert-danger"
+          >
+          @if (lastName.errors?.['required']) {
+            <div>Last Name is required.</div>
+          }
+          @if (lastName.errors?.['maxlength']) {
+            <div>
+              Last Name must be at most 255 characters long.
+            </div>
+          }
         </div>
-      </div>
+      }
 
-      <span
-        *ngIf="
-          lastName.valid && lastName.touched && lastName.value !== undefined
-        "
-        >{{ searchByLastName(lastName.value) }}</span
-      >
-    </label>
+      @if (
+        lastName.valid && lastName.touched && lastName.value !== undefined
+        ) {
+        <span
+          >{{ searchByLastName(lastName.value) }}</span
+          >
+        }
+      </label>
+    </div>
+
+    @if (lastName.valid) {
+      <ul class="search-result list-group">
+        @for (instructor of instructorsByLastName$ | async; track instructor) {
+          <li
+            class="list-group-item"
+            >
+            <a routerLink="/instructors/{{ instructor.id }}">
+              {{ instructor.firstName }} {{ instructor.lastName }}
+            </a>
+          </li>
+        }
+      </ul>
+    }
   </div>
-
-  <ul class="search-result list-group" *ngIf="lastName.valid">
-    <li
-      class="list-group-item"
-      *ngFor="let instructor of instructorsByLastName$ | async"
-    >
-      <a routerLink="/instructors/{{ instructor.id }}">
-        {{ instructor.firstName }} {{ instructor.lastName }}
-      </a>
-    </li>
-  </ul>
-</div>

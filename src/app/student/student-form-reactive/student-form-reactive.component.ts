@@ -32,9 +32,9 @@ class TClass extends StudentSpringClass {
 }
 
 @Component({
-  selector: 'app-student-form-reactive',
-  templateUrl: './student-form-reactive.component.html',
-  // styleUrls: ['./student-form-reactive.component.css'],
+    selector: 'app-student-form-reactive',
+    templateUrl: './student-form-reactive.component.html',
+    standalone: false
 })
 export class StudentFormReactiveComponent implements OnInit {
   studentForm!: FormGroup;

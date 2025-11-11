@@ -14,9 +14,9 @@ import { Router } from '@angular/router';
 import { EQUIPMENTS } from 'src/app/db/cached-equipments';
 
 @Component({
-  selector: 'app-equipment-form-reactive',
-  templateUrl: './equipment-form-reactive.component.html',
-  // styleUrls: ['./equipment-form-reactive.component.css'],
+    selector: 'app-equipment-form-reactive',
+    templateUrl: './equipment-form-reactive.component.html',
+    standalone: false
 })
 export class EquipmentFormReactiveComponent implements OnInit {
   equipment = new Equipment('', 0.0);

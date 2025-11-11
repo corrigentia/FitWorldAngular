@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { SessionService } from 'src/app/shared/session/services/session.service';
 
 @Component({
-  selector: 'app-upload2',
-  templateUrl: './upload2.component.html',
-  // styleUrls: ['./upload2.component.css'],
+    selector: 'app-upload2',
+    templateUrl: './upload2.component.html',
+    standalone: false
 })
 export class Upload2Component {
   constructor(

@@ -23,7 +23,7 @@
       *ngIf="this.authService.isLoggedIn"
       routerLink="/students/{{ this.loggedInId }}"
       class="p-2 text-dark"
-    >
+      >
       <button class="btn btn-info text-dark me-2" routerLinkActive="active">
         User Profile
       </button>
@@ -34,49 +34,56 @@
         class="btn btn-danger text-light me-2"
         routerLinkActive="active"
         (click)="onClick()"
-      >
+        >
         Sign Out
       </button>
     </a>
   </nav>
-   -->
+  -->
 
   <nav class="nav">
-    <a *ngIf="!isUserConnected" routerLink="/register">
-      <button class="btn btn-primary" routerLinkActive="active">
-        Register
-      </button>
-    </a>
+    @if (!isUserConnected) {
+      <a routerLink="/register">
+        <button class="btn btn-primary" routerLinkActive="active">
+          Register
+        </button>
+      </a>
+    }
 
     &nbsp;
 
-    <a *ngIf="!isUserConnected" routerLink="/log-in">
-      <button class="btn btn-success text-light me-2" routerLinkActive="active">
-        Log In
-      </button>
-    </a>
+    @if (!isUserConnected) {
+      <a routerLink="/log-in">
+        <button class="btn btn-success text-light me-2" routerLinkActive="active">
+          Log In
+        </button>
+      </a>
+    }
 
-    <a
-      *ngIf="isUserConnected"
-      routerLink="/{{ loggedInEntityCollectionName }}/{{ loggedInUser?.id }}"
-      class="p-2 text-dark"
-    >
-      <button class="btn btn-info text-dark me-2" routerLinkActive="active">
-        User Profile
-      </button>
-    </a>
+    @if (isUserConnected) {
+      <a
+        routerLink="/{{ loggedInEntityCollectionName }}/{{ loggedInUser?.id }}"
+        class="p-2 text-dark"
+        >
+        <button class="btn btn-info text-dark me-2" routerLinkActive="active">
+          User Profile
+        </button>
+      </a>
+    }
 
     <!-- admin? {{ _session.isAdmin }} instructor? {{ _session.isInstructor }} -->
 
-    <a *ngIf="isUserConnected" routerLink="/log-in" class="p-2">
-      <button
-        class="btn btn-danger text-light me-2"
-        routerLinkActive="active"
-        (click)="logOut()"
-      >
-        Sign Out
-      </button>
-    </a>
+    @if (isUserConnected) {
+      <a routerLink="/log-in" class="p-2">
+        <button
+          class="btn btn-danger text-light me-2"
+          routerLinkActive="active"
+          (click)="logOut()"
+          >
+          Sign Out
+        </button>
+      </a>
+    }
   </nav>
 </div>
 
@@ -85,7 +92,7 @@
 
   <!--
   <ul class="nav nav-tabs justify-content-center">
- <a routerLink="dashboard"> Dashboard</a>
+    <a routerLink="dashboard"> Dashboard</a>
 
     &nbsp;
     <li [routerLinkActive]="['active']">
@@ -129,7 +136,7 @@
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navbarTogglerExternalContent"
-    >
+      >
       <span class="navbar-toggler-icon">&ZeroWidthSpace; </span>
     </button>
   </div>
@@ -146,81 +153,81 @@
 
 <!--
 <nav>
-      &nbsp;
-      <a routerLink="students"> Students</a>
-      &nbsp;
-      <a routerLink="instructors"> Instructors</a>
-      &nbsp;
-      <a routerLink="martial-arts"> Martial Arts</a>
-      &nbsp;
-      <a routerLink="classes"> Classes</a>
-      &nbsp;
-      <a routerLink="equipments"> Equipment</a>
-    </nav>
-  -->
+  &nbsp;
+  <a routerLink="students"> Students</a>
+  &nbsp;
+  <a routerLink="instructors"> Instructors</a>
+  &nbsp;
+  <a routerLink="martial-arts"> Martial Arts</a>
+  &nbsp;
+  <a routerLink="classes"> Classes</a>
+  &nbsp;
+  <a routerLink="equipments"> Equipment</a>
+</nav>
+-->
 
 <!--
-  <div class="navbar-collapse collapse">
-    <nav>
-      -->
-<!-- <li role="presentation"> -->
-<!--
-        <li>
-          <a routerLink="dashboard"> Dashboard</a>
-        </li>
-      -->
-<!--
-        &nbsp;
-        <li>
-            <a routerLink="students"> Students</a>
-        </li>
-        &nbsp;
-        <li>
-            <a routerLink="instructors"> Instructors</a>
-        </li>
-        &nbsp;
-        <li>
-            <a routerLink="martial-arts"> Martial Arts</a>
-          </li>
-          &nbsp;
-          <li>
-            <a routerLink="classes"> Classes</a>
-          </li>
-          &nbsp;
-          <li>
-            <a routerLink="equipments"> Equipment</a>
-          </li>
-        </nav>
-      </div>
+<div class="navbar-collapse collapse">
+  <nav>
     -->
+    <!-- <li role="presentation"> -->
+    <!--
+    <li>
+      <a routerLink="dashboard"> Dashboard</a>
+    </li>
+    -->
+    <!--
+    &nbsp;
+    <li>
+      <a routerLink="students"> Students</a>
+    </li>
+    &nbsp;
+    <li>
+      <a routerLink="instructors"> Instructors</a>
+    </li>
+    &nbsp;
+    <li>
+      <a routerLink="martial-arts"> Martial Arts</a>
+    </li>
+    &nbsp;
+    <li>
+      <a routerLink="classes"> Classes</a>
+    </li>
+    &nbsp;
+    <li>
+      <a routerLink="equipments"> Equipment</a>
+    </li>
+  </nav>
+</div>
+-->
 
 <router-outlet></router-outlet>
 
 <!--
 
-  <h2 id="tableLabel">Weather forecast</h2>
+<h2 id="tableLabel">Weather forecast</h2>
 
 <p>This component demonstrates fetching data from the server.</p>
 
 <p *ngIf="!forecasts"><em>Loading... Please refresh once the ASP.NET back-end has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
 
 <table *ngIf="forecasts" class="forecasts table">
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let forecast of forecasts">
-            <td>{{ forecast.date }}</td>
-            <td>{{ forecast.temperatureC }}</td>
-            <td>{{ forecast.temperatureF }}</td>
-            <td>{{ forecast.summary }}</td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Temp. (C)</th>
+      <th>Temp. (F)</th>
+      <th>Summary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let forecast of forecasts">
+      <td>{{ forecast.date }}</td>
+      <td>{{ forecast.temperatureC }}</td>
+      <td>{{ forecast.temperatureF }}</td>
+      <td>{{ forecast.summary }}</td>
+    </tr>
+  </tbody>
 </table>
 
 -->

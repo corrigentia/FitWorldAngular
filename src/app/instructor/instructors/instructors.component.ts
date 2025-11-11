@@ -6,9 +6,9 @@ import { InstructorService } from 'src/app/instructor/services/instructor.servic
 import { MessageService } from 'src/app/shared/services/message.service';
 
 @Component({
-  selector: 'app-instructors',
-  templateUrl: './instructors.component.html',
-  // styleUrls: ['./instructors.component.css'],
+    selector: 'app-instructors',
+    templateUrl: './instructors.component.html',
+    standalone: false
 })
 export class InstructorsComponent implements OnInit {
   protected instructors: Instructor[] = [];

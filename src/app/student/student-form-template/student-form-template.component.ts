@@ -12,9 +12,9 @@ type TInterface = IStudentSpring;
 type TClass = StudentSpringClass;
 
 @Component({
-  selector: 'app-student-form-template',
-  templateUrl: './student-form-template.component.html',
-  // styleUrls: ['./student-form-template.component.css'],
+    selector: 'app-student-form-template',
+    templateUrl: './student-form-template.component.html',
+    standalone: false
 })
 export class StudentFormTemplateComponent {
   // student = { ...new EmailPassword('', ''), confirmPassword: '' };

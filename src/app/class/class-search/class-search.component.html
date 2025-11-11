@@ -14,54 +14,67 @@
         appMartialArtId
         [(ngModel)]="martialArtIdSought"
         #martialArtId="ngModel"
-      >
-        <option
-          *ngFor="let martialArt of martialArts"
-          [ngValue]="martialArt.id"
         >
-          {{ martialArt.name }}
-          <!-- - id={{ martialArt.id }} -->
-        </option>
+        @for (martialArt of martialArts; track martialArt) {
+          <option
+            [ngValue]="martialArt.id"
+            >
+            {{ martialArt.name }}
+            <!-- - id={{ martialArt.id }} -->
+          </option>
+        }
       </select>
     </label>
 
-    <div
-      *ngIf="
-        martialArtId.invalid && (martialArtId.dirty || martialArtId.touched)
-      "
-      class="alert alert-danger"
-    >
-      <div *ngIf="martialArtId.errors?.['required']">
-        Martial Art ID is required.
+    @if (
+      martialArtId.invalid && (martialArtId.dirty || martialArtId.touched)
+      ) {
+      <div
+        class="alert alert-danger"
+        >
+        @if (martialArtId.errors?.['required']) {
+          <div>
+            Martial Art ID is required.
+          </div>
+        }
+        @if (martialArtId.errors?.['validId']) {
+          <div>
+            Martial Art ID is invalid.
+          </div>
+        }
+        @if (martialArtId.errors?.['validMartialArtId']) {
+          <div>
+            {{ martialArtId | json }}
+            error above delete it Martial Art ID is not an existing martial art's
+            ID.
+          </div>
+        }
       </div>
-      <div *ngIf="martialArtId.errors?.['validId']">
-        Martial Art ID is invalid.
-      </div>
-      <div *ngIf="martialArtId.errors?.['validMartialArtId']">
-        {{ martialArtId | json }}
-        error above delete it Martial Art ID is not an existing martial art's
-        ID.
-      </div>
-    </div>
+    }
 
-    <span *ngIf="martialArtId.valid">{{
-      searchByMartialArtId(martialArtId.value)
-    }}</span>
+    @if (martialArtId.valid) {
+      <span>{{
+        searchByMartialArtId(martialArtId.value)
+      }}</span>
+    }
   </div>
 
-  <ul class="search-result list-group" *ngIf="martialArtId.valid">
-    <li
-      class="list-group-item"
-      *ngFor="let class of classesByMartialArtId$ | async"
-    >
-      <a routerLink="/classes/{{ class.id }}">
-        <!-- {{ aliasMartialArt(class.martialArtId) }} by {{ aliasInstructor(class.instructorId) }} &commat; -->
-        {{ class.martialArt.name }} by {{ class.instructor.firstName }}
-        {{ class.instructor.lastName }} &commat; {{ class.dateTime | date }} for
-        {{ class.pricePerHour | currency : "EUR" }}
-      </a>
-    </li>
-  </ul>
+  @if (martialArtId.valid) {
+    <ul class="search-result list-group">
+      @for (class of classesByMartialArtId$ | async; track class) {
+        <li
+          class="list-group-item"
+          >
+          <a routerLink="/classes/{{ class.id }}">
+            <!-- {{ aliasMartialArt(class.martialArtId) }} by {{ aliasInstructor(class.instructorId) }} &commat; -->
+            {{ class.martialArt.name }} by {{ class.instructor.firstName }}
+            {{ class.instructor.lastName }} &commat; {{ class.dateTime | date }} for
+            {{ class.pricePerHour | currency : "EUR" }}
+          </a>
+        </li>
+      }
+    </ul>
+  }
 
   <div class="form-group">
     <label for="instructorId">
@@ -78,50 +91,63 @@
         appInstructorId
         [(ngModel)]="instructorIdSought"
         #instructorId="ngModel"
-      >
-        <option
-          *ngFor="let instructor of instructors"
-          [ngValue]="instructor.id"
         >
-          {{ instructor.firstName }} {{ instructor.lastName }}
-        </option>
+        @for (instructor of instructors; track instructor) {
+          <option
+            [ngValue]="instructor.id"
+            >
+            {{ instructor.firstName }} {{ instructor.lastName }}
+          </option>
+        }
       </select>
     </label>
 
-    <div
-      *ngIf="
-        instructorId.invalid && (instructorId.dirty || instructorId.touched)
-      "
-      class="alert alert-danger"
-    >
-      <div *ngIf="instructorId.errors?.['required']">
-        Instructor ID is required.
+    @if (
+      instructorId.invalid && (instructorId.dirty || instructorId.touched)
+      ) {
+      <div
+        class="alert alert-danger"
+        >
+        @if (instructorId.errors?.['required']) {
+          <div>
+            Instructor ID is required.
+          </div>
+        }
+        @if (instructorId.errors?.['validId']) {
+          <div>
+            Instructor ID is invalid.
+          </div>
+        }
+        @if (instructorId.errors?.['validInstructorId']) {
+          <div>
+            Instructor ID is not an existing instructor's ID.
+          </div>
+        }
       </div>
-      <div *ngIf="instructorId.errors?.['validId']">
-        Instructor ID is invalid.
-      </div>
-      <div *ngIf="instructorId.errors?.['validInstructorId']">
-        Instructor ID is not an existing instructor's ID.
-      </div>
-    </div>
+    }
 
-    <span *ngIf="instructorId.valid">{{
-      searchByInstructorId(instructorId.value)
-    }}</span>
+    @if (instructorId.valid) {
+      <span>{{
+        searchByInstructorId(instructorId.value)
+      }}</span>
+    }
   </div>
 
-  <ul class="search-result list-group" *ngIf="instructorId.valid">
-    <li
-      class="list-group-item"
-      *ngFor="let class of classesByInstructorId$ | async"
-    >
-      <a routerLink="/classes/{{ class.id }}">
-        {{ class.martialArt.name }} by {{ class.instructor.firstName }}
-        {{ class.instructor.lastName }} &commat; {{ class.dateTime | date }} for
-        {{ class.pricePerHour | currency : "EUR" }}
-      </a>
-    </li>
-  </ul>
+  @if (instructorId.valid) {
+    <ul class="search-result list-group">
+      @for (class of classesByInstructorId$ | async; track class) {
+        <li
+          class="list-group-item"
+          >
+          <a routerLink="/classes/{{ class.id }}">
+            {{ class.martialArt.name }} by {{ class.instructor.firstName }}
+            {{ class.instructor.lastName }} &commat; {{ class.dateTime | date }} for
+            {{ class.pricePerHour | currency : "EUR" }}
+          </a>
+        </li>
+      }
+    </ul>
+  }
 
   <div class="form-group">
     <label for="dateTime">
@@ -136,44 +162,55 @@
         appDateTime
         [(ngModel)]="dateTimeSought"
         #dateTime="ngModel"
-      >
-        <option
-          *ngFor="let class1 of classes | uniqueDateTimeFilter"
-          [ngValue]="class1.dateTime"
         >
-          {{ class1.dateTime }}
-        </option>
+        @for (class1 of classes | uniqueDateTimeFilter; track class1) {
+          <option
+            [ngValue]="class1.dateTime"
+            >
+            {{ class1.dateTime }}
+          </option>
+        }
       </select>
     </label>
 
-    <div
-      *ngIf="dateTime.invalid && (dateTime.dirty || dateTime.touched)"
-      class="alert alert-danger"
-    >
-      <div *ngIf="dateTime.errors?.['required']">Date & Time is required.</div>
-      <div *ngIf="dateTime.errors?.['validDateTime']">
-        Date & Time is invalid.
+    @if (dateTime.invalid && (dateTime.dirty || dateTime.touched)) {
+      <div
+        class="alert alert-danger"
+        >
+        @if (dateTime.errors?.['required']) {
+          <div>Date & Time is required.</div>
+        }
+        @if (dateTime.errors?.['validDateTime']) {
+          <div>
+            Date & Time is invalid.
+          </div>
+        }
       </div>
-    </div>
+    }
 
-    <span *ngIf="dateTime.valid">{{ searchByDateTime(dateTime.value) }}</span>
+    @if (dateTime.valid) {
+      <span>{{ searchByDateTime(dateTime.value) }}</span>
+    }
   </div>
 
-  <ul class="search-result list-group" *ngIf="dateTime.valid">
-    <li
-      class="list-group-item"
-      *ngFor="let class of classesByDateTime$ | async"
-    >
-      <a routerLink="/classes/{{ class.id }}">
-        <!-- {{ aliasMartialArt(class.martialArtId) }} by -->
-        {{ class.martialArt.name }} by
-        <!-- {{ aliasInstructor(class.instructorId) }} &commat; -->
-        {{ class.instructor.firstName }}
-        {{ class.instructor.lastName }} &commat; {{ class.dateTime }} for
-        {{ class.pricePerHour | currency : "EUR" }}
-      </a>
-    </li>
-  </ul>
+  @if (dateTime.valid) {
+    <ul class="search-result list-group">
+      @for (class of classesByDateTime$ | async; track class) {
+        <li
+          class="list-group-item"
+          >
+          <a routerLink="/classes/{{ class.id }}">
+            <!-- {{ aliasMartialArt(class.martialArtId) }} by -->
+            {{ class.martialArt.name }} by
+            <!-- {{ aliasInstructor(class.instructorId) }} &commat; -->
+            {{ class.instructor.firstName }}
+            {{ class.instructor.lastName }} &commat; {{ class.dateTime }} for
+            {{ class.pricePerHour | currency : "EUR" }}
+          </a>
+        </li>
+      }
+    </ul>
+  }
 
   <div class="form-group">
     <label for="pricePerHour">
@@ -187,49 +224,63 @@
         required
         [(ngModel)]="priceSought"
         #pricePerHour="ngModel"
-      >
-        <option
-          *ngFor="let class of classes | uniquePricePerHourFilter"
-          [ngValue]="class.pricePerHour"
         >
-          {{ class.pricePerHour | currency : "EUR" }}
-        </option>
+        @for (class of classes | uniquePricePerHourFilter; track class) {
+          <option
+            [ngValue]="class.pricePerHour"
+            >
+            {{ class.pricePerHour | currency : "EUR" }}
+          </option>
+        }
       </select>
     </label>
 
-    <div
-      *ngIf="
-        pricePerHour.invalid && (pricePerHour.dirty || pricePerHour.touched)
-      "
-      class="alert alert-danger"
-    >
-      <div *ngIf="pricePerHour.errors?.['required']">
-        Price per Hour is required.
+    @if (
+      pricePerHour.invalid && (pricePerHour.dirty || pricePerHour.touched)
+      ) {
+      <div
+        class="alert alert-danger"
+        >
+        @if (pricePerHour.errors?.['required']) {
+          <div>
+            Price per Hour is required.
+          </div>
+        }
+        @if (pricePerHour.errors?.['min']) {
+          <div>
+            Price per Hour must be at least 0.01.
+          </div>
+        }
+        @if (pricePerHour.errors?.['max']) {
+          <div>
+            Price per Hour must be at most 99999999998.99.
+          </div>
+        }
       </div>
-      <div *ngIf="pricePerHour.errors?.['min']">
-        Price per Hour must be at least 0.01.
-      </div>
-      <div *ngIf="pricePerHour.errors?.['max']">
-        Price per Hour must be at most 99999999998.99.
-      </div>
-    </div>
+    }
 
-    <span *ngIf="pricePerHour.valid">{{
-      searchByPrice(pricePerHour.value)
-    }}</span>
+    @if (pricePerHour.valid) {
+      <span>{{
+        searchByPrice(pricePerHour.value)
+      }}</span>
+    }
   </div>
 
-  <ul class="search-result list-group" *ngIf="pricePerHour.valid">
-    <li class="list-group-item" *ngFor="let class of classesByPrice$ | async">
-      <a routerLink="/classes/{{ class.id }}">
-        <!-- {{ aliasMartialArt(class.martialArtId) }} by -->
-        {{ class.martialArt.name }} by
-        <!-- {{ aliasInstructor(class.instructorId) }} &commat; -->
-        {{ class.instructor.firstName }}
-        {{ class.instructor.lastName }} &commat; {{ class.dateTime | date }} for
-        {{ class.pricePerHour | currency : "EUR" }}
-      </a>
-      <!-- {{ class | json }} -->
-    </li>
-  </ul>
+  @if (pricePerHour.valid) {
+    <ul class="search-result list-group">
+      @for (class of classesByPrice$ | async; track class) {
+        <li class="list-group-item">
+          <a routerLink="/classes/{{ class.id }}">
+            <!-- {{ aliasMartialArt(class.martialArtId) }} by -->
+            {{ class.martialArt.name }} by
+            <!-- {{ aliasInstructor(class.instructorId) }} &commat; -->
+            {{ class.instructor.firstName }}
+            {{ class.instructor.lastName }} &commat; {{ class.dateTime | date }} for
+            {{ class.pricePerHour | currency : "EUR" }}
+          </a>
+          <!-- {{ class | json }} -->
+        </li>
+      }
+    </ul>
+  }
 </div>

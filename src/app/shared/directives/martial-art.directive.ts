@@ -23,14 +23,15 @@ export class UniqueMartialArtValidator implements AsyncValidator {
 }
 
 @Directive({
-  selector: '[appUniqueMartialArt]',
-  providers: [
-    {
-      provide: NG_ASYNC_VALIDATORS,
-      useExisting: forwardRef(() => UniqueMartialArtValidatorDirective),
-      multi: true,
-    },
-  ],
+    selector: '[appUniqueMartialArt]',
+    providers: [
+        {
+            provide: NG_ASYNC_VALIDATORS,
+            useExisting: forwardRef(() => UniqueMartialArtValidatorDirective),
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class UniqueMartialArtValidatorDirective implements AsyncValidator {
   constructor(private readonly validator: UniqueMartialArtValidator) {}

@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { FileUploadService } from '../../services/file-upload.service';
 
 @Component({
-  selector: 'app-file-upload',
-  templateUrl: './file-upload.component.html',
-  // styleUrls: ['./file-upload.component.css'],
+    selector: 'app-file-upload',
+    templateUrl: './file-upload.component.html',
+    standalone: false
 })
 export class FileUploadComponent {
   fileToUpload?: File | null = null;

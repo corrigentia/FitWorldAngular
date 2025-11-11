@@ -1,64 +1,64 @@
 <!--
 <div>
-    <div>
-        <label for="new-equipment">
-            Equipment name:
-            <input #equipmentName id="new-equipment">
-        </label>
-    </div>
+  <div>
+    <label for="new-equipment">
+      Equipment name:
+      <input #equipmentName id="new-equipment">
+    </label>
+  </div>
 
-    <div>
-        <label for="new-equipment-price">
-            Equipment price:
-            <input #equipmentPrice id="new-equipment-price" type="number">
-        </label>
-    </div>
+  <div>
+    <label for="new-equipment-price">
+      Equipment price:
+      <input #equipmentPrice id="new-equipment-price" type="number">
+    </label>
+  </div>
 
-    <button (click)="add(equipmentName.value, +equipmentPrice.value); equipmentName.value=''; equipmentPrice.value=''; ">
-        Add equipment
-    </button>
+  <button (click)="add(equipmentName.value, +equipmentPrice.value); equipmentName.value=''; equipmentPrice.value=''; ">
+    Add equipment
+  </button>
 </div>
 
 <ul class="equipments list-group">
-    <li class="list-group-item" *ngFor="let equipment of equipments">
-        <button (click)="onSelect(equipment)" [class.selected]="equipment === selectedEquipment" type="button">
-            <span class="badge">{{equipment.id}}</span>
-            <span class="name">{{equipment.name}}</span>
-            <span class="price">{{equipment.price}}</span>
-        </button>
+  <li class="list-group-item" *ngFor="let equipment of equipments">
+    <button (click)="onSelect(equipment)" [class.selected]="equipment === selectedEquipment" type="button">
+      <span class="badge">{{equipment.id}}</span>
+      <span class="name">{{equipment.name}}</span>
+      <span class="price">{{equipment.price}}</span>
+    </button>
 
-        <a routerLink="/equipments/{{equipment.id}}">
-            <span class="badge">{{equipment.id}}</span>
-            {{equipment.name}} x {{equipment.price}}
-        </a>
+    <a routerLink="/equipments/{{equipment.id}}">
+      <span class="badge">{{equipment.id}}</span>
+      {{equipment.name}} x {{equipment.price}}
+    </a>
 
-        <button (click)="delete(equipment)" class="delete" title="delete equipment" type="button">
-            x</button>
-    </li>
+    <button (click)="delete(equipment)" class="delete" title="delete equipment" type="button">
+    x</button>
+  </li>
 </ul>
 -->
 
 <!--
 <div *ngIf="selectedEquipment">
-    <h3>
-        {{selectedEquipment.name | uppercase}} Details
-    </h3>
+  <h3>
+    {{selectedEquipment.name | uppercase}} Details
+  </h3>
 
-    <div>id: {{selectedEquipment.id}}</div>
+  <div>id: {{selectedEquipment.id}}</div>
 
-    <div>
-        <label for="equipment-name">
-            Equipment name:
-            <input [(ngModel)]="selectedEquipment.name" id="equipment-name" placeholder="name">
-        </label>
-    </div>
+  <div>
+    <label for="equipment-name">
+      Equipment name:
+      <input [(ngModel)]="selectedEquipment.name" id="equipment-name" placeholder="name">
+    </label>
+  </div>
 
-    <div>
-        <label for="equipment-price">
-            Equipment price:
-            <input [(ngModel)]="selectedEquipment.price" id="equipment-price" placeholder="price" type="number">
-        </label>
-    </div>
+  <div>
+    <label for="equipment-price">
+      Equipment price:
+      <input [(ngModel)]="selectedEquipment.price" id="equipment-price" placeholder="price" type="number">
+    </label>
+  </div>
 </div>
 -->
 
@@ -74,11 +74,13 @@
 
 <h2 id="equipments">Equipments</h2>
 
-<p *ngIf="!equipments">
-  <em> Loading... Please refresh once the ASP.NET back-end has started! </em>
-</p>
+@if (!equipments) {
+  <p>
+    <em> Loading... Please refresh once the ASP.NET back-end has started! </em>
+  </p>
+}
 
-<ng-container *ngIf="equipments">
+@if (equipments) {
   <div class="container">
     <label for="page">Page </label>
     <input
@@ -88,8 +90,7 @@
       placeholder="Page number"
       (ngModelChange)="getAll()"
       id="page"
-    />
-
+      />
     <label for="entries-per-page">Entries per Page </label>
     <input
       type="number"
@@ -98,57 +99,59 @@
       placeholder="How many per page"
       (ngModelChange)="getAll()"
       id="entries-per-page"
-    />
+      />
   </div>
-</ng-container>
+}
 
-<table *ngIf="equipments" class="equipments table">
-  <thead>
-    <tr>
-      <th>Equipment #</th>
-      <th>Name</th>
-      <th class="price">&#65129;&#36;&#65284;</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr
-      *ngFor="let equipment of equipments"
-      (click)="onSelect(equipment)"
-      [class.selected]="equipment === selectedEquipment"
-    >
-      <td class="badge">{{ equipment.id }}</td>
-      <td class="name">{{ equipment.name }}</td>
-      <td class="price">{{ equipment.price | currency : "EUR" }}</td>
-
-      <td>
-        <a
-          routerLink="/equipments/{{ equipment.id }}"
-          class="edit btn btn-warning"
-        >
-          Edit &#9999; id=<span class="badge">{{ equipment.id }}</span>
-        </a>
-      </td>
-
-      <td>
-        <button
-          (click)="delete(equipment)"
-          class="delete btn btn-danger"
-          title="delete equipment"
-          type="button"
-        >
-          x Delete id=<span class="badge">{{ equipment.id }}</span>
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+@if (equipments) {
+  <table class="equipments table">
+    <thead>
+      <tr>
+        <th>Equipment #</th>
+        <th>Name</th>
+        <th class="price">&#65129;&#36;&#65284;</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (equipment of equipments; track equipment) {
+        <tr
+          (click)="onSelect(equipment)"
+          [class.selected]="equipment === selectedEquipment"
+          >
+          <td class="badge">{{ equipment.id }}</td>
+          <td class="name">{{ equipment.name }}</td>
+          <td class="price">{{ equipment.price | currency : "EUR" }}</td>
+          <td>
+            <a
+              routerLink="/equipments/{{ equipment.id }}"
+              class="edit btn btn-warning"
+              >
+              Edit &#9999; id=<span class="badge">{{ equipment.id }}</span>
+            </a>
+          </td>
+          <td>
+            <button
+              (click)="delete(equipment)"
+              class="delete btn btn-danger"
+              title="delete equipment"
+              type="button"
+              >
+              x Delete id=<span class="badge">{{ equipment.id }}</span>
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
 
 <h3>Shopping Cart</h3>
 
 <ul>
-  <li *ngFor="let item of ownedEquipments">
-    <!-- {{ item.quantity }} * {{ item.equipment.name }} @ {{ item.equipment.price }} -->
-
-    {{ item | ownedEquipment }}
-  </li>
+  @for (item of ownedEquipments; track item) {
+    <li>
+      <!-- {{ item.quantity }} * {{ item.equipment.name }} @ {{ item.equipment.price }} -->
+      {{ item | ownedEquipment }}
+    </li>
+  }
 </ul>

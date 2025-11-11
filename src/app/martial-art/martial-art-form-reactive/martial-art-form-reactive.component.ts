@@ -3,9 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MartialArt } from 'src/app/models/martial-art';
 
 @Component({
-  selector: 'app-martial-art-form-reactive',
-  templateUrl: './martial-art-form-reactive.component.html',
-  // styleUrls: ['./martial-art-form-reactive.component.css'],
+    selector: 'app-martial-art-form-reactive',
+    templateUrl: './martial-art-form-reactive.component.html',
+    standalone: false
 })
 export class MartialArtFormReactiveComponent implements OnInit {
   martialArt = new MartialArt('');

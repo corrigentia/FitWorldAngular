@@ -11,9 +11,9 @@ import { MartialArtService } from 'src/app/martial-art/services/martial-art.serv
 import { MessageService } from 'src/app/shared/services/message.service';
 
 @Component({
-  selector: 'app-class-form-template',
-  templateUrl: './class-form-template.component.html',
-  // styleUrls: ['./class-form-template.component.css'],
+    selector: 'app-class-form-template',
+    templateUrl: './class-form-template.component.html',
+    standalone: false
 })
 export class ClassFormTemplateComponent {
   protected martialArts: MartialArt[] = [];

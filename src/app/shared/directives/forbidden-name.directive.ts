@@ -22,14 +22,15 @@ export function forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
 }
 
 @Directive({
-  selector: '[appForbiddenName]',
-  providers: [
-    {
-      provide: NG_VALIDATORS,
-      useExisting: ForbiddenValidatorDirective,
-      multi: true,
-    },
-  ],
+    selector: '[appForbiddenName]',
+    providers: [
+        {
+            provide: NG_VALIDATORS,
+            useExisting: ForbiddenValidatorDirective,
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class ForbiddenValidatorDirective implements Validator {
   @Input('appForbiddenName') forbiddenName = '';

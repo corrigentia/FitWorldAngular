@@ -3,7 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { StudentsComponent } from './students.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Logger } from 'src/app/shared/services/logger.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('StudentsComponent', () => {
   let component: StudentsComponent;
@@ -11,10 +12,10 @@ describe('StudentsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [StudentsComponent],
-      imports: [RouterTestingModule, HttpClientTestingModule],
-      providers: [Logger],
-    }).compileComponents();
+    declarations: [StudentsComponent],
+    imports: [RouterTestingModule],
+    providers: [Logger, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
 
     fixture = TestBed.createComponent(StudentsComponent);
     component = fixture.componentInstance;
