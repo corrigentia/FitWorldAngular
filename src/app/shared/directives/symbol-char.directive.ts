@@ -28,14 +28,15 @@ export class SymbolCharValidator implements Validator {
 }
 
 @Directive({
-  selector: '[appSymbolChar]',
-  providers: [
-    {
-      provide: NG_VALIDATORS,
-      useExisting: SymbolCharValidatorDirective,
-      multi: true,
-    },
-  ],
+    selector: '[appSymbolChar]',
+    providers: [
+        {
+            provide: NG_VALIDATORS,
+            useExisting: SymbolCharValidatorDirective,
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class SymbolCharValidatorDirective implements Validator {
   constructor(private readonly validator: SymbolCharValidator) {}

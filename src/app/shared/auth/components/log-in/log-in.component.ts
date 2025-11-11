@@ -30,9 +30,9 @@ const loginFormConst: IForm<IUserLogInForm> = {
 };
 
 @Component({
-  selector: 'app-log-in',
-  templateUrl: './log-in.component.html',
-  // styleUrls: ['./log-in.component.css'],
+    selector: 'app-log-in',
+    templateUrl: './log-in.component.html',
+    standalone: false
 })
 export class LogInComponent implements OnInit {
   // loginForm: FormGroup;

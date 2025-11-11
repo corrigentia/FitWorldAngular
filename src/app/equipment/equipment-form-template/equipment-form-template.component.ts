@@ -8,9 +8,9 @@ import { Router } from '@angular/router';
 import { EQUIPMENTS } from 'src/app/db/cached-equipments';
 
 @Component({
-  selector: 'app-equipment-form-template',
-  templateUrl: './equipment-form-template.component.html',
-  // styleUrls: ['./equipment-form-template.component.css'],
+    selector: 'app-equipment-form-template',
+    templateUrl: './equipment-form-template.component.html',
+    standalone: false
 })
 export class EquipmentFormTemplateComponent {
   equipment = new Equipment('', 0.0);

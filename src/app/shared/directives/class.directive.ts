@@ -32,14 +32,15 @@ export class UniqueClassValidator implements AsyncValidator {
 }
 
 @Directive({
-  selector: '[appUniqueClass]',
-  providers: [
-    {
-      provide: NG_ASYNC_VALIDATORS,
-      useExisting: forwardRef(() => UniqueClassValidatorDirective),
-      multi: true,
-    },
-  ],
+    selector: '[appUniqueClass]',
+    providers: [
+        {
+            provide: NG_ASYNC_VALIDATORS,
+            useExisting: forwardRef(() => UniqueClassValidatorDirective),
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class UniqueClassValidatorDirective implements AsyncValidator {
   constructor(private validator: UniqueClassValidator) {}

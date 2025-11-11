@@ -5,9 +5,9 @@ import { IStudentSpring } from 'src/app/interfaces/student-spring';
 import { StudentService } from 'src/app/student/services/student.service';
 
 @Component({
-  selector: 'app-student-search',
-  templateUrl: './student-search.component.html',
-  // styleUrls: ['./student-search.component.css'],
+    selector: 'app-student-search',
+    templateUrl: './student-search.component.html',
+    standalone: false
 })
 export class StudentSearchComponent implements OnInit {
   // private searchTerms = new Subject();

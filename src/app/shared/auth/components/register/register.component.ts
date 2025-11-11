@@ -26,9 +26,9 @@ const registrationFormConst: IForm<UserRegistration> = {
 };
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  // styleUrls: ['./register.component.css'],
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    standalone: false
 })
 export class RegisterComponent implements OnInit {
   protected /*readonly*/ registrationForm = new FormGroup<

@@ -7,9 +7,9 @@ import { EquipmentService } from 'src/app/equipment/services/equipment.service';
 import { EquipmentSearchService } from './services/equipment-search.service';
 
 @Component({
-  selector: 'app-equipment-search',
-  templateUrl: './equipment-search.component.html',
-  // styleUrls: ['./equipment-search.component.css'],
+    selector: 'app-equipment-search',
+    templateUrl: './equipment-search.component.html',
+    standalone: false
 })
 export class EquipmentSearchComponent implements OnInit {
   protected equipments: Equipment[] = [];

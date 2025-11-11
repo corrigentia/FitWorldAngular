@@ -16,9 +16,9 @@ import { InstructorService } from 'src/app/instructor/services/instructor.servic
 import { MartialArtService } from 'src/app/martial-art/services/martial-art.service';
 
 @Component({
-  selector: 'app-class-search',
-  templateUrl: './class-search.component.html',
-  // styleUrls: ['./class-search.component.css'],
+    selector: 'app-class-search',
+    templateUrl: './class-search.component.html',
+    standalone: false
 })
 export class ClassSearchComponent implements OnInit {
   protected martialArts: MartialArt[] = [];

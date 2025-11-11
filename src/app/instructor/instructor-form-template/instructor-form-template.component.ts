@@ -8,9 +8,9 @@ import { MessageService } from 'src/app/shared/services/message.service';
 import { INSTRUCTORS } from 'src/app/db/cached-instructors';
 
 @Component({
-  selector: 'app-instructor-form-template',
-  templateUrl: './instructor-form-template.component.html',
-  // styleUrls: ['./instructor-form-template.component.css'],
+    selector: 'app-instructor-form-template',
+    templateUrl: './instructor-form-template.component.html',
+    standalone: false
 })
 export class InstructorFormTemplateComponent {
   // instructor = new Instructor('');

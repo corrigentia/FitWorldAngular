@@ -98,14 +98,15 @@ export class UniqueEquipmentValidator implements AsyncValidator {
 }
 
 @Directive({
-  selector: '[appUniqueEquipment]',
-  providers: [
-    {
-      provide: NG_ASYNC_VALIDATORS,
-      useExisting: forwardRef(() => UniqueEquipmentValidatorDirective),
-      multi: true,
-    },
-  ],
+    selector: '[appUniqueEquipment]',
+    providers: [
+        {
+            provide: NG_ASYNC_VALIDATORS,
+            useExisting: forwardRef(() => UniqueEquipmentValidatorDirective),
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class UniqueEquipmentValidatorDirective implements AsyncValidator {
   constructor(private validator: UniqueEquipmentValidator) {}

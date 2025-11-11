@@ -29,14 +29,15 @@ export class EmailTldValidator implements Validator {
 }
 
 @Directive({
-  selector: '[appEmailTld]',
-  providers: [
-    {
-      provide: NG_VALIDATORS,
-      useExisting: EmailTldValidatorDirective,
-      multi: true,
-    },
-  ],
+    selector: '[appEmailTld]',
+    providers: [
+        {
+            provide: NG_VALIDATORS,
+            useExisting: EmailTldValidatorDirective,
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class EmailTldValidatorDirective implements Validator {
   constructor(private readonly validator: EmailTldValidator) {}

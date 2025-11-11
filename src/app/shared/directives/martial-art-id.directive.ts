@@ -45,14 +45,15 @@ export class MartialArtIdValidator implements Validator {
 }
 
 @Directive({
-  selector: '[appMartialArtId]',
-  providers: [
-    {
-      provide: NG_VALIDATORS,
-      useExisting: MartialArtIdValidatorDirective,
-      multi: true,
-    },
-  ],
+    selector: '[appMartialArtId]',
+    providers: [
+        {
+            provide: NG_VALIDATORS,
+            useExisting: MartialArtIdValidatorDirective,
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class MartialArtIdValidatorDirective implements Validator {
   constructor(private readonly validator: MartialArtIdValidator) {}

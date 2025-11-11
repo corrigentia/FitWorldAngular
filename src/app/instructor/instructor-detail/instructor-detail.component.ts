@@ -5,9 +5,9 @@ import { Instructor } from 'src/app/interfaces/instructor';
 import { InstructorService } from 'src/app/instructor/services/instructor.service';
 
 @Component({
-  selector: 'app-instructor-detail',
-  templateUrl: './instructor-detail.component.html',
-  // styleUrls: ['./instructor-detail.component.css'],
+    selector: 'app-instructor-detail',
+    templateUrl: './instructor-detail.component.html',
+    standalone: false
 })
 export class InstructorDetailComponent implements OnInit {
   @Input() instructor?: Instructor;

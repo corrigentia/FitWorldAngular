@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Class } from '../../interfaces/class';
 
 @Pipe({
-  name: 'uniquePricePerHourFilter',
+    name: 'uniquePricePerHourFilter',
+    standalone: false
 })
 export class UniquePricePerHourFilterPipe implements PipeTransform {
   transform(value: Class[], ...args: unknown[]): Class[] {

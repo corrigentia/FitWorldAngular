@@ -26,14 +26,15 @@ export class LowercaseCharValidator implements Validator {
 }
 
 @Directive({
-  selector: '[appLowercaseChar]',
-  providers: [
-    {
-      provide: NG_VALIDATORS,
-      useExisting: LowercaseCharValidatorDirective,
-      multi: true,
-    },
-  ],
+    selector: '[appLowercaseChar]',
+    providers: [
+        {
+            provide: NG_VALIDATORS,
+            useExisting: LowercaseCharValidatorDirective,
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class LowercaseCharValidatorDirective implements Validator {
   constructor(private readonly validator: LowercaseCharValidator) {}

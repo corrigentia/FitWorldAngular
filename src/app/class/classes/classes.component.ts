@@ -11,9 +11,9 @@ import { MartialArtService } from 'src/app/martial-art/services/martial-art.serv
 import { MessageService } from 'src/app/shared/services/message.service';
 
 @Component({
-  selector: 'app-classes',
-  templateUrl: './classes.component.html',
-  // styleUrls: ['./classes.component.css'],
+    selector: 'app-classes',
+    templateUrl: './classes.component.html',
+    standalone: false
 })
 export class ClassesComponent implements OnInit {
   protected classes: Class[] = [];

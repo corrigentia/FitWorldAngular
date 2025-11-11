@@ -42,14 +42,15 @@ export class InstructorIdValidator implements Validator {
 }
 
 @Directive({
-  selector: '[appInstructorId]',
-  providers: [
-    {
-      provide: NG_VALIDATORS,
-      useExisting: InstructorIdValidatorDirective,
-      multi: true,
-    },
-  ],
+    selector: '[appInstructorId]',
+    providers: [
+        {
+            provide: NG_VALIDATORS,
+            useExisting: InstructorIdValidatorDirective,
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class InstructorIdValidatorDirective implements Validator {
   constructor(private readonly validator: InstructorIdValidator) {}
