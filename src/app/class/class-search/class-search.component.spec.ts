@@ -3,8 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ClassSearchComponent } from './class-search.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Logger } from 'src/app/shared/services/logger.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ClassSearchComponent', () => {
   let component: ClassSearchComponent;
@@ -12,10 +13,10 @@ describe('ClassSearchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ClassSearchComponent],
-      imports: [RouterTestingModule, HttpClientTestingModule, FormsModule],
-      providers: [Logger],
-    }).compileComponents();
+    declarations: [ClassSearchComponent],
+    imports: [RouterTestingModule, FormsModule],
+    providers: [Logger, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
 
     fixture = TestBed.createComponent(ClassSearchComponent);
     component = fixture.componentInstance;

@@ -2,16 +2,17 @@ import { TestBed } from '@angular/core/testing';
 
 import { EquipmentSearchService } from './equipment-search.service';
 import { Logger } from 'src/app/shared/services/logger.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('EquipmentSearchService', () => {
   let service: EquipmentSearchService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [Logger],
-      imports: [HttpClientTestingModule],
-    });
+    imports: [],
+    providers: [Logger, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     service = TestBed.inject(EquipmentSearchService);
   });
 

@@ -3,7 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ClassDetailComponent } from './class-detail.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Logger } from 'src/app/shared/services/logger.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ClassDetailComponent', () => {
   let component: ClassDetailComponent;
@@ -11,10 +12,10 @@ describe('ClassDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ClassDetailComponent],
-      imports: [RouterTestingModule, HttpClientTestingModule],
-      providers: [Logger],
-    }).compileComponents();
+    declarations: [ClassDetailComponent],
+    imports: [RouterTestingModule],
+    providers: [Logger, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
 
     fixture = TestBed.createComponent(ClassDetailComponent);
     component = fixture.componentInstance;

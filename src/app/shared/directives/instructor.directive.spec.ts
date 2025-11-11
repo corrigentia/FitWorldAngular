@@ -5,14 +5,15 @@ import {
 } from './instructor.directive';
 import { TestBed } from '@angular/core/testing';
 import { Logger } from '../services/logger.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('InstructorDirective', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [Logger],
-      imports: [HttpClientTestingModule],
-    });
+    imports: [],
+    providers: [Logger, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
   });
 
   it('should create an instance', () => {
