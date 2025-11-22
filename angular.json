@@ -180,6 +180,7 @@
             "@cypress/schematic",
             "@cypress/schematic"
         ],
+        "packageManager": "pnpm",
         "analytics": false
     },
     "schematics": {
